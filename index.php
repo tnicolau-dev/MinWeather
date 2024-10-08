@@ -1,29 +1,7 @@
 <?php
 
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-
-//variáveis do clima atual
-
-$url = "https://api.open-meteo.com/v1/forecast?latitude=-23.6489&longitude=-46.8522&current=temperature_2m,is_day,precipitation,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=America%2FSao_Paulo&forecast_days=1";
-$ch = curl_init($url);
-
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-
-if ($response === false) {
-    echo "Erro na requisição: " . curl_error($ch);
-} else {
-    $data_current = json_decode($response, true);
-    //print_r($data);
-}
-
-curl_close($ch);
-
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//------------------------------------------------------------------
+include "weather_codes.php";
+include "api_weather.php";
 
 ?>
 
@@ -42,6 +20,23 @@ curl_close($ch);
         <p>Está de dia? - <span><?php echo $data_current['current']['is_day'] == 1 ? 'Dia' : 'Noite' ?></span></p>
         <p>Chuva atual - <span><?php echo $data_current['current']['precipitation'] . ' ' . $data_current['current_units']['precipitation'] ?></span></p>
         <p>Código do clima - <span><?php echo $data_current['current']['weather_code'] ?></span></p>
+
+        <?php
+            $current_day_time = $data_current['current']['is_day'] == 1 ? 'day' : 'night';
+            $code_c = $data_current['current']['weather_code'];
+
+            if (isset($weather_codes_translated[$code_c][$current_day_time])) {
+                $desc_c = $weather_codes_translated[$code_c][$current_day_time]["description"];
+            } else {
+                $desc_c = "Código ou período do dia não encontrado.";
+            }
+        ?>
+
+        <p>Descrição do clima - <span><?php echo $desc_c ?></span></p>
+
+        <p>Imagem clima</p>
+        <img src="<?php echo $weather_codes_translated[$code_c][$current_day_time]["image"]; ?>" alt="">
+
         <p>Velocidade do Vento Atual - <span><?php echo $data_current['current']['wind_speed_10m'] . ' ' . $data_current['current_units']['wind_speed_10m'] ?></span></p>
     </div>
 
