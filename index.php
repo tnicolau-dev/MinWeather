@@ -1,6 +1,5 @@
 <?php
 
-setlocale(LC_TIME, 'pt_BR.utf8', 'pt_BR');
 
 function diaDaSemanaEmPortugues($diaEmIngles) {
     switch (strtolower($diaEmIngles)) {
@@ -26,6 +25,13 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
 include "weather_codes.php";
 include "api_weather.php";
 
+
+$times = array_values($data_current_hr_at_gr['time']);
+$temperatures = array_values($data_current_hr_at_gr['temperature_2m']);
+
+$times_json = json_encode($times);
+$temperatures_json = json_encode($temperatures);
+
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +40,7 @@ include "api_weather.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clima Tempo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <style>
@@ -97,7 +104,7 @@ include "api_weather.php";
     <h1>Informações do clima por hora</h1>
     <hr>
     <br>
-    <div style="display: flex; justify-content: space-around; gap: 10px;">
+    <div style="display: flex; justify-content: space-around; gap: 10px; overflow-y: auto;">
 
         <?php
 
@@ -120,6 +127,15 @@ include "api_weather.php";
 
         ?>
 
+    </div>
+    <br>
+    <br>
+    <br>
+    <h1>Informações do clima por hora - Gráfico</h1>
+    <hr>
+    <br>
+    <div>
+        <canvas id="temperatureChart" width="800" height="400"></canvas>
     </div>
     <br>
     <br>
@@ -162,5 +178,58 @@ include "api_weather.php";
         ?>
 
     </div>
+
+    <script>
+    // Dados vindos do PHP
+    var times = <?php echo $times_json; ?>;
+    var temperatures = <?php echo $temperatures_json; ?>;
+
+    // Configuração do gráfico
+    var ctx = document.getElementById('temperatureChart').getContext('2d');
+
+    // Criando o gradiente
+    var gradient = ctx.createLinearGradient(0, 0, 0, 400); // Direção do gradiente
+    gradient.addColorStop(0, 'rgba(75, 192, 192, 0.8)');  // Cor no topo (mais forte)
+    gradient.addColorStop(1, 'rgba(153, 102, 255, 0.2)'); // Cor no final (mais clara)
+
+    var splineAreaChart = new Chart(ctx, {
+        type: 'line', // Usando o tipo 'line'
+        data: {
+            labels: times,
+            datasets: [{
+                label: 'Temperatura (°C)',
+                data: temperatures,
+                borderColor: 'rgba(75, 192, 192, 1)', // Cor da linha
+                backgroundColor: gradient, // Preenchimento da área
+                borderWidth: 2,
+                tension: 0.4, // Suaviza as curvas (Spline)
+                fill: true, // Preenche a área abaixo da linha
+                pointRadius: 3,
+                pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                pointBorderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        //text: 'Hora'
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        //text: 'Temperatura (°C)'
+                    },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 </body>
+
 </html>

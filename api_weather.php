@@ -46,6 +46,7 @@ if ($response === false) {
     if ($index_s !== false) {
 
         $data_current_hr_at = [];
+        $data_current_hr_at_gr = [];
 
         for ($i = $index_s; $i < $index_s + 10 && $i < count($data_current_hr['hourly']['time']); $i++) {
             $data_current_hr_at[] = [
@@ -54,6 +55,11 @@ if ($response === false) {
                 'precipitation_probability' => $data_current_hr['hourly']['precipitation_probability'][$i],
                 'weather_code' => $data_current_hr['hourly']['weather_code'][$i],
             ];
+
+            $dateTime_gr = new DateTime($data_current_hr['hourly']['time'][$i]);
+
+            $data_current_hr_at_gr['time'][$i] = $dateTime_gr->format('H');
+            $data_current_hr_at_gr['temperature_2m'][$i] = $data_current_hr['hourly']['temperature_2m'][$i];
         }
     }
 }
