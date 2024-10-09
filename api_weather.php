@@ -48,18 +48,23 @@ if ($response === false) {
         $data_current_hr_at = [];
         $data_current_hr_at_gr = [];
 
-        for ($i = $index_s; $i < $index_s + 10 && $i < count($data_current_hr['hourly']['time']); $i++) {
+        for ($i = $index_s; $i < $index_s + 12 && $i < count($data_current_hr['hourly']['time']); $i++) {
+
+            $weather_c = $data_current_hr['hourly']['weather_code'][$i];
+
             $data_current_hr_at[] = [
                 'time' => $data_current_hr['hourly']['time'][$i],
                 'temperature_2m' => $data_current_hr['hourly']['temperature_2m'][$i],
                 'precipitation_probability' => $data_current_hr['hourly']['precipitation_probability'][$i],
-                'weather_code' => $data_current_hr['hourly']['weather_code'][$i],
+                'weather_code' => $weather_c,
             ];
 
             $dateTime_gr = new DateTime($data_current_hr['hourly']['time'][$i]);
 
             $data_current_hr_at_gr['time'][$i] = $dateTime_gr->format('H');
             $data_current_hr_at_gr['temperature_2m'][$i] = $data_current_hr['hourly']['temperature_2m'][$i];
+            $data_current_hr_at_gr['image'][$i] = $weather_codes_translated[$weather_c]["day"]["image"];
+            $data_current_hr_at_gr['precipitation'][$i] = $data_current_hr['hourly']['precipitation_probability'][$i];
         }
     }
 }
@@ -72,7 +77,7 @@ curl_close($ch);
 
 //variáveis do clima da semana
 
-$url = "https://api.open-meteo.com/v1/forecast?latitude=-23.6489&longitude=-46.8522&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=America%2FSao_Paulo";
+$url = "https://api.open-meteo.com/v1/forecast?latitude=-23.6489&longitude=-46.8522&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&timezone=America%2FSao_Paulo";
 $ch = curl_init($url);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

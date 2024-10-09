@@ -28,9 +28,13 @@ include "api_weather.php";
 
 $times = array_values($data_current_hr_at_gr['time']);
 $temperatures = array_values($data_current_hr_at_gr['temperature_2m']);
+$images = array_values($data_current_hr_at_gr['image']);
+$precipitation = array_values($data_current_hr_at_gr['precipitation']);
 
 $times_json = json_encode($times);
 $temperatures_json = json_encode($temperatures);
+$images_json = json_encode($images);
+$precipitation_json = json_encode($precipitation);
 
 ?>
 
@@ -57,7 +61,6 @@ $temperatures_json = json_encode($temperatures);
     <div>
         <p>Temperatura atual - <span><?php echo $data_current['current']['temperature_2m'] . ' ' . $data_current['current_units']['temperature_2m'];  ?></span></p>
         <p>Está de dia? - <span><?php echo $data_current['current']['is_day'] == 1 ? 'Dia' : 'Noite'; ?></span></p>
-        <p>Chuva atual - <span><?php echo $data_current['current']['precipitation'] . ' ' . $data_current['current_units']['precipitation']; ?></span></p>
         <p>Código do clima - <span><?php echo $data_current['current']['weather_code']; ?></span></p>
 
         <?php
@@ -83,6 +86,9 @@ $temperatures_json = json_encode($temperatures);
 
     <div>
         <p>Chace de chuva hoje - <span><?php echo $data_current['daily']['precipitation_probability_max'][0] . ' ' . $data_current['daily_units']['precipitation_probability_max']; ?></span></p>
+
+        <p>Precipitação hoje - <span><?php echo $data_current_week['daily']['precipitation_sum'][0] . ' ' . $data_current_week['daily_units']['precipitation_sum']; ?></p>
+
         <p>Temperatura de hoje - <span><?php echo $data_current['daily']['temperature_2m_max'][0] . ' ' . $data_current['daily_units']['temperature_2m_max'] . ' - ' . $data_current['daily']['temperature_2m_min'][0] . ' ' . $data_current['daily_units']['temperature_2m_min']; ?></span></p>
         
         <?php
@@ -97,36 +103,6 @@ $temperatures_json = json_encode($temperatures);
         <p>Uv - <span><?php echo $data_current['daily']['uv_index_max'][0] ?></span></p>
         <p>Velocidade do Vento Max. - <span><?php echo $data_current['daily']['wind_speed_10m_max'][0] . ' ' . $data_current['daily_units']['wind_speed_10m_max']; ?></span></p>
         <p>Direção do Vento - <span><?php echo $data_current['daily']['wind_direction_10m_dominant'][0] . ' ' . $data_current['daily_units']['wind_direction_10m_dominant']; ?></span></p>
-    </div>
-    <br>
-    <br>
-    <br>
-    <h1>Informações do clima por hora</h1>
-    <hr>
-    <br>
-    <div style="display: flex; justify-content: space-around; gap: 10px; overflow-y: auto;">
-
-        <?php
-
-            for($a = 0; $a < count($data_current_hr_at); $a++){
-
-                $code_c_h = $data_current_hr_at[$a]['weather_code'];
-
-                $dateTime_c = new DateTime($data_current_hr_at[$a]["time"]); 
-                $hora_s = $dateTime_c->format('H');
-                
-                echo "  <div style='display: flex; flex-direction: column; align-items: center; flex: 1; border: 2px solid; border-radius: 10px; padding: 10px;'>
-                            <p>Hora: ". $hora_s ."h</p>   
-                            <p>Código do clima: ". $code_c_h ."</p>
-                            <p>Descrição: ". $weather_codes_translated[$code_c_h][$current_day_time]["description"] ."</p>
-                            <img src='" . $weather_codes_translated[$code_c_h][$current_day_time]["image"] . "' alt=''>
-                            <p>Temperatura: ". $data_current_hr_at[$a]['temperature_2m'] . ' ' . $data_current_hr['hourly_units']['temperature_2m'] ."</p>
-                            <p>Chance de Chuva: ". $data_current_hr_at[$a]['precipitation_probability'] . ' ' . $data_current_hr['hourly_units']['precipitation_probability'] ."</p>
-                        </div>";
-            }
-
-        ?>
-
     </div>
     <br>
     <br>
@@ -171,7 +147,8 @@ $temperatures_json = json_encode($temperatures);
                             <p>Código clima: ".$code_c_h."</p>
                             <p>Descrição: ". $weather_codes_translated[$code_c_h][$current_day_time]["description"] ."</p>
                             <img src='" . $weather_codes_translated[$code_c_h][$current_day_time]["image"] . "' alt=''>
-                            <p>Temperatura: ". $data_current_week['daily']['temperature_2m_max'][$a] . ' ' . $data_current_week['daily_units']['temperature_2m_max'] . ' - ' . $data_current_week['daily']['temperature_2m_min'][$a] . ' ' . $data_current_week['daily_units']['temperature_2m_min'] ."</p>
+                            <p>Temperatura: ". round($data_current_week['daily']['temperature_2m_max'][$a]) . ' ' . $data_current_week['daily_units']['temperature_2m_max'] . ' - ' . round($data_current_week['daily']['temperature_2m_min'][$a]) . ' ' . $data_current_week['daily_units']['temperature_2m_min'] ."</p>
+                            <p>Chace de chuva: ". $data_current_week['daily']['precipitation_probability_max'][$a] . ' ' . $data_current_week['daily_units']['precipitation_probability_max'] . "</p>
                         </div>";
             }
 
@@ -180,11 +157,13 @@ $temperatures_json = json_encode($temperatures);
     </div>
 
     <script>
-    // Dados vindos do PHP
+
     var times = <?php echo $times_json; ?>;
     var temperatures = <?php echo $temperatures_json; ?>;
 
-    // Configuração do gráfico
+    var images = <?php echo $images_json; ?>;
+    var precipitation = <?php echo $precipitation_json; ?>;
+
     var ctx = document.getElementById('temperatureChart').getContext('2d');
 
     // Criando o gradiente
@@ -192,42 +171,116 @@ $temperatures_json = json_encode($temperatures);
     gradient.addColorStop(0, 'rgba(75, 192, 192, 0.8)');  // Cor no topo (mais forte)
     gradient.addColorStop(1, 'rgba(153, 102, 255, 0.2)'); // Cor no final (mais clara)
 
+
+    var customLabelsPlugin = {
+    id: 'customLabelsPlugin',
+    afterDatasetsDraw: function(chart) {
+        var ctx = chart.ctx;
+
+        // Configurações de fonte para as porcentagens de chuva
+        ctx.fillStyle = 'black';
+        ctx.font = '16px Arial';
+
+        chart.data.labels.forEach(function(label, index) {
+            var x = chart.scales.x.getPixelForValue(index); // Posição x do rótulo
+            var y = chart.scales.y.bottom + 15; // Posição y, ajustada para abaixo do eixo x
+
+            var img = new Image();
+            img.src = images[index];
+            img.onload = function() {
+                ctx.drawImage(img, x - 30, y - 20, 60, 60); // Ajusta a posição da imagem
+            
+                // Desenha a porcentagem de chuva após a imagem
+                ctx.fillText(precipitation[index] + '%', x, y + 40); // Coloca a porcentagem abaixo do rótulo
+            };
+        });
+    }
+};
+
+
+    var topValuesPlugin = {
+        id: 'topValuesPlugin',
+        afterDatasetsDraw: function(chart) {
+            var ctx = chart.ctx;
+            chart.data.datasets.forEach(function(dataset, i) {
+                var meta = chart.getDatasetMeta(i);
+                meta.data.forEach(function(point, index) {
+                    var value = dataset.data[index];
+                    var x = point.x;
+                    var y = point.y;
+                    ctx.fillStyle = 'black';
+                    ctx.font = '24px Arial'; // Define o tamanho e a família da fonte
+                    ctx.textAlign = 'center';
+                    ctx.fillText(Math.round(value)+"°", x, 40);
+                });
+            });
+        }
+    };
+
     var splineAreaChart = new Chart(ctx, {
-        type: 'line', // Usando o tipo 'line'
+        type: 'line',
         data: {
             labels: times,
             datasets: [{
                 label: 'Temperatura (°C)',
                 data: temperatures,
-                borderColor: 'rgba(75, 192, 192, 1)', // Cor da linha
-                backgroundColor: gradient, // Preenchimento da área
-                borderWidth: 2,
-                tension: 0.4, // Suaviza as curvas (Spline)
-                fill: true, // Preenche a área abaixo da linha
-                pointRadius: 3,
-                pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-                pointBorderWidth: 1
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: gradient,
+                borderWidth: 5,
+                tension: 0.4,
+                fill: true,
+                pointRadius: 0
+                //pointRadius: 3,
+                //pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                //pointBorderWidth: 1
             }]
         },
         options: {
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 60,
+                    bottom: 0 // Padding inferior para criar espaço entre o gráfico e os elementos abaixo
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             scales: {
                 x: {
                     display: true,
                     title: {
                         display: true,
-                        //text: 'Hora'
+                    },
+                    ticks: {
+                        padding: 60, // Padding entre o gráfico e os rótulos do eixo y
+                        font: {
+                            size: 24 // Tamanho da fonte (em pixels) para os labels do eixo X
+                        },
+                        callback: function(value, index, values) {
+                            return times[index] + 'h'; // Adiciona "h" a cada horário
+                        }
                     }
                 },
                 y: {
                     display: true,
+                    ticks: {
+                        display: false
+                    },
                     title: {
                         display: true,
-                        //text: 'Temperatura (°C)'
                     },
-                    beginAtZero: true
+                    beginAtZero: true,
+                    grid: {
+                        display: false
+                    }
                 }
             }
-        }
+        },
+        plugins: [topValuesPlugin, customLabelsPlugin]
     });
 </script>
 </body>
