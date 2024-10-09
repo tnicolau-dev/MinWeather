@@ -179,7 +179,6 @@ $precipitation_json = json_encode($precipitation);
 
         // Configurações de fonte para as porcentagens de chuva
         ctx.fillStyle = 'black';
-        ctx.font = '16px Arial';
 
         chart.data.labels.forEach(function(label, index) {
             var x = chart.scales.x.getPixelForValue(index); // Posição x do rótulo
@@ -191,7 +190,11 @@ $precipitation_json = json_encode($precipitation);
                 ctx.drawImage(img, x - 30, y - 20, 60, 60); // Ajusta a posição da imagem
             
                 // Desenha a porcentagem de chuva após a imagem
-                ctx.fillText(precipitation[index] + '%', x, y + 40); // Coloca a porcentagem abaixo do rótulo
+                ctx.font = '16px Arial';
+                ctx.fillText(precipitation[index] + '%', x, y + 40);
+
+                ctx.font = '24px Arial';
+                ctx.fillText(times[index] + 'h', x, y + 80);
             };
         });
     }
@@ -256,12 +259,13 @@ $precipitation_json = json_encode($precipitation);
                         display: true,
                     },
                     ticks: {
-                        padding: 60, // Padding entre o gráfico e os rótulos do eixo y
+                        padding: 30, // Padding entre o gráfico e os rótulos do eixo y
+                        //position: bottom,
                         font: {
                             size: 24 // Tamanho da fonte (em pixels) para os labels do eixo X
                         },
                         callback: function(value, index, values) {
-                            return times[index] + 'h'; // Adiciona "h" a cada horário
+                            return ' '; // Adiciona "h" a cada horário
                         }
                     }
                 },
