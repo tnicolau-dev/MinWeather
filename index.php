@@ -88,7 +88,10 @@ $precipitation_json = json_encode($precipitation);
 
             <div id="temp_side_1">
                 <span id="temp_s_m"><?php echo round($data_current['current']['temperature_2m']) . ' ' . $data_current['current_units']['temperature_2m'];  ?></span>
-                <span id="temp_s_mi_ma"><?php echo round($data_current['daily']['temperature_2m_max'][0]) . ' ' . $data_current['daily_units']['temperature_2m_max'] . ' - ' . round($data_current['daily']['temperature_2m_min'][0]) . ' ' . $data_current['daily_units']['temperature_2m_min']; ?></span>
+                <div id="temp_s_mi_ma" class="item_s_temp">
+                    <span><?php echo round($data_current['daily']['temperature_2m_max'][0]) ?>°</span>
+                    <span><?php echo round($data_current['daily']['temperature_2m_min'][0]) ?>°</span>
+                </div>
             </div>
 
             <div id="footer_side_1">
@@ -130,15 +133,15 @@ $precipitation_json = json_encode($precipitation);
 
         <div id="side_2">
             <h1>Hoje</h1>
-            <div id="sec_1">
-                <div style="height: 400px; width: 100%">
+            <div id="sec_1" class="shadow">
+                <div style="height: 300px; width: 100%">
                     <canvas id="temperatureChart" style="height: 100%; width: 100%"></canvas>
                 </div>
             </div>
             <div id="sec_2">
                 <h1>Esta semana</h1>
                 
-                <div>
+                <div id="itens_sec_2">
                     <?php
 
                         for($a = 0; $a < count($data_current_week["daily"]["time"]); $a++){
@@ -159,14 +162,22 @@ $precipitation_json = json_encode($precipitation);
                                 $data_desc = diaDaSemanaEmPortugues($data_desc);
                             }
 
-                            echo "  <div>
-                                        <p>Dia: ".$data_desc."</p>
-                                        <p>Data: ".$data_d."</p>
-                                        <p>Código clima: ".$code_c_h."</p>
-                                        <p>Descrição: ". $weather_codes_translated[$code_c_h][$current_day_time]["description"] ."</p>
+                            echo "  <div class='item_s shadow'>
+                                        <span>".$data_desc."</span>
+                                        <span>".$data_d."</span>
                                         <img src='" . $weather_codes_translated[$code_c_h][$current_day_time]["image"] . "' alt=''>
-                                        <p>Temperatura: ". round($data_current_week['daily']['temperature_2m_max'][$a]) . ' ' . $data_current_week['daily_units']['temperature_2m_max'] . ' - ' . round($data_current_week['daily']['temperature_2m_min'][$a]) . ' ' . $data_current_week['daily_units']['temperature_2m_min'] ."</p>
-                                        <p>Chace de chuva: ". $data_current_week['daily']['precipitation_probability_max'][$a] . ' ' . $data_current_week['daily_units']['precipitation_probability_max'] . "</p>
+                                        <div class='item_s_rain'>
+                                            <svg width='42' height='40' viewBox='0 0 42 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                <path d='M20.787 0C28.1057 0 32.2575 4.84436 32.8613 10.6948L33.046 10.6946C37.7559 10.6946 41.574 14.5029 41.574 19.2006C41.574 23.8983 37.7559 27.7066 33.046 27.7066L31.0562 27.7075L31.0524 27.7177H30.3755L28.0985 31.621C27.6968 32.3097 26.8128 32.5424 26.1242 32.1406C25.4354 31.739 25.2028 30.855 25.6046 30.1662L27.0397 27.7062L22.1214 27.7075L22.1171 27.7177H21.1362L18.8592 31.621C18.4576 32.3097 17.5736 32.5424 16.8849 32.1406C16.1961 31.739 15.9635 30.855 16.3653 30.1662L17.8003 27.7063L13.1866 27.7075L13.1827 27.7177H11.8972L9.62024 31.621C9.21856 32.3097 8.3346 32.5423 7.64593 32.1406C6.95714 31.7388 6.72455 30.8549 7.12634 30.1662L8.56107 27.7065L8.52804 27.7066C3.81811 27.7066 0 23.8983 0 19.2006C0 14.5029 3.81811 10.6946 8.52804 10.6946L8.71271 10.6948C9.32008 4.8059 13.4683 0 20.787 0ZM20.787 2.88169C15.8658 2.88169 11.5766 6.86371 11.5766 12.3642C11.5766 13.2357 10.8188 13.9195 9.95112 13.9195H8.31046C5.31464 13.9195 2.88594 16.3607 2.88594 19.3721C2.88594 22.3837 5.31464 24.8249 8.31046 24.8249H33.2634C36.2594 24.8249 38.688 22.3837 38.688 19.3721C38.688 16.3607 36.2594 13.9195 33.2635 13.9195H31.6229C30.7552 13.9195 29.9974 13.2357 29.9974 12.3642C29.9974 6.79315 25.7081 2.88169 20.787 2.88169Z' fill='var(--font)'/>
+                                                <path d='M13.4314 33.1115C14.1201 33.5132 14.3527 34.3971 13.9509 35.0858L11.9298 38.5505C11.5281 39.2393 10.6442 39.4719 9.95551 39.0701C9.26684 38.6684 9.03413 37.7845 9.43592 37.0958L11.457 33.6311C11.8587 32.9423 12.7426 32.7097 13.4314 33.1115Z' fill='var(--font)'/>
+                                                <path d='M23.1902 35.0858C23.592 34.3971 23.3594 33.5132 22.6707 33.1115C21.9819 32.7097 21.0979 32.9423 20.6963 33.6311L18.6752 37.0958C18.2734 37.7845 18.5061 38.6684 19.1948 39.0701C19.8834 39.4719 20.7674 39.2393 21.1691 38.5505L23.1902 35.0858Z' fill='var(--font)'/>
+                                            </svg>
+                                            <span>". $data_current_week['daily']['precipitation_probability_max'][$a] . ' ' . $data_current_week['daily_units']['precipitation_probability_max'] . "</span>
+                                        </div>
+                                        <div class='item_s_temp'>
+                                            <span>" . round($data_current_week['daily']['temperature_2m_max'][$a]) . "°</span>
+                                            <span>" . round($data_current_week['daily']['temperature_2m_min'][$a]) . "°</span>
+                                        </div>
                                     </div>";
                         }
 
@@ -184,11 +195,25 @@ $precipitation_json = json_encode($precipitation);
                     $time2 = $dateTime2->format('H:i');
                 ?>
 
-                <p>Nascer e Por do Sol - <span><?php echo $time1 . ' ' . $time2 ?></span></p>
-                <p>Uv - <span><?php echo $data_current['daily']['uv_index_max'][0] ?></span></p>
-                <p>Velocidade do Vento Max. - <span><?php echo $data_current['daily']['wind_speed_10m_max'][0] . ' ' . $data_current['daily_units']['wind_speed_10m_max']; ?></span></p>
-                <p>Direção do Vento - <span><?php echo $data_current['daily']['wind_direction_10m_dominant'][0] . ' ' . $data_current['daily_units']['wind_direction_10m_dominant']; ?></span></p>
-                <p>Precipitação hoje - <span><?php echo $data_current_week['daily']['precipitation_sum'][0] . ' ' . $data_current_week['daily_units']['precipitation_sum']; ?></p>
+                <div id="items_s_3">
+                    <div class="item_sec_3 shadow">
+                        <h3>Pôr do Sol</h3>
+                        <span><?php echo $time1 . ' ' . $time2 ?></span>
+                    </div>
+                    <div class="item_sec_3 shadow">
+                        <h3>Vento</h3>
+                        <span><?php echo $data_current['daily']['uv_index_max'][0] ?></span>
+                    </div>
+                    <div class="item_sec_3 shadow">
+                        <h3>Precipitação</h3>
+                        <span><?php echo $data_current['daily']['wind_speed_10m_max'][0] . ' ' . $data_current['daily_units']['wind_speed_10m_max']; ?></span>
+                        <span><?php echo $data_current['daily']['wind_direction_10m_dominant'][0] . ' ' . $data_current['daily_units']['wind_direction_10m_dominant']; ?></span>
+                    </div>
+                    <div class="item_sec_3 shadow">
+                        <h3>UV</h3>
+                        <span><?php echo $data_current_week['daily']['precipitation_sum'][0] . ' ' . $data_current_week['daily_units']['precipitation_sum']; ?></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

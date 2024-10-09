@@ -72,7 +72,7 @@ if ($response === false) {
         $data_current_hr_at = [];
         $data_current_hr_at_gr = [];
 
-        for ($i = $index_s; $i < $index_s + 12 && $i < count($data_current_hr['hourly']['time']); $i++) {
+        for ($i = $index_s; $i < $index_s + 13 && $i < count($data_current_hr['hourly']['time']); $i++) {
 
             $weather_c = $data_current_hr['hourly']['weather_code'][$i];
 
