@@ -202,16 +202,16 @@ $precipitation_json = json_encode($precipitation);
                     </div>
                     <div class="item_sec_3 shadow">
                         <h3>Vento</h3>
-                        <span><?php echo $data_current['daily']['uv_index_max'][0] ?></span>
-                    </div>
-                    <div class="item_sec_3 shadow">
-                        <h3>Precipitação</h3>
                         <span><?php echo $data_current['daily']['wind_speed_10m_max'][0] . ' ' . $data_current['daily_units']['wind_speed_10m_max']; ?></span>
                         <span><?php echo $data_current['daily']['wind_direction_10m_dominant'][0] . ' ' . $data_current['daily_units']['wind_direction_10m_dominant']; ?></span>
                     </div>
                     <div class="item_sec_3 shadow">
-                        <h3>UV</h3>
+                        <h3>Precipitação</h3>
                         <span><?php echo $data_current_week['daily']['precipitation_sum'][0] . ' ' . $data_current_week['daily_units']['precipitation_sum']; ?></span>
+                    </div>
+                    <div class="item_sec_3 shadow">
+                        <h3>UV</h3>
+                        <span><?php echo $data_current['daily']['uv_index_max'][0] ?></span>
                     </div>
                 </div>
             </div>

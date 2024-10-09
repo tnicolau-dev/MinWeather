@@ -162,6 +162,10 @@ div#side_2 {
     justify-content: space-between;
     padding: 30px;
     overflow-y: scroll;
+
+    div#sec_1{
+        padding: 0.7rem;
+    }
     
     div#sec_2{
     
