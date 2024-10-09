@@ -1,12 +1,32 @@
 <?php
 
+require_once __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+//$ip = $_SERVER['REMOTE_ADDR']; // Obtém o IP do usuário
+$access_key = $_ENV['API_TOKEN'];
+
+$ip = file_get_contents('https://ifconfig.me');
+$url = "https://ipinfo.io/{$ip}?token={$access_key}";
+
+$json = file_get_contents($url);
+$details = json_decode($json, true);
+
+$loc = explode(',', $details['loc']);
+$latitude = $loc[0];
+$longitude = $loc[1];
+
+//echo "Latitude: $latitude, Longitude: $longitude";
+
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
 //variáveis do clima atual
 
-$url = "https://api.open-meteo.com/v1/forecast?latitude=-23.6489&longitude=-46.8522&current=temperature_2m,is_day,precipitation,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=America%2FSao_Paulo&forecast_days=1";
+$url = "https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&current=temperature_2m,is_day,precipitation,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=America%2FSao_Paulo&forecast_days=1";
 $ch = curl_init($url);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -26,7 +46,7 @@ curl_close($ch);
 
 //variáveis do clima por hora
 
-$url = "https://api.open-meteo.com/v1/forecast?latitude=-23.6489&longitude=-46.8522&hourly=temperature_2m,precipitation_probability,weather_code&timezone=America%2FSao_Paulo&forecast_days=3";
+$url = "https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&hourly=temperature_2m,precipitation_probability,weather_code&timezone=America%2FSao_Paulo&forecast_days=3";
 $ch = curl_init($url);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -77,7 +97,7 @@ curl_close($ch);
 
 //variáveis do clima da semana
 
-$url = "https://api.open-meteo.com/v1/forecast?latitude=-23.6489&longitude=-46.8522&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&timezone=America%2FSao_Paulo";
+$url = "https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&timezone=America%2FSao_Paulo";
 $ch = curl_init($url);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

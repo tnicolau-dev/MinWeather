@@ -1,0 +1,27 @@
+# Ignorar o diretório do Composer
+/vendor/
+
+# Ignorar o arquivo de ambiente contendo informações sensíveis
+.env
+
+# Cache do Composer
+composer.lock
+
+# Arquivos de log
+*.log
+
+# Arquivos de sistema (ex: para Mac ou Windows)
+.DS_Store
+Thumbs.db
+
+# Cache da IDE (se você usa PHPStorm, VSCode, etc.)
+.idea/
+.vscode/
+
+# Ignorar arquivos temporários ou gerados pelo servidor
+*.cache
+*.tmp
+*.bak
+
+# Ignorar arquivos PHP de teste ou backup temporário
+*.php~
