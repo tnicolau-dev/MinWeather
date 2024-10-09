@@ -12,11 +12,14 @@ $ip = file_get_contents('https://ifconfig.me');
 $url = "https://ipinfo.io/{$ip}?token={$access_key}";
 
 $json = file_get_contents($url);
-$details = json_decode($json, true);
+$details_loc = json_decode($json, true);
 
-$loc = explode(',', $details['loc']);
+$loc = explode(',', $details_loc['loc']);
 $latitude = $loc[0];
 $longitude = $loc[1];
+
+
+date_default_timezone_set($details_loc['timezone']);
 
 //echo "Latitude: $latitude, Longitude: $longitude";
 

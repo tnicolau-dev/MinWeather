@@ -24,6 +24,7 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
 
 include "weather_codes.php";
 include "api_weather.php";
+include "cities_code.php";
 
 
 $times = array_values($data_current_hr_at_gr['time']);
@@ -59,6 +60,21 @@ $precipitation_json = json_encode($precipitation);
     <hr>
     <br>
     <div>
+
+        <?php   
+        
+        foreach ($estados as $estado) {
+            if ($estado["nome"] == $details_loc["region"]) {
+                $sigla = $estado["sigla"];
+                break;
+            }
+        }
+        
+        ?>
+
+        <p>Região - <span><?php echo $details_loc["city"] . " - " . $sigla ?></span></p>
+        <p>Data e hora - <span><?php echo date('d/m H:i'); ?></span></p>
+        <p>Dia da semana - <span><?php echo diaDaSemanaEmPortugues(date('l')); ?></span></p>
         <p>Temperatura atual - <span><?php echo $data_current['current']['temperature_2m'] . ' ' . $data_current['current_units']['temperature_2m'];  ?></span></p>
         <p>Está de dia? - <span><?php echo $data_current['current']['is_day'] == 1 ? 'Dia' : 'Noite'; ?></span></p>
         <p>Código do clima - <span><?php echo $data_current['current']['weather_code']; ?></span></p>
@@ -178,20 +194,18 @@ $precipitation_json = json_encode($precipitation);
     id: 'customLabelsPlugin',
     afterDatasetsDraw: function(chart) {
         var ctx = chart.ctx;
-
-        // Configurações de fonte para as porcentagens de chuva
+        
         ctx.fillStyle = 'black';
 
         chart.data.labels.forEach(function(label, index) {
-            var x = chart.scales.x.getPixelForValue(index); // Posição x do rótulo
-            var y = chart.scales.y.bottom + 15; // Posição y, ajustada para abaixo do eixo x
+            var x = chart.scales.x.getPixelForValue(index);
+            var y = chart.scales.y.bottom + 15;
 
             var img = new Image();
             img.src = images[index];
             img.onload = function() {
-                ctx.drawImage(img, x - 30, y - 20, 60, 60); // Ajusta a posição da imagem
-            
-                // Desenha a porcentagem de chuva após a imagem
+                ctx.drawImage(img, x - 30, y - 20, 60, 60);
+
                 ctx.font = '16px Arial';
                 ctx.fillText(precipitation[index] + '%', x, y + 40);
 
@@ -214,7 +228,7 @@ $precipitation_json = json_encode($precipitation);
                     var x = point.x;
                     var y = point.y;
                     ctx.fillStyle = 'black';
-                    ctx.font = '24px Arial'; // Define o tamanho e a família da fonte
+                    ctx.font = '24px Arial';
                     ctx.textAlign = 'center';
                     ctx.fillText(Math.round(value)+"°", x, 40);
                 });
@@ -246,7 +260,7 @@ $precipitation_json = json_encode($precipitation);
                     left: 0,
                     right: 0,
                     top: 60,
-                    bottom: 0 // Padding inferior para criar espaço entre o gráfico e os elementos abaixo
+                    bottom: 0
                 }
             },
             plugins: {
@@ -261,7 +275,7 @@ $precipitation_json = json_encode($precipitation);
                         display: true,
                     },
                     ticks: {
-                        padding: 30, // Padding entre o gráfico e os rótulos do eixo y
+                        padding: 30,
                         font: {
                             size: 24
                         },
