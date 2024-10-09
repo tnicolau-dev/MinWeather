@@ -110,8 +110,8 @@ $precipitation_json = json_encode($precipitation);
     <h1>Informações do clima por hora - Gráfico</h1>
     <hr>
     <br>
-    <div>
-        <canvas id="temperatureChart" width="800" height="400"></canvas>
+    <div style="height: 400px; width: 100%">
+        <canvas id="temperatureChart" style="height: 100%; width: 100%"></canvas>
     </div>
     <br>
     <br>
@@ -160,9 +160,11 @@ $precipitation_json = json_encode($precipitation);
 
     var times = <?php echo $times_json; ?>;
     var temperatures = <?php echo $temperatures_json; ?>;
-
     var images = <?php echo $images_json; ?>;
     var precipitation = <?php echo $precipitation_json; ?>;
+
+    var max_temp = <?php echo round($data_current_week['daily']['temperature_2m_max'][0]) ?>;
+    var min_temp = <?php echo round($data_current_week['daily']['temperature_2m_min'][0]) ?>;
 
     var ctx = document.getElementById('temperatureChart').getContext('2d');
 
@@ -260,12 +262,11 @@ $precipitation_json = json_encode($precipitation);
                     },
                     ticks: {
                         padding: 30, // Padding entre o gráfico e os rótulos do eixo y
-                        //position: bottom,
                         font: {
-                            size: 24 // Tamanho da fonte (em pixels) para os labels do eixo X
+                            size: 24
                         },
                         callback: function(value, index, values) {
-                            return ' '; // Adiciona "h" a cada horário
+                            return '';
                         }
                     }
                 },
@@ -277,10 +278,12 @@ $precipitation_json = json_encode($precipitation);
                     title: {
                         display: true,
                     },
-                    beginAtZero: true,
+                    beginAtZero: false,
                     grid: {
                         display: false
-                    }
+                    },
+                    min: min_temp,
+                    max: max_temp
                 }
             }
         },
