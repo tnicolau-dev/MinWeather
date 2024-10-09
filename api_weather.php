@@ -9,6 +9,7 @@ $dotenv->load();
 $access_key = $_ENV['API_TOKEN'];
 
 $ip = file_get_contents('https://ifconfig.me');
+//$ip = '128.201.136.0';
 $url = "https://ipinfo.io/{$ip}?token={$access_key}";
 
 $json = file_get_contents($url);
@@ -29,7 +30,7 @@ date_default_timezone_set($details_loc['timezone']);
 
 //variáveis do clima atual
 
-$url = "https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&current=temperature_2m,is_day,precipitation,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=America%2FSao_Paulo&forecast_days=1";
+$url = "https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&current=temperature_2m,is_day,precipitation,weather_code,wind_speed_10m&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,snowfall_sum,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=America%2FSao_Paulo&forecast_days=1";
 $ch = curl_init($url);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -117,5 +118,26 @@ curl_close($ch);
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //------------------------------------------------------------------
+
+function diaDaSemanaEmPortugues($diaEmIngles) {
+    switch (strtolower($diaEmIngles)) {
+        case 'monday':
+            return 'Segunda';
+        case 'tuesday':
+            return 'Terça';
+        case 'wednesday':
+            return 'Quarta';
+        case 'thursday':
+            return 'Quinta';
+        case 'friday':
+            return 'Sexta';
+        case 'saturday':
+            return 'Sábado';
+        case 'sunday':
+            return 'Domingo';
+        default:
+            return 'Dia inválido';
+    }
+}
 
 ?>
