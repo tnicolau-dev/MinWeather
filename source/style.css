@@ -12,6 +12,7 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
+    transition: 0.3 ease;
 }
 
 p{
@@ -215,6 +216,24 @@ div#side_2 {
 
                 /*---------------------------------------------------------*/
 
+                #sun_cont{
+                    padding: 0 0.5rem;
+
+                    #sun_bar{
+                        display: flex;
+                        justify-content: center;
+                        padding: 1rem;
+                    }
+
+                    #sun_info{
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
+                }
+
+                /*---------------------------------------------------------*/
+
                 #bussola_v {
                     display: flex;
                     justify-content: center;
@@ -251,13 +270,13 @@ div#side_2 {
                     display: flex;
                     justify-content: center;
                     position: relative;
-                    margin-bottom: 1rem;
 
                     #uv_info{
                         display: flex;
                         flex-direction: column;
                         align-items: center;
                         flex: 2;
+                        gap: 1rem;
 
                         span:nth-child(1){
                             font-size: 3.5rem;
@@ -265,7 +284,7 @@ div#side_2 {
                         }
 
                         span:nth-child(2){
-                            font-size: 1.7rem;
+                            font-size: 1.5rem;
                         }
                     }
 
@@ -288,7 +307,7 @@ div#side_2 {
 
                             #front_level{
                                 width: 100%;
-                                border-radius: 1.5rem;
+                                border-radius: 0 0 1.5rem 1.5rem;
                             }
                         }
                     }

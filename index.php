@@ -186,19 +186,66 @@ $precipitation_json = json_encode($precipitation);
             </div>
             <div id="sec_3">
                 <h1>Mais informações</h1>
-
-                <?php
-                    $dateTime1 = new DateTime($data_current['daily']['sunrise'][0]);
-                    $time1 = $dateTime1->format('H:i');
-
-                    $dateTime2 = new DateTime($data_current['daily']['sunset'][0]);
-                    $time2 = $dateTime2->format('H:i');
-                ?>
-
                 <div id="items_s_3">
                     <div class="item_sec_3 shadow">
+
+                        <?php
+
+                        $comprimento_linha = 210;
+                        $color_sun = 'var(--yellow)';
+
+                        //------------------------------------------------------------
+
+                        $dateTime1 = new DateTime($data_current['daily']['sunrise'][0]);
+                        $time1 = $dateTime1->format('H:i');
+
+                        $dateTime2 = new DateTime($data_current['daily']['sunset'][0]);
+                        $time2 = $dateTime2->format('H:i');
+
+                        $hora_atual = date('H:i');
+
+                        //------------------------------------------------------------
+                        
+                        $inicio = strtotime($time1);
+                        $fim = strtotime($time2);
+                        $atual = strtotime($hora_atual);
+
+                        $duracao_total = $fim - $inicio;
+
+                        $tempo_passado = $atual - $inicio;
+
+                        if ($tempo_passado < 0) {
+                            $tempo_passado = 0;
+                        }
+                    
+                        $porcentagem = round(($tempo_passado / $duracao_total) * 100);
+                        $porcentagem =  min($porcentagem, 100);
+
+                        $progresso = round(((100 - $porcentagem)/100) * $comprimento_linha);
+
+                        if($progresso >= $comprimento_linha ){
+                            $progresso = $comprimento_linha;
+
+                            $color_sun = 'var(--font)';
+                        }
+
+                        ?>
+
                         <h3>Pôr do Sol</h3>
-                        <span><?php echo $time1 . ' ' . $time2 ?></span>
+                        <div id="sun_cont">
+                            <div id="sun_bar">
+                                <svg width="100%" height="100%" viewBox="0 0 134 69" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="arco">
+                                        <path id="Ellipse 31" d="M2 67C2 58.4641 3.68127 50.0117 6.94783 42.1256C10.2144 34.2394 15.0023 27.0739 21.0381 21.0381C27.0739 15.0022 34.2394 10.2144 42.1256 6.94783C50.0117 3.68127 58.4641 2 67 2C75.5359 2 83.9883 3.68128 91.8744 6.94783C99.7606 10.2144 106.926 15.0023 112.962 21.0381C118.998 27.0739 123.786 34.2394 127.052 42.1256C130.319 50.0117 132 58.4641 132 67" stroke="var(--gray)" stroke-width="4" stroke-linecap="round"/>
+                                        <path style="stroke-dasharray: <?php echo $comprimento_linha ?>; stroke-dashoffset: <?php echo $progresso ?>;" id="Ellipse 32" d="M2 67C2 58.4641 3.68127 50.0117 6.94783 42.1256C10.2144 34.2394 15.0023 27.0739 21.0381 21.0381C27.0739 15.0022 34.2394 10.2144 42.1256 6.94783C50.0117 3.68127 58.4641 2 67 2C75.5359 2 83.9883 3.68128 91.8744 6.94783C99.7606 10.2144 106.926 15.0023 112.962 21.0381C118.998 27.0739 123.786 34.2394 127.052 42.1256C130.319 50.0117 132 58.4641 132 67" stroke="<?php echo $color_sun ?>" stroke-width="4" stroke-linecap="round"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div id="sun_info">
+                                <span><?php echo $time1 ?></span>
+                                <span><?php echo $time2 ?></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="item_sec_3 shadow">
                         <h3>Vento</h3>
