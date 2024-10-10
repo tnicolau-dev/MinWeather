@@ -1,7 +1,7 @@
 <?php
 
-include "weather_codes.php";
-include "cities_code.php";
+include "./components/weather_codes.php";
+include "./components/cities_code.php";
 include "api_weather.php";
 
 //------------------------------------------------------------------
