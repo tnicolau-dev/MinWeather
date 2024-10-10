@@ -3,6 +3,7 @@
     --font: #3F4F56;
     --blue: #08BBCF;
     --yellow: #FCBE1F;
+    --gray: #CFCFCF;
 }
 
 body {
@@ -212,6 +213,8 @@ div#side_2 {
                 flex-direction: column;
                 justify-content: space-between;
 
+                /*---------------------------------------------------------*/
+
                 #bussola_v {
                     display: flex;
                     justify-content: center;
@@ -240,6 +243,55 @@ div#side_2 {
                     transform: rotate(270deg);
                     font-weight: 900;
                     color: var(--yellow);
+                }
+
+                /*---------------------------------------------------------*/
+
+                #uv_cont{
+                    display: flex;
+                    justify-content: center;
+                    position: relative;
+                    margin-bottom: 1rem;
+
+                    #uv_info{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        flex: 2;
+
+                        span:nth-child(1){
+                            font-size: 3.5rem;
+                            font-weight: 500;
+                        }
+
+                        span:nth-child(2){
+                            font-size: 1.7rem;
+                        }
+                    }
+
+                    #uv_level {
+                        height: 100%;
+                        width: 1.5rem;
+                        flex: 1;
+                        display: flex;
+                        justify-content: center;
+
+
+                        #back_level{
+                            height: 100%;
+                            width: 1.5rem;
+                            background-color: var(--gray);
+                            border-radius: 1.5rem;
+                            overflow: hidden;
+                            display: flex;
+                            align-items: end;
+
+                            #front_level{
+                                width: 100%;
+                                border-radius: 1.5rem;
+                            }
+                        }
+                    }
                 }
             }
         }  

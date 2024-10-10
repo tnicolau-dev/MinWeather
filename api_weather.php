@@ -8,7 +8,18 @@ $dotenv->load();
 //$ip = $_SERVER['REMOTE_ADDR']; // Obtém o IP do usuário
 $access_key = $_ENV['API_TOKEN'];
 
-$ip = file_get_contents('https://ifconfig.me');
+try {
+    $ip = @file_get_contents('https://ifconfig.me');
+
+    if ($ip === false) {
+        throw new Exception('Erro ao tentar obter o IP.');
+    }
+
+} catch (Exception $e) {
+    $ip = '0.0.0.0';
+}
+
+
 //$ip = '128.201.136.0';
 $url = "https://ipinfo.io/{$ip}?token={$access_key}";
 

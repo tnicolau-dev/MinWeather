@@ -236,7 +236,42 @@ $precipitation_json = json_encode($precipitation);
                     </div>
                     <div class="item_sec_3 shadow">
                         <h3>UV</h3>
-                        <span><?php echo $data_current['daily']['uv_index_max'][0] ?></span>
+                        <div id="uv_cont">
+                            <div id="uv_info">
+
+                                <?php
+
+                                $uv_index = round($data_current['daily']['uv_index_max'][0], 1);
+                                $uv_percent = ($uv_index * 10) . '%';
+
+                                if ($uv_index < 3) {
+                                    $desc_uv = 'Fraco';
+                                    $color_b = 'var(--blue)';
+                                } elseif ($uv_index >= 3 && $uv_index < 6) {
+                                    $desc_uv = 'Médio';
+                                    $color_b = 'var(--blue)';
+                                } elseif ($uv_index >= 6 && $uv_index < 8) {
+                                    $desc_uv = 'Alto';
+                                    $color_b = 'var(--yellow)';
+                                } elseif ($uv_index >= 8 && $uv_index < 10) {
+                                    $desc_uv = 'Muito Alto';
+                                    $color_b = 'var(--yellow)';
+                                } else {
+                                    $desc_uv = 'Extremo';
+                                    $color_b = 'var(--yellow)';
+                                }
+                                
+                                ?>
+
+                                <span><?php echo $uv_index ?></span>
+                                <span><?php echo $desc_uv ?></span>
+                            </div>
+                            <div id="uv_level">
+                                <div id="back_level">
+                                    <div id="front_level" style="height:<?php echo $uv_percent?>; background-color:<?php echo $color_b?>"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
