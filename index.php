@@ -338,6 +338,7 @@ $precipitation_json = json_encode($precipitation);
         const blueColor = getComputedStyle(document.documentElement).getPropertyValue('--blue').trim();
         const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
         const grayColor = getComputedStyle(document.documentElement).getPropertyValue('--gray').trim();
+        const yellowColor = getComputedStyle(document.documentElement).getPropertyValue('--yellow').trim();
 
         var max_temp = <?php echo round($data_current_week['daily']['temperature_2m_max'][0]) ?>;
         var min_temp = <?php echo round($data_current_week['daily']['temperature_2m_min'][0]) ?>;
@@ -364,9 +365,14 @@ $precipitation_json = json_encode($precipitation);
                         var y = chart.scales.y.bottom + 15;
                     
                         var svg = images[index];
+
+                        console.log(svg);
                         
                         svg = svg.replace(/var\(--gray\)/g, grayColor);
                         svg = svg.replace(/var\(--white\)/g, whiteColor);
+                        svg = svg.replace(/var\(--blue\)/g, blueColor);
+                        svg = svg.replace(/var\(--yellow\)/g, yellowColor);
+                        svg = svg.replace(/var\(--font\)/g, fontColor);
 
                         var svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
                         var url_t = URL.createObjectURL(svgBlob);
@@ -388,12 +394,20 @@ $precipitation_json = json_encode($precipitation);
                         var img = new Image();
                         img.src = url_t;
                         img.onload = function() {
-                            ctx.drawImage(img, x - 20, y - 10, 40, 25);
 
-                            ctx.drawImage(img_w, x-30, y+25, 20, 20);
+                            const originalWidth = img.width;
+                            const originalHeight = img.height;
+
+                            const desiredWidth = 40;
+                            const scaleFactor = desiredWidth / originalWidth;
+                            const desiredHeight = originalHeight * scaleFactor;
+
+                            ctx.drawImage(img, x - 20, y - 10, desiredWidth, desiredHeight);
+
+                            ctx.drawImage(img_w, x-27, y+30, 20, 20);
                         
-                            ctx.font = '16px Poppins';
-                            ctx.fillText(precipitation[index] + '%', x+10, y + 40);
+                            ctx.font = '200 14px Poppins';
+                            ctx.fillText(precipitation[index] + '%', x+5, y + 45);
                         
                             ctx.font = '24px Poppins';
                             ctx.fillText(times[index] + 'h', x, y + 80);
