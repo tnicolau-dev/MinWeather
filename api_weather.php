@@ -96,9 +96,11 @@ if ($response === false) {
 
             $dateTime_gr = new DateTime($data_current_hr['hourly']['time'][$i]);
 
+            $current_day_time = $data_current['current']['is_day'] == 1 ? 'day' : 'night';
+
             $data_current_hr_at_gr['time'][$i] = $dateTime_gr->format('H');
             $data_current_hr_at_gr['temperature_2m'][$i] = $data_current_hr['hourly']['temperature_2m'][$i];
-            $data_current_hr_at_gr['image'][$i] = $weather_codes_translated[$weather_c]["day"]["image"];
+            $data_current_hr_at_gr['image'][$i] = $weather_codes_translated[$weather_c][$current_day_time]["image"];
             $data_current_hr_at_gr['precipitation'][$i] = $data_current_hr['hourly']['precipitation_probability'][$i];
         }
     }

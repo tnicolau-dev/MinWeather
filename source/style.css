@@ -2,8 +2,10 @@
     --shadow: #3f4f5654;
     --font: #3F4F56;
     --blue: #08BBCF;
+    --light_blue:#78dbe6;
     --yellow: #FCBE1F;
     --gray: #CFCFCF;
+    --white: #FFFFFF;
 }
 
 body {
@@ -50,6 +52,12 @@ div#side_1 {
     text-align: center;
     box-shadow: 2px 0 10px var(--shadow);
     padding: 30px;
+
+    #icon_side_1{
+        svg{
+            width: 15rem;
+        }
+    }
 
     #temp_side_1 {
         display: flex;
@@ -121,6 +129,7 @@ div#side_1 {
     justify-content: space-around;
     margin-top: 0.5rem;
     font-size: 1.2rem;
+    width: 100%;
 
     span:nth-child(1){
         position: relative;
@@ -181,6 +190,8 @@ div#side_2 {
                 display: flex;
                 flex-direction: column;
                 text-align: center;
+                flex: 1;
+                align-items: center;
     
                 .item_s_rain {
     
@@ -193,6 +204,11 @@ div#side_2 {
                         width: 1.7rem;
                     }
                 }
+            }
+
+            .item_s svg{
+                width: 5rem;
+                margin: 0.5rem 0;
             }
     
             .item_s > span:nth-child(1){

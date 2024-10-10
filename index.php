@@ -38,6 +38,7 @@ $precipitation_json = json_encode($precipitation);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0&icon_names=humidity_low" />
 </head>
 
 <body>
@@ -83,7 +84,7 @@ $precipitation_json = json_encode($precipitation);
             </div>
             
             <div id="icon_side_1">
-                <img src="<?php echo $weather_codes_translated[$code_c][$current_day_time]["image"]; ?>" alt="">
+                <?php echo $weather_codes_translated[$code_c][$current_day_time]["image"]; ?>
             </div>
 
             <div id="temp_side_1">
@@ -165,7 +166,7 @@ $precipitation_json = json_encode($precipitation);
                             echo "  <div class='item_s shadow'>
                                         <span>".$data_desc."</span>
                                         <span>".$data_d."</span>
-                                        <img src='" . $weather_codes_translated[$code_c_h][$current_day_time]["image"] . "' alt=''>
+                                        ". $weather_codes_translated[$code_c_h][$current_day_time]["image"] . "
                                         <div class='item_s_rain'>
                                             <svg width='42' height='40' viewBox='0 0 42 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                                 <path d='M20.787 0C28.1057 0 32.2575 4.84436 32.8613 10.6948L33.046 10.6946C37.7559 10.6946 41.574 14.5029 41.574 19.2006C41.574 23.8983 37.7559 27.7066 33.046 27.7066L31.0562 27.7075L31.0524 27.7177H30.3755L28.0985 31.621C27.6968 32.3097 26.8128 32.5424 26.1242 32.1406C25.4354 31.739 25.2028 30.855 25.6046 30.1662L27.0397 27.7062L22.1214 27.7075L22.1171 27.7177H21.1362L18.8592 31.621C18.4576 32.3097 17.5736 32.5424 16.8849 32.1406C16.1961 31.739 15.9635 30.855 16.3653 30.1662L17.8003 27.7063L13.1866 27.7075L13.1827 27.7177H11.8972L9.62024 31.621C9.21856 32.3097 8.3346 32.5423 7.64593 32.1406C6.95714 31.7388 6.72455 30.8549 7.12634 30.1662L8.56107 27.7065L8.52804 27.7066C3.81811 27.7066 0 23.8983 0 19.2006C0 14.5029 3.81811 10.6946 8.52804 10.6946L8.71271 10.6948C9.32008 4.8059 13.4683 0 20.787 0ZM20.787 2.88169C15.8658 2.88169 11.5766 6.86371 11.5766 12.3642C11.5766 13.2357 10.8188 13.9195 9.95112 13.9195H8.31046C5.31464 13.9195 2.88594 16.3607 2.88594 19.3721C2.88594 22.3837 5.31464 24.8249 8.31046 24.8249H33.2634C36.2594 24.8249 38.688 22.3837 38.688 19.3721C38.688 16.3607 36.2594 13.9195 33.2635 13.9195H31.6229C30.7552 13.9195 29.9974 13.2357 29.9974 12.3642C29.9974 6.79315 25.7081 2.88169 20.787 2.88169Z' fill='var(--font)'/>
@@ -223,10 +224,10 @@ $precipitation_json = json_encode($precipitation);
 
                         $progresso = round(((100 - $porcentagem)/100) * $comprimento_linha);
 
-                        if($progresso >= $comprimento_linha ){
-                            $progresso = $comprimento_linha;
+                        if($progresso <= 0 ){
+                            $progresso = 0;
 
-                            $color_sun = 'var(--font)';
+                            $color_sun = 'var(--blue)';
                         }
 
                         ?>
@@ -332,6 +333,12 @@ $precipitation_json = json_encode($precipitation);
         var images = <?php echo $images_json; ?>;
         var precipitation = <?php echo $precipitation_json; ?>;
 
+        const fontColor = getComputedStyle(document.documentElement).getPropertyValue('--font').trim();
+        const lightBlueColor = getComputedStyle(document.documentElement).getPropertyValue('--light_blue').trim();
+        const blueColor = getComputedStyle(document.documentElement).getPropertyValue('--blue').trim();
+        const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+        const grayColor = getComputedStyle(document.documentElement).getPropertyValue('--gray').trim();
+
         var max_temp = <?php echo round($data_current_week['daily']['temperature_2m_max'][0]) ?>;
         var min_temp = <?php echo round($data_current_week['daily']['temperature_2m_min'][0]) ?>;
 
@@ -339,32 +346,62 @@ $precipitation_json = json_encode($precipitation);
 
         // Criando o gradiente
         var gradient = ctx.createLinearGradient(0, 0, 0, 400); // Direção do gradiente
-        gradient.addColorStop(0, 'rgba(75, 192, 192, 0.8)');  // Cor no topo (mais forte)
-        gradient.addColorStop(1, 'rgba(153, 102, 255, 0.2)'); // Cor no final (mais clara)
+        gradient.addColorStop(0, lightBlueColor);  // Cor no topo (mais forte)
+        gradient.addColorStop(1, whiteColor); // Cor no final (mais clara)
 
 
         var customLabelsPlugin = {
             id: 'customLabelsPlugin',
             afterDatasetsDraw: function(chart) {
                 var ctx = chart.ctx;
-
-                ctx.fillStyle = 'black';
             
-                chart.data.labels.forEach(function(label, index) {
-                    var x = chart.scales.x.getPixelForValue(index);
-                    var y = chart.scales.y.bottom + 15;
-                
-                    var img = new Image();
-                    img.src = images[index];
-                    img.onload = function() {
-                        ctx.drawImage(img, x - 30, y - 20, 60, 60);
+                ctx.fillStyle = fontColor;
+            
+                // Usar Promise para garantir que todas as imagens sejam carregadas antes de desenhar
+                const promises = chart.data.labels.map((label, index) => {
+                    return new Promise((resolve) => {
+                        var x = chart.scales.x.getPixelForValue(index);
+                        var y = chart.scales.y.bottom + 15;
                     
-                        ctx.font = '16px Arial';
-                        ctx.fillText(precipitation[index] + '%', x, y + 40);
-                    
-                        ctx.font = '24px Arial';
-                        ctx.fillText(times[index] + 'h', x, y + 80);
-                    };
+                        var svg = images[index];
+                        
+                        svg = svg.replace(/var\(--gray\)/g, grayColor);
+                        svg = svg.replace(/var\(--white\)/g, whiteColor);
+
+                        var svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+                        var url_t = URL.createObjectURL(svgBlob);
+                        var img = new Image();
+                        img.src = url_t;
+
+                        //------------------------------------------
+
+                        //var svg_w = "<svg width='42' height='40' viewBox='0 0 42 40' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M20.787 0C28.1057 0 32.2575 4.84436 32.8613 10.6948L33.046 10.6946C37.7559 10.6946 41.574 14.5029 41.574 19.2006C41.574 23.8983 37.7559 27.7066 33.046 27.7066L31.0562 27.7075L31.0524 27.7177H30.3755L28.0985 31.621C27.6968 32.3097 26.8128 32.5424 26.1242 32.1406C25.4354 31.739 25.2028 30.855 25.6046 30.1662L27.0397 27.7062L22.1214 27.7075L22.1171 27.7177H21.1362L18.8592 31.621C18.4576 32.3097 17.5736 32.5424 16.8849 32.1406C16.1961 31.739 15.9635 30.855 16.3653 30.1662L17.8003 27.7063L13.1866 27.7075L13.1827 27.7177H11.8972L9.62024 31.621C9.21856 32.3097 8.3346 32.5423 7.64593 32.1406C6.95714 31.7388 6.72455 30.8549 7.12634 30.1662L8.56107 27.7065L8.52804 27.7066C3.81811 27.7066 0 23.8983 0 19.2006C0 14.5029 3.81811 10.6946 8.52804 10.6946L8.71271 10.6948C9.32008 4.8059 13.4683 0 20.787 0ZM20.787 2.88169C15.8658 2.88169 11.5766 6.86371 11.5766 12.3642C11.5766 13.2357 10.8188 13.9195 9.95112 13.9195H8.31046C5.31464 13.9195 2.88594 16.3607 2.88594 19.3721C2.88594 22.3837 5.31464 24.8249 8.31046 24.8249H33.2634C36.2594 24.8249 38.688 22.3837 38.688 19.3721C38.688 16.3607 36.2594 13.9195 33.2635 13.9195H31.6229C30.7552 13.9195 29.9974 13.2357 29.9974 12.3642C29.9974 6.79315 25.7081 2.88169 20.787 2.88169Z' fill='var(--font)'/><path d='M13.4314 33.1115C14.1201 33.5132 14.3527 34.3971 13.9509 35.0858L11.9298 38.5505C11.5281 39.2393 10.6442 39.4719 9.95551 39.0701C9.26684 38.6684 9.03413 37.7845 9.43592 37.0958L11.457 33.6311C11.8587 32.9423 12.7426 32.7097 13.4314 33.1115Z' fill='var(--font)'/><path d='M23.1902 35.0858C23.592 34.3971 23.3594 33.5132 22.6707 33.1115C21.9819 32.7097 21.0979 32.9423 20.6963 33.6311L18.6752 37.0958C18.2734 37.7845 18.5061 38.6684 19.1948 39.0701C19.8834 39.4719 20.7674 39.2393 21.1691 38.5505L23.1902 35.0858Z' fill='var(--font)'/></svg>";
+                        var svg_w = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--font)"><path d="M480-152q-111.39 0-189.69-76.71Q212-305.41 212-415.47 212-468 233.5-516t56.5-86l190-186 190 186q35 38 56.5 86.04Q748-467.92 748-415.28 748-305 669.69-228.5 591.39-152 480-152Zm0-28q100 0 170-68t70-167.23q0-47.11-18-89.71-18-42.6-52-74.67L480-748 310-579.61q-34 32.07-52 74.67t-18 89.71Q240-316 310-248q70 68 170 68Z"/></svg>';
+                        svg_w = svg_w.replace(/var\(--font\)/g, fontColor);
+                        var svgBlob_w = new Blob([svg_w], { type: 'image/svg+xml;charset=utf-8' });
+                        var url_t_w = URL.createObjectURL(svgBlob_w);
+                        var img_w = new Image();
+                        img_w.src = url_t_w;
+
+                        //---------------------------------------------
+
+                        var img = new Image();
+                        img.src = url_t;
+                        img.onload = function() {
+                            ctx.drawImage(img, x - 20, y - 10, 40, 25);
+
+                            ctx.drawImage(img_w, x-30, y+25, 20, 20);
+                        
+                            ctx.font = '16px Poppins';
+                            ctx.fillText(precipitation[index] + '%', x+10, y + 40);
+                        
+                            ctx.font = '24px Poppins';
+                            ctx.fillText(times[index] + 'h', x, y + 80);
+                        
+                            URL.revokeObjectURL(url_t);
+                            resolve(); // Resolve a promise quando a imagem for carregada
+                        };
+                    });
                 });
             }
         };
@@ -380,8 +417,8 @@ $precipitation_json = json_encode($precipitation);
                         var value = dataset.data[index];
                         var x = point.x;
                         var y = point.y;
-                        ctx.fillStyle = 'black';
-                        ctx.font = '24px Arial';
+                        ctx.fillStyle = fontColor;
+                        ctx.font = '24px Poppins';
                         ctx.textAlign = 'center';
                         ctx.fillText(Math.round(value)+"°", x, 40);
                     });
@@ -396,7 +433,7 @@ $precipitation_json = json_encode($precipitation);
                 datasets: [{
                     label: 'Temperatura (°C)',
                     data: temperatures,
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderColor: blueColor,
                     backgroundColor: gradient,
                     borderWidth: 5,
                     tension: 0.4,
