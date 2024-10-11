@@ -240,7 +240,9 @@ div#side_2 {
                     #sun_bar{
                         display: flex;
                         justify-content: center;
-                        padding: 1rem;
+                        padding: 0.7rem;
+                        overflow: hidden;
+                        max-height: 5rem;
                     }
 
                     #sun_info{

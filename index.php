@@ -192,7 +192,8 @@ $precipitation_json = json_encode($precipitation);
 
                         <?php
 
-                        $comprimento_linha = 210;
+                        $comprimento_linha = 196;
+                        $grau_rot_max = 180;
                         $color_sun = 'var(--yellow)';
 
                         //------------------------------------------------------------
@@ -220,13 +221,13 @@ $precipitation_json = json_encode($precipitation);
                         }
                     
                         $porcentagem = round(($tempo_passado / $duracao_total) * 100);
-                        $porcentagem =  min($porcentagem, 100);
+                        $porcentagem = min($porcentagem, 100);
 
+                        $grau_rot = round(($grau_rot_max * $porcentagem) / 100);
                         $progresso = round(((100 - $porcentagem)/100) * $comprimento_linha);
 
                         if($progresso <= 0 ){
                             $progresso = 0;
-
                             $color_sun = 'var(--blue)';
                         }
 
@@ -235,10 +236,13 @@ $precipitation_json = json_encode($precipitation);
                         <h3>Pôr do Sol</h3>
                         <div id="sun_cont">
                             <div id="sun_bar">
-                                <svg width="100%" height="100%" viewBox="0 0 134 69" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="arco">
-                                        <path id="Ellipse 31" d="M2 67C2 58.4641 3.68127 50.0117 6.94783 42.1256C10.2144 34.2394 15.0023 27.0739 21.0381 21.0381C27.0739 15.0022 34.2394 10.2144 42.1256 6.94783C50.0117 3.68127 58.4641 2 67 2C75.5359 2 83.9883 3.68128 91.8744 6.94783C99.7606 10.2144 106.926 15.0023 112.962 21.0381C118.998 27.0739 123.786 34.2394 127.052 42.1256C130.319 50.0117 132 58.4641 132 67" stroke="var(--gray)" stroke-width="4" stroke-linecap="round"/>
-                                        <path style="stroke-dasharray: <?php echo $comprimento_linha ?>; stroke-dashoffset: <?php echo $progresso ?>;" id="Ellipse 32" d="M2 67C2 58.4641 3.68127 50.0117 6.94783 42.1256C10.2144 34.2394 15.0023 27.0739 21.0381 21.0381C27.0739 15.0022 34.2394 10.2144 42.1256 6.94783C50.0117 3.68127 58.4641 2 67 2C75.5359 2 83.9883 3.68128 91.8744 6.94783C99.7606 10.2144 106.926 15.0023 112.962 21.0381C118.998 27.0739 123.786 34.2394 127.052 42.1256C130.319 50.0117 132 58.4641 132 67" stroke="<?php echo $color_sun ?>" stroke-width="4" stroke-linecap="round"/>
+                                <svg width="100%" height="100%" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="arco_ciruclo">
+                                        <g id="arco">
+                                            <path id="Ellipse 32" d="M10 71C10 62.858 11.6295 54.7958 14.7956 47.2736C17.9616 39.7514 22.6022 32.9166 28.4523 27.1594C34.3024 21.4021 41.2474 16.8353 48.8909 13.7195C56.5345 10.6037 64.7267 9 73 9C81.2733 9 89.4655 10.6037 97.1091 13.7195C104.753 16.8353 111.698 21.4021 117.548 27.1594C123.398 32.9166 128.038 39.7514 131.204 47.2736C134.37 54.7958 136 62.858 136 71" stroke="var(--gray)" stroke-width="4" stroke-linecap="round"/>
+                                            <path style="stroke-dasharray: <?php echo $comprimento_linha ?>; stroke-dashoffset: <?php echo $progresso ?>;" id="Ellipse 33" d="M10 71C10 62.858 11.6295 54.7958 14.7956 47.2736C17.9616 39.7514 22.6022 32.9166 28.4523 27.1594C34.3024 21.4021 41.2474 16.8353 48.8909 13.7195C56.5345 10.6037 64.7267 9 73 9C81.2733 9 89.4655 10.6037 97.1091 13.7195C104.753 16.8353 111.698 21.4021 117.548 27.1594C123.398 32.9166 128.038 39.7514 131.204 47.2736C134.37 54.7958 136 62.858 136 71" stroke="<?php echo $color_sun ?>" stroke-width="4" stroke-linecap="round"/>
+                                        </g>
+                                        <circle style="rotate: <?php echo $grau_rot ?>deg; transform-origin: 50% 50%;" id="sol" cx="9" cy="73" r="9" stroke-width="3" stroke="var(--white)" fill="<?php echo $color_sun ?>"/>
                                     </g>
                                 </svg>
                             </div>
