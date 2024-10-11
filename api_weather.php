@@ -41,7 +41,7 @@ date_default_timezone_set($details_loc['timezone']);
 
 //variáveis do clima atual
 
-$url = "https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&current=temperature_2m,is_day,precipitation,weather_code,wind_speed_10m&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,snowfall_sum,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=America%2FSao_Paulo&forecast_days=1";
+$url = "https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&current=temperature_2m,is_day,precipitation,weather_code,wind_speed_10m&hourly=temperature_2m,uv_index&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,snowfall_sum,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=America%2FSao_Paulo&forecast_days=1";
 $ch = curl_init($url);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

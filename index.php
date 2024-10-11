@@ -289,7 +289,10 @@ $precipitation_json = json_encode($precipitation);
 
                                 <?php
 
-                                $uv_index = round($data_current['daily']['uv_index_max'][0], 1);
+                                $currentDateTime = date('Y-m-d\TH:00');
+                                $index = array_search($currentDateTime, $data_current['hourly']['time']);
+
+                                $uv_index = round($data_current['hourly']['uv_index'][$index], 1);
                                 $uv_percent = ($uv_index * 10) . '%';
 
                                 if ($uv_index < 3) {
@@ -409,7 +412,7 @@ $precipitation_json = json_encode($precipitation);
                             ctx.font = '200 14px Poppins';
                             ctx.fillText(precipitation[index] + '%', x+5, y + 45);
                         
-                            ctx.font = '24px Poppins';
+                            ctx.font = '350 24px Poppins';
                             ctx.fillText(times[index] + 'h', x, y + 80);
                         
                             URL.revokeObjectURL(url_t);
