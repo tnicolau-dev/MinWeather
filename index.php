@@ -57,11 +57,11 @@ $precipitation_json = json_encode($precipitation);
                     }
 
                     if(!isset($sigla)){
-                        $sigla = $details_loc["country"];
+                        $sigla = ' - ' . $details_loc["country"];
                     }
 
                 } else {
-                    $sigla = $details_loc["country"];
+                    $sigla = ' - ' . $details_loc["country"];
                 }
 
                 ?>
