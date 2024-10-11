@@ -401,7 +401,7 @@ $precipitation_json = json_encode($precipitation);
                             const originalWidth = img.width;
                             const originalHeight = img.height;
 
-                            const desiredWidth = 40;
+                            const desiredWidth = 35;
                             const scaleFactor = desiredWidth / originalWidth;
                             const desiredHeight = originalHeight * scaleFactor;
 
@@ -503,8 +503,8 @@ $precipitation_json = json_encode($precipitation);
                         grid: {
                             display: false
                         },
-                        min: min_temp,
-                        max: max_temp
+                        min: min_temp - 1,
+                        max: max_temp + 1
                     }
                 }
             },
