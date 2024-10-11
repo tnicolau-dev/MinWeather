@@ -292,7 +292,7 @@ $precipitation_json = json_encode($precipitation);
                                 $currentDateTime = date('Y-m-d\TH:00');
                                 $index = array_search($currentDateTime, $data_current['hourly']['time']);
 
-                                $uv_index = round($data_current['hourly']['uv_index'][$index], 1);
+                                $uv_index = number_format(round($data_current['hourly']['uv_index'][$index], 1), 1, '.', '');
                                 $uv_percent = ($uv_index * 10) . '%';
 
                                 if ($uv_index < 3) {

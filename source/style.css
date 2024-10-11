@@ -260,24 +260,14 @@ div#side_2 {
 
                 #vento_info{
                     display: flex;
-                    justify-content: space-evenly;
+                    justify-content: center;
                     align-items: center;
                     position: relative;
-                    margin: 0 0.5rem;
+                    gap: 1rem;
 
                     svg{
                         width: 2rem;
-                        
                     }
-                }
-
-                #vento_info::before {
-                    position: absolute;
-                    left: 0;
-                    content: '➜';
-                    transform: rotate(270deg);
-                    font-weight: 900;
-                    color: var(--yellow);
                 }
 
                 /*---------------------------------------------------------*/
