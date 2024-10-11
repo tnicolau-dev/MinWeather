@@ -348,10 +348,25 @@ $precipitation_json = json_encode($precipitation);
 
         var ctx = document.getElementById('temperatureChart').getContext('2d');
 
+
+        //------------------------------------------------------------------------------------
+
+        function hexToRgba(hex, alpha) {
+            hex = hex.replace('#', '');
+
+            var r = parseInt(hex.substring(0, 2), 16);
+            var g = parseInt(hex.substring(2, 4), 16);
+            var b = parseInt(hex.substring(4, 6), 16);
+
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
         // Criando o gradiente
         var gradient = ctx.createLinearGradient(0, 0, 0, 400); // Direção do gradiente
-        gradient.addColorStop(0, lightBlueColor);  // Cor no topo (mais forte)
-        gradient.addColorStop(1, whiteColor); // Cor no final (mais clara)
+        gradient.addColorStop(0, hexToRgba(lightBlueColor, 1)); // lightBlueColor opaco
+        gradient.addColorStop(1, hexToRgba(whiteColor, 0)); // whiteColor transparente
+
+        //------------------------------------------------------------------------------------
 
 
         var customLabelsPlugin = {
