@@ -31,6 +31,7 @@ body.light {
     --white: #FFFFFF;
     --white2: #FFFFFF;
     --l_blue: #52DCEC;
+    --line_g: #0000003f;
 
     background-color: var(--white);
 
@@ -51,6 +52,8 @@ body.dark {
     --white: #3F4F56;
     --white2: #323F45;
     --l_blue: #08BBCF;
+    --line_g: #ffffff3f;
+    
 
     background-color: var(--white);
 

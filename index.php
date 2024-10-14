@@ -407,6 +407,8 @@ $precipitation_json = json_encode($precipitation);
             var whiteColor = getComputedStyle(document.body).getPropertyValue('--white').trim();
             var grayColor = getComputedStyle(document.body).getPropertyValue('--gray').trim();
             var yellowColor = getComputedStyle(document.body).getPropertyValue('--yellow').trim();
+            var lineColor = getComputedStyle(document.body).getPropertyValue('--line_g').trim();
+
 
             console.log('Cor da fonte atual:', fontColor);
 
@@ -560,6 +562,9 @@ $precipitation_json = json_encode($precipitation);
                             display: true,
                             title: {
                                 display: true,
+                            },
+                            grid: {
+                                color: lineColor,
                             },
                             ticks: {
                                 padding: 30,
