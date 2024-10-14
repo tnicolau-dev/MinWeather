@@ -104,7 +104,10 @@ $precipitation_json = json_encode($precipitation);
                     </svg>
                     <p>Chuva: <span><?php echo $data_current['daily']['precipitation_probability_max'][0] . ' ' . $data_current['daily_units']['precipitation_probability_max']; ?></span></p>
                 </div>
+
                 <?php
+
+                /*
                 
                 $snow = $data_current['daily']['snowfall_sum'][0];
 
@@ -121,6 +124,8 @@ $precipitation_json = json_encode($precipitation);
                     ";
                 }
 
+                */
+
                 ?>
 
                 <div>
@@ -133,6 +138,21 @@ $precipitation_json = json_encode($precipitation);
         </div>
 
         <div id="side_2">
+            <div id="btn_l_n">
+                <button id="toggle-button">
+
+                    <svg id="light_i" width="100%" height="100%" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 2V6.61538M22 37.3846V42M36.1423 7.85769L32.8788 11.1212M11.1212 32.8788L7.85769 36.1423M42 22H37.3846M6.61538 22H2M36.1423 36.1423L32.8788 32.8788M11.1212 11.1212L7.85769 7.85769" stroke="var(--font)" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round"/>
+                        <path d="M22 29.6922C26.2483 29.6922 29.6923 26.2483 29.6923 21.9999C29.6923 17.7516 26.2483 14.3076 22 14.3076C17.7516 14.3076 14.3077 17.7516 14.3077 21.9999C14.3077 26.2483 17.7516 29.6922 22 29.6922Z" stroke="var(--font)" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round"/>
+                    </svg>
+
+                    <svg id="night_i" width="100%" height="100%" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.7692 10.4615C12.7692 7.51731 13.2029 4.5375 14.3077 2C6.95865 5.19904 2 12.7038 2 21.2308C2 32.701 11.299 42 22.7692 42C31.2962 42 38.801 37.0413 42 29.6923C39.4625 30.7971 36.4827 31.2308 33.5385 31.2308C22.0683 31.2308 12.7692 21.9317 12.7692 10.4615Z" stroke="var(--font)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+                </button>
+            </div>
+
             <h1>Hoje</h1>
             <div id="sec_1" class="shadow">
                 <div style="height: 300px; width: 100%">
@@ -242,7 +262,7 @@ $precipitation_json = json_encode($precipitation);
                                             <path id="Ellipse 32" d="M10 71C10 62.858 11.6295 54.7958 14.7956 47.2736C17.9616 39.7514 22.6022 32.9166 28.4523 27.1594C34.3024 21.4021 41.2474 16.8353 48.8909 13.7195C56.5345 10.6037 64.7267 9 73 9C81.2733 9 89.4655 10.6037 97.1091 13.7195C104.753 16.8353 111.698 21.4021 117.548 27.1594C123.398 32.9166 128.038 39.7514 131.204 47.2736C134.37 54.7958 136 62.858 136 71" stroke="var(--gray)" stroke-width="4" stroke-linecap="round"/>
                                             <path style="stroke-dasharray: <?php echo $comprimento_linha ?>; stroke-dashoffset: <?php echo $progresso ?>;" id="Ellipse 33" d="M10 71C10 62.858 11.6295 54.7958 14.7956 47.2736C17.9616 39.7514 22.6022 32.9166 28.4523 27.1594C34.3024 21.4021 41.2474 16.8353 48.8909 13.7195C56.5345 10.6037 64.7267 9 73 9C81.2733 9 89.4655 10.6037 97.1091 13.7195C104.753 16.8353 111.698 21.4021 117.548 27.1594C123.398 32.9166 128.038 39.7514 131.204 47.2736C134.37 54.7958 136 62.858 136 71" stroke="<?php echo $color_sun ?>" stroke-width="4" stroke-linecap="round"/>
                                         </g>
-                                        <circle style="rotate: <?php echo $grau_rot ?>deg; transform-origin: 50% 50%;" id="sol" cx="9" cy="73" r="9" stroke-width="3" stroke="var(--white)" fill="<?php echo $color_sun ?>"/>
+                                        <circle style="rotate: <?php echo $grau_rot ?>deg; transform-origin: 50% 50%;" id="sol" cx="9" cy="73" r="9" stroke-width="3" stroke="var(--white2)" fill="<?php echo $color_sun ?>"/>
                                     </g>
                                 </svg>
                             </div>
@@ -287,7 +307,9 @@ $precipitation_json = json_encode($precipitation);
                     
                     $precip_num = $data_current_week['daily']['precipitation_sum'][0];
 
-                    if($precip_num <= 5){
+                    if($precip_num == 0){
+                        $animationName = "waveAction00";
+                    } else if($precip_num > 0 and $precip_num <= 5){
                         $animationName = "waveAction01";
                     } else if($precip_num > 5 and $precip_num < 20){
                         $animationName = "waveAction02";
@@ -340,7 +362,7 @@ $precipitation_json = json_encode($precipitation);
                                 } elseif ($uv_index >= 8 && $uv_index < 10) {
                                     $desc_uv = 'Muito Alto';
                                     $color_b = 'var(--yellow)';
-                                } else {
+                                } elseif ($uv_index >= 10) {
                                     $desc_uv = 'Extremo';
                                     $color_b = 'var(--yellow)';
                                 }
@@ -364,221 +386,271 @@ $precipitation_json = json_encode($precipitation);
 
     <script>
 
-        var times = <?php echo $times_json; ?>;
-        var temperatures = <?php echo $temperatures_json; ?>;
-        var images = <?php echo $images_json; ?>;
-        var precipitation = <?php echo $precipitation_json; ?>;
 
-        const fontColor = getComputedStyle(document.documentElement).getPropertyValue('--font').trim();
-        const lightBlueColor = getComputedStyle(document.documentElement).getPropertyValue('--light_blue').trim();
-        const blueColor = getComputedStyle(document.documentElement).getPropertyValue('--blue').trim();
-        const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
-        const grayColor = getComputedStyle(document.documentElement).getPropertyValue('--gray').trim();
-        const yellowColor = getComputedStyle(document.documentElement).getPropertyValue('--yellow').trim();
+        const times = <?php echo $times_json; ?>;
+        const temperatures = <?php echo $temperatures_json; ?>;
+        const images = <?php echo $images_json; ?>;
+        const precipitation = <?php echo $precipitation_json; ?>;
 
-        var max_temp = <?php echo round(max($temperatures)) ?>;
-        var min_temp = <?php echo round(min($temperatures)) ?>;
+        const max_temp = <?php echo round(max($temperatures)) ?>;
+        const min_temp = <?php echo round(min($temperatures)) ?>;
 
-        var ctx = document.getElementById('temperatureChart').getContext('2d');
+        const ctx = document.getElementById('temperatureChart').getContext('2d');
+        
+        var splineAreaChart;
 
+        function draw(){
 
-        //------------------------------------------------------------------------------------
+            var fontColor = getComputedStyle(document.body).getPropertyValue('--font').trim();
+            var lightBlueColor = getComputedStyle(document.body).getPropertyValue('--light_blue').trim();
+            var blueColor = getComputedStyle(document.body).getPropertyValue('--blue').trim();
+            var whiteColor = getComputedStyle(document.body).getPropertyValue('--white').trim();
+            var grayColor = getComputedStyle(document.body).getPropertyValue('--gray').trim();
+            var yellowColor = getComputedStyle(document.body).getPropertyValue('--yellow').trim();
 
-        function hexToRgba(hex, alpha) {
-            hex = hex.replace('#', '');
+            console.log('Cor da fonte atual:', fontColor);
 
-            var r = parseInt(hex.substring(0, 2), 16);
-            var g = parseInt(hex.substring(2, 4), 16);
-            var b = parseInt(hex.substring(4, 6), 16);
-
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        }
-
-        // Criando o gradiente
-        var gradient = ctx.createLinearGradient(0, 0, 0, 400); // Direção do gradiente
-        gradient.addColorStop(0, hexToRgba(lightBlueColor, 1)); // lightBlueColor opaco
-        gradient.addColorStop(1, hexToRgba(whiteColor, 0)); // whiteColor transparente
-
-        //------------------------------------------------------------------------------------
-
-
-        var customLabelsPlugin = {
-            id: 'customLabelsPlugin',
-            afterDatasetsDraw: function(chart) {
-                var ctx = chart.ctx;
-            
-                ctx.fillStyle = fontColor;
-            
-                // Usar Promise para garantir que todas as imagens sejam carregadas antes de desenhar
-                const promises = chart.data.labels.map((label, index) => {
-                    return new Promise((resolve) => {
-                        var x = chart.scales.x.getPixelForValue(index);
-                        var y = chart.scales.y.bottom + 15;
-                    
-                        var svg = images[index];
-
-                        console.log(svg);
-                        
-                        svg = svg.replace(/var\(--gray\)/g, grayColor);
-                        svg = svg.replace(/var\(--white\)/g, whiteColor);
-                        svg = svg.replace(/var\(--blue\)/g, blueColor);
-                        svg = svg.replace(/var\(--yellow\)/g, yellowColor);
-                        svg = svg.replace(/var\(--font\)/g, fontColor);
-
-                        var svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
-                        var url_t = URL.createObjectURL(svgBlob);
-                        var img = new Image();
-                        img.src = url_t;
-
-                        //------------------------------------------
-
-                        //var svg_w = "<svg width='42' height='40' viewBox='0 0 42 40' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M20.787 0C28.1057 0 32.2575 4.84436 32.8613 10.6948L33.046 10.6946C37.7559 10.6946 41.574 14.5029 41.574 19.2006C41.574 23.8983 37.7559 27.7066 33.046 27.7066L31.0562 27.7075L31.0524 27.7177H30.3755L28.0985 31.621C27.6968 32.3097 26.8128 32.5424 26.1242 32.1406C25.4354 31.739 25.2028 30.855 25.6046 30.1662L27.0397 27.7062L22.1214 27.7075L22.1171 27.7177H21.1362L18.8592 31.621C18.4576 32.3097 17.5736 32.5424 16.8849 32.1406C16.1961 31.739 15.9635 30.855 16.3653 30.1662L17.8003 27.7063L13.1866 27.7075L13.1827 27.7177H11.8972L9.62024 31.621C9.21856 32.3097 8.3346 32.5423 7.64593 32.1406C6.95714 31.7388 6.72455 30.8549 7.12634 30.1662L8.56107 27.7065L8.52804 27.7066C3.81811 27.7066 0 23.8983 0 19.2006C0 14.5029 3.81811 10.6946 8.52804 10.6946L8.71271 10.6948C9.32008 4.8059 13.4683 0 20.787 0ZM20.787 2.88169C15.8658 2.88169 11.5766 6.86371 11.5766 12.3642C11.5766 13.2357 10.8188 13.9195 9.95112 13.9195H8.31046C5.31464 13.9195 2.88594 16.3607 2.88594 19.3721C2.88594 22.3837 5.31464 24.8249 8.31046 24.8249H33.2634C36.2594 24.8249 38.688 22.3837 38.688 19.3721C38.688 16.3607 36.2594 13.9195 33.2635 13.9195H31.6229C30.7552 13.9195 29.9974 13.2357 29.9974 12.3642C29.9974 6.79315 25.7081 2.88169 20.787 2.88169Z' fill='var(--font)'/><path d='M13.4314 33.1115C14.1201 33.5132 14.3527 34.3971 13.9509 35.0858L11.9298 38.5505C11.5281 39.2393 10.6442 39.4719 9.95551 39.0701C9.26684 38.6684 9.03413 37.7845 9.43592 37.0958L11.457 33.6311C11.8587 32.9423 12.7426 32.7097 13.4314 33.1115Z' fill='var(--font)'/><path d='M23.1902 35.0858C23.592 34.3971 23.3594 33.5132 22.6707 33.1115C21.9819 32.7097 21.0979 32.9423 20.6963 33.6311L18.6752 37.0958C18.2734 37.7845 18.5061 38.6684 19.1948 39.0701C19.8834 39.4719 20.7674 39.2393 21.1691 38.5505L23.1902 35.0858Z' fill='var(--font)'/></svg>";
-                        var svg_w = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--font)"><path d="M480-152q-111.39 0-189.69-76.71Q212-305.41 212-415.47 212-468 233.5-516t56.5-86l190-186 190 186q35 38 56.5 86.04Q748-467.92 748-415.28 748-305 669.69-228.5 591.39-152 480-152Zm0-28q100 0 170-68t70-167.23q0-47.11-18-89.71-18-42.6-52-74.67L480-748 310-579.61q-34 32.07-52 74.67t-18 89.71Q240-316 310-248q70 68 170 68Z"/></svg>';
-                        svg_w = svg_w.replace(/var\(--font\)/g, fontColor);
-                        var svgBlob_w = new Blob([svg_w], { type: 'image/svg+xml;charset=utf-8' });
-                        var url_t_w = URL.createObjectURL(svgBlob_w);
-                        var img_w = new Image();
-                        img_w.src = url_t_w;
-
-                        //---------------------------------------------
-
-                        var img = new Image();
-                        img.src = url_t;
-                        img.onload = function() {
-
-                            const originalWidth = img.width;
-                            const originalHeight = img.height;
-
-                            const desiredWidth = 35;
-                            const scaleFactor = desiredWidth / originalWidth;
-                            const desiredHeight = originalHeight * scaleFactor;
-
-                            ctx.drawImage(img, x - 20, y - 10, desiredWidth, desiredHeight);
-
-                            ctx.drawImage(img_w, x-27, y+30, 20, 20);
-                        
-                            ctx.font = '200 14px Poppins';
-                            ctx.fillText(precipitation[index] + '%', x+5, y + 45);
-                        
-                            ctx.font = '350 24px Poppins';
-                            ctx.fillText(times[index] + 'h', x, y + 80);
-                        
-                            URL.revokeObjectURL(url_t);
-                            resolve(); // Resolve a promise quando a imagem for carregada
-                        };
-                    });
-                });
+            // Se o gráfico já existe, destrua-o
+            if (splineAreaChart) {
+                splineAreaChart.destroy(); // Destrói o gráfico existente
             }
-        };
 
+            //------------------------------------------------------------------------------------
 
-        var topValuesPlugin = {
-            id: 'topValuesPlugin',
-            afterDatasetsDraw: function(chart) {
-                var ctx = chart.ctx;
-                chart.data.datasets.forEach(function(dataset, i) {
-                    var meta = chart.getDatasetMeta(i);
-                    meta.data.forEach(function(point, index) {
-                        var value = dataset.data[index];
-                        var x = point.x;
-                        var y = point.y;
-                        ctx.fillStyle = fontColor;
-                        ctx.font = '24px Poppins';
-                        ctx.textAlign = 'center';
-                        ctx.fillText(Math.round(value)+"°", x, 40);
-                    });
-                });
+            function hexToRgba(hex, alpha) {
+                hex = hex.replace('#', '');
+
+                var r = parseInt(hex.substring(0, 2), 16);
+                var g = parseInt(hex.substring(2, 4), 16);
+                var b = parseInt(hex.substring(4, 6), 16);
+
+                return `rgba(${r}, ${g}, ${b}, ${alpha})`;
             }
-        };
 
-        var splineAreaChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: times,
-                datasets: [{
-                    label: 'Temperatura (°C)',
-                    data: temperatures,
-                    borderColor: blueColor,
-                    backgroundColor: gradient,
-                    borderWidth: 5,
-                    tension: 0.4,
-                    fill: true,
-                    pointRadius: 0
-                    //pointRadius: 3,
-                    //pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-                    //pointBorderWidth: 1
-                }]
-            },
-            options: {
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 60,
-                        bottom: 0
-                    }
+            // Criando o gradiente
+            var gradient = ctx.createLinearGradient(0, 0, 0, 250); // Direção do gradiente
+            gradient.addColorStop(0, hexToRgba(lightBlueColor, 1)); // lightBlueColor opaco
+            gradient.addColorStop(1, hexToRgba(whiteColor, 0)); // whiteColor transparente
+
+            //------------------------------------------------------------------------------------
+
+            var customLabelsPlugin = {
+                id: 'customLabelsPlugin',
+                afterDatasetsDraw: function(chart) {
+                    var ctx = chart.ctx;
+                
+                    ctx.fillStyle = fontColor;
+                
+                    // Usar Promise para garantir que todas as imagens sejam carregadas antes de desenhar
+                    const promises = chart.data.labels.map((label, index) => {
+                        return new Promise((resolve) => {
+                            var x = chart.scales.x.getPixelForValue(index);
+                            var y = chart.scales.y.bottom + 15;
+                        
+                            var svg = images[index];
+
+                            svg = svg.replace(/var\(--gray\)/g, grayColor);
+                            svg = svg.replace(/var\(--white\)/g, whiteColor);
+                            svg = svg.replace(/var\(--blue\)/g, blueColor);
+                            svg = svg.replace(/var\(--yellow\)/g, yellowColor);
+                            svg = svg.replace(/var\(--font\)/g, fontColor);
+
+                            var svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+                            var url_t = URL.createObjectURL(svgBlob);
+                            var img = new Image();
+                            img.src = url_t;
+
+                            //------------------------------------------
+
+                            //var svg_w = "<svg width='42' height='40' viewBox='0 0 42 40' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M20.787 0C28.1057 0 32.2575 4.84436 32.8613 10.6948L33.046 10.6946C37.7559 10.6946 41.574 14.5029 41.574 19.2006C41.574 23.8983 37.7559 27.7066 33.046 27.7066L31.0562 27.7075L31.0524 27.7177H30.3755L28.0985 31.621C27.6968 32.3097 26.8128 32.5424 26.1242 32.1406C25.4354 31.739 25.2028 30.855 25.6046 30.1662L27.0397 27.7062L22.1214 27.7075L22.1171 27.7177H21.1362L18.8592 31.621C18.4576 32.3097 17.5736 32.5424 16.8849 32.1406C16.1961 31.739 15.9635 30.855 16.3653 30.1662L17.8003 27.7063L13.1866 27.7075L13.1827 27.7177H11.8972L9.62024 31.621C9.21856 32.3097 8.3346 32.5423 7.64593 32.1406C6.95714 31.7388 6.72455 30.8549 7.12634 30.1662L8.56107 27.7065L8.52804 27.7066C3.81811 27.7066 0 23.8983 0 19.2006C0 14.5029 3.81811 10.6946 8.52804 10.6946L8.71271 10.6948C9.32008 4.8059 13.4683 0 20.787 0ZM20.787 2.88169C15.8658 2.88169 11.5766 6.86371 11.5766 12.3642C11.5766 13.2357 10.8188 13.9195 9.95112 13.9195H8.31046C5.31464 13.9195 2.88594 16.3607 2.88594 19.3721C2.88594 22.3837 5.31464 24.8249 8.31046 24.8249H33.2634C36.2594 24.8249 38.688 22.3837 38.688 19.3721C38.688 16.3607 36.2594 13.9195 33.2635 13.9195H31.6229C30.7552 13.9195 29.9974 13.2357 29.9974 12.3642C29.9974 6.79315 25.7081 2.88169 20.787 2.88169Z' fill='var(--font)'/><path d='M13.4314 33.1115C14.1201 33.5132 14.3527 34.3971 13.9509 35.0858L11.9298 38.5505C11.5281 39.2393 10.6442 39.4719 9.95551 39.0701C9.26684 38.6684 9.03413 37.7845 9.43592 37.0958L11.457 33.6311C11.8587 32.9423 12.7426 32.7097 13.4314 33.1115Z' fill='var(--font)'/><path d='M23.1902 35.0858C23.592 34.3971 23.3594 33.5132 22.6707 33.1115C21.9819 32.7097 21.0979 32.9423 20.6963 33.6311L18.6752 37.0958C18.2734 37.7845 18.5061 38.6684 19.1948 39.0701C19.8834 39.4719 20.7674 39.2393 21.1691 38.5505L23.1902 35.0858Z' fill='var(--font)'/></svg>";
+                            var svg_w = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--font)"><path d="M480-152q-111.39 0-189.69-76.71Q212-305.41 212-415.47 212-468 233.5-516t56.5-86l190-186 190 186q35 38 56.5 86.04Q748-467.92 748-415.28 748-305 669.69-228.5 591.39-152 480-152Zm0-28q100 0 170-68t70-167.23q0-47.11-18-89.71-18-42.6-52-74.67L480-748 310-579.61q-34 32.07-52 74.67t-18 89.71Q240-316 310-248q70 68 170 68Z"/></svg>';
+                            svg_w = svg_w.replace(/var\(--font\)/g, fontColor);
+
+                            var svgBlob_w = new Blob([svg_w], { type: 'image/svg+xml;charset=utf-8' });
+                            var url_t_w = URL.createObjectURL(svgBlob_w);
+                            var img_w = new Image();
+                            img_w.src = url_t_w;
+
+                            //---------------------------------------------
+
+                            var img = new Image();
+                            img.src = url_t;
+                            img.onload = function() {
+
+                                const originalWidth = img.width;
+                                const originalHeight = img.height;
+
+                                const desiredWidth = 35;
+                                const scaleFactor = desiredWidth / originalWidth;
+                                const desiredHeight = originalHeight * scaleFactor;
+
+                                ctx.drawImage(img, x - 20, y - 10, desiredWidth, desiredHeight);
+
+                                ctx.drawImage(img_w, x-27, y+30, 20, 20);
+                            
+                                ctx.font = '200 14px Poppins';
+                                ctx.fillText(precipitation[index] + '%', x+5, y + 45);
+                            
+                                ctx.font = '350 24px Poppins';
+                                ctx.fillText(times[index] + 'h', x, y + 80);
+                            
+                                URL.revokeObjectURL(url_t);
+                                resolve(); // Resolve a promise quando a imagem for carregada
+                            };
+                        });
+                    });
+                }
+            };
+
+            var topValuesPlugin = {
+                id: 'topValuesPlugin',
+                afterDatasetsDraw: function(chart) {
+                    var ctx = chart.ctx;
+                    chart.data.datasets.forEach(function(dataset, i) {
+                        var meta = chart.getDatasetMeta(i);
+                        meta.data.forEach(function(point, index) {
+                            var value = dataset.data[index];
+                            var x = point.x;
+                            var y = point.y;
+                            ctx.fillStyle = fontColor;
+                            ctx.font = '24px Poppins';
+                            ctx.textAlign = 'center';
+                            ctx.fillText(Math.round(value)+"°", x, 40);
+                        });
+                    });
+                }
+            };
+
+            splineAreaChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: times,
+                    datasets: [{
+                        label: 'Temperatura (°C)',
+                        data: temperatures,
+                        borderColor: blueColor,
+                        backgroundColor: gradient,
+                        borderWidth: 5,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 0
+                        //pointRadius: 3,
+                        //pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                        //pointBorderWidth: 1
+                    }]
                 },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    x: {
-                        display: true,
-                        title: {
-                            display: true,
-                        },
-                        ticks: {
-                            padding: 30,
-                            font: {
-                                size: 24
-                            },
-                            callback: function(value, index, values) {
-                                return '';
-                            }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 0,
+                            right: 0,
+                            top: 60,
+                            bottom: 0
                         }
                     },
-                    y: {
-                        display: true,
-                        ticks: {
+                    plugins: {
+                        legend: {
                             display: false
-                        },
-                        title: {
+                        }
+                    },
+                    scales: {
+                        x: {
                             display: true,
+                            title: {
+                                display: true,
+                            },
+                            ticks: {
+                                padding: 30,
+                                font: {
+                                    size: 24
+                                },
+                                callback: function(value, index, values) {
+                                    return '';
+                                }
+                            }
                         },
-                        beginAtZero: false,
-                        grid: {
-                            display: false
-                        },
-                        min: min_temp - 1,
-                        max: max_temp + 1
+                        y: {
+                            display: true,
+                            ticks: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                            },
+                            beginAtZero: false,
+                            grid: {
+                                display: false
+                            },
+                            min: min_temp - 1,
+                            max: max_temp + 1
+                        }
                     }
-                }
-            },
-            plugins: [topValuesPlugin, customLabelsPlugin]
-        });
+                },
+                plugins: [topValuesPlugin, customLabelsPlugin]
+            });
+        }
+
+        draw();
+
     </script>
     <script>
         function atualizarRelogio() {
             const agora = new Date();
 
             // Formatação da data
-            const dia = String(agora.getDate()).padStart(2, '0'); // Dia com dois dígitos
-            const mes = String(agora.getMonth() + 1).padStart(2, '0'); // Mês com dois dígitos
-            const horas = String(agora.getHours()).padStart(2, '0'); // Horas com dois dígitos
-            const minutos = String(agora.getMinutes()).padStart(2, '0'); // Minutos com dois dígitos
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+            const horas = String(agora.getHours()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
 
             const formatoRelogio = `${dia}/${mes} ${horas}:${minutos}`;
 
             document.getElementById('relogio').innerText = formatoRelogio;
         }
 
-        // Atualiza o relógio a cada minuto
         setInterval(atualizarRelogio, 60000);
 
-        // Atualiza o relógio imediatamente
         atualizarRelogio();
+
+    </script>
+
+    <script>
+        const button = document.getElementById('toggle-button');
+
+        button.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+        
+            if (document.body.classList.contains('dark')) {
+                document.getElementById("light_i").style.display = 'none';
+                document.getElementById("night_i").style.display = 'initial';
+            } else {
+                document.getElementById("night_i").style.display = 'none';
+                document.getElementById("light_i").style.display = 'initial';
+            }
+
+            draw();
+
+        });
+
+        // Define o modo inicial
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+
+            document.body.classList.add('dark');
+
+            document.getElementById("light_i").style.display = 'none';
+            document.getElementById("night_i").style.display = 'initial';
+
+            draw();
+
+        } else {
+            document.body.classList.add('light');
+
+            document.getElementById("night_i").style.display = 'none';
+            document.getElementById("light_i").style.display = 'initial';
+        }
 
     </script>
 </body>
