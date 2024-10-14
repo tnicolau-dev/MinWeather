@@ -282,9 +282,38 @@ $precipitation_json = json_encode($precipitation);
                             <p><?php echo $data_current['current']['wind_speed_10m'] . ' ' . $data_current['current_units']['wind_speed_10m']; ?></p>
                         </div>
                     </div>
+
+                    <?php
+                    
+                    $precip_num = $data_current_week['daily']['precipitation_sum'][0];
+
+                    if($precip_num <= 5){
+                        $animationName = "waveAction01";
+                    } else if($precip_num > 5 and $precip_num < 20){
+                        $animationName = "waveAction02";
+                    } else if($precip_num > 20) {
+                        $animationName = "waveAction03";
+                    }
+
+                    ?>
+
                     <div class="item_sec_3 shadow">
                         <h3>Precipitação</h3>
-                        <span><?php echo $data_current_week['daily']['precipitation_sum'][0] . ' ' . $data_current_week['daily_units']['precipitation_sum']; ?></span>
+                        <div id="prec_info">
+                            <svg width="100%" height="100%" viewBox="0 0 316 119" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="water" clip-path="url(#clip-path)">
+                                    <path style="animation-name: <?php echo $animationName?>" d="M70.1339 50.895C55.658 64.5498 38.6716 54.6339 31.9879 47.9693C30.9496 50.73 30.2788 54.085 30.0699 57.7462L30.0002 57.7065V139.002H336V57.7065C335.878 56.088 335.496 54.5638 335.106 53.004C334.972 52.4695 334.836 51.9309 334.71 51.3828C324.929 42.117 312.703 33.8267 294.608 50.895C282.287 62.5178 267.515 56.8563 259.27 50.8039C249.591 41.7817 237.501 34.1831 219.783 50.895C207.462 62.5178 192.69 56.8563 184.445 50.8039C174.767 41.7817 162.676 34.1831 144.959 50.895C132.637 62.5178 117.866 56.8563 109.62 50.8039C99.9418 41.7817 87.8509 34.1831 70.1339 50.895Z" fill="var(--blue)"/>
+                                    <path style="animation-name: <?php echo $animationName?>" d="M40.1339 50.8938C25.658 64.5486 8.67158 54.6327 1.98789 47.968C0.949623 50.7287 0.27876 54.0838 0.0699071 57.745L0.000244141 57.7053V139.001H306V57.7053C305.878 56.0868 305.496 54.5626 305.106 53.0028C304.972 52.4683 304.836 51.9297 304.71 51.3815C294.929 42.1157 282.703 33.8254 264.608 50.8938C252.287 62.5165 237.515 56.8551 229.27 50.8027C219.591 41.7805 207.501 34.1819 189.783 50.8938C177.462 62.5165 162.69 56.8551 154.445 50.8027C144.767 41.7805 132.676 34.1819 114.959 50.8938C102.637 62.5165 87.8655 56.8551 79.6201 50.8027C69.9418 41.7805 57.8509 34.1819 40.1339 50.8938Z" fill="var(--l_blue)"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip-path">
+                                        <path d="M111.643 5.59803C96.3284 21.023 85.7409 35.4505 81.319 46.9748C79.6473 51.3565 79.0182 54.4913 79.0002 58.4633C78.9642 70.326 84.249 80.5143 93.7759 86.9087C98.3776 90.008 104.22 92.1276 110.133 92.8579C112.56 93.1607 118.132 93.1607 120.559 92.8579C126.473 92.1276 132.315 90.008 136.917 86.9087C146.354 80.5677 151.674 70.4329 151.692 58.7483C151.71 54.7051 151.063 51.4455 149.392 47.0638C145.653 37.2139 136.809 24.4429 124.873 11.6184C122.249 8.80415 115.508 2.00005 115.346 2.00005C115.274 2.00005 113.621 3.62092 111.643 5.59803Z" stroke="var(--blue)" stroke-width="3"/>
+                                    </clipPath>
+                                </defs>
+                              <path d="M111.643 5.59803C96.3284 21.023 85.7409 35.4505 81.319 46.9748C79.6473 51.3565 79.0182 54.4913 79.0002 58.4633C78.9642 70.326 84.249 80.5143 93.7759 86.9087C98.3776 90.008 104.22 92.1276 110.133 92.8579C112.56 93.1607 118.132 93.1607 120.559 92.8579C126.473 92.1276 132.315 90.008 136.917 86.9087C146.354 80.5677 151.674 70.4329 151.692 58.7483C151.71 54.7051 151.063 51.4455 149.392 47.0638C145.653 37.2139 136.809 24.4429 124.873 11.6184C122.249 8.80415 115.508 2.00005 115.346 2.00005C115.274 2.00005 113.621 3.62092 111.643 5.59803Z" stroke="var(--blue)" stroke-width="3"/>
+                            </svg>
+                        </div>
+                        <span><?php echo $precip_num . ' ' . $data_current_week['daily_units']['precipitation_sum']; ?></span>
                     </div>
                     <div class="item_sec_3 shadow">
                         <h3>UV</h3>
@@ -347,8 +376,8 @@ $precipitation_json = json_encode($precipitation);
         const grayColor = getComputedStyle(document.documentElement).getPropertyValue('--gray').trim();
         const yellowColor = getComputedStyle(document.documentElement).getPropertyValue('--yellow').trim();
 
-        var max_temp = <?php echo round($data_current_week['daily']['temperature_2m_max'][0]) ?>;
-        var min_temp = <?php echo round($data_current_week['daily']['temperature_2m_min'][0]) ?>;
+        var max_temp = <?php echo round(max($temperatures)) ?>;
+        var min_temp = <?php echo round(min($temperatures)) ?>;
 
         var ctx = document.getElementById('temperatureChart').getContext('2d');
 

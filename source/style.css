@@ -6,6 +6,7 @@
     --yellow: #FCBE1F;
     --gray: #CFCFCF;
     --white: #FFFFFF;
+    --l_blue: #52DCEC;
 }
 
 body {
@@ -14,7 +15,7 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
-    transition: 0.3 ease;
+    transition: 0.3s ease;
 }
 
 p{
@@ -23,15 +24,15 @@ p{
 
 h1, h2, h3 {
     font-weight: 500;
+    margin: 0;
 }
 
 h2{
     font-size: 1.7rem;
-    margin: 0;
 }
 
 h3{
-    margin: 0;
+    margin: 2rem 0;
 }
 
 .shadow{
@@ -224,6 +225,10 @@ div#side_2 {
             display: flex;
             justify-content: space-between;
 
+            h3{
+                margin: 0;
+            }
+
             .item_sec_3{
                 padding: 1rem;
                 width: 12rem;
@@ -272,6 +277,33 @@ div#side_2 {
                     svg{
                         width: 2rem;
                     }
+                }
+
+                /*---------------------------------------------------------*/
+
+                #prec_info{
+
+                    svg {
+                        width: 23rem;
+                        transform: translate(-2.6rem, 1rem);
+                        max-height: 8rem;
+
+                        #water path:nth-child(1) {
+                            animation-iteration-count: infinite;
+                            animation-timing-function: linear;
+                            animation-duration: 3s;
+                        }
+
+                        #water path:nth-child(2) {
+                            animation-iteration-count: infinite;
+                            animation-timing-function: linear;
+                            animation-duration: 4s;
+                        }
+                    }
+                }
+
+                span{
+                    text-align: center;
                 }
 
                 /*---------------------------------------------------------*/
@@ -331,3 +363,31 @@ div#side_2 > div {
     margin-bottom: 3rem;
 }
 
+/*--------------------------------------------------------------*/
+
+@keyframes waveAction01 {
+    0% {
+      transform: translate(-10px, 20px);
+    }
+    100% {
+      transform: translate(-83.5px, 20px);
+    }
+}
+
+@keyframes waveAction02 {
+    0% {
+      transform: translate(-10px, 0);
+    }
+    100% {
+      transform: translate(-83.5px, 0);
+    }
+}
+
+@keyframes waveAction03 {
+    0% {
+      transform: translate(-10px, -20px);
+    }
+    100% {
+      transform: translate(-83.5px, -20px);
+    }
+}
