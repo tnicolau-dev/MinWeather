@@ -20,7 +20,7 @@ try {
 }
 
 
-//$ip = '1.32.233.0';
+//$ip = '100.43.72.0';
 $url = "https://ipinfo.io/{$ip}?token={$access_key}";
 
 $json = file_get_contents($url);
@@ -32,8 +32,6 @@ $longitude = $loc[1];
 
 
 date_default_timezone_set($details_loc['timezone']);
-
-//echo "Latitude: $latitude, Longitude: $longitude";
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------

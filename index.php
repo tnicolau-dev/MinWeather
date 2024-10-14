@@ -76,6 +76,7 @@ $precipitation_json = json_encode($precipitation);
                     if (isset($weather_codes_translated[$code_c][$current_day_time])) {
                         $desc_c = $weather_codes_translated[$code_c][$current_day_time]["description"];
                     } else {
+                        $code_c = 1;
                         $desc_c = "Código ou período do dia não encontrado.";
                     }
                 ?>
@@ -106,8 +107,6 @@ $precipitation_json = json_encode($precipitation);
                 </div>
 
                 <?php
-
-                /*
                 
                 $snow = $data_current['daily']['snowfall_sum'][0];
 
@@ -123,8 +122,6 @@ $precipitation_json = json_encode($precipitation);
 
                     ";
                 }
-
-                */
 
                 ?>
 
