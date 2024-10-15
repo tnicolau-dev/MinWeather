@@ -17,13 +17,13 @@ $weather_codes_translated = [
     ],
     "1" => [
         "day" => [
-            "description" => "Principalmente Ensolarado",
+            "description" => "Ensolarado",
             "image" => '<svg width="100%" height="100%" viewBox="0 0 93 93" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="46.5" cy="46.5" r="43.5" stroke="var(--yellow)" stroke-width="6"/>
                         </svg>'
         ],
         "night" => [
-            "description" => "Principalmente Limpo",
+            "description" => "Limpo",
             "image" => '<svg width="100%" height="100%" viewBox="0 0 93 93" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="46.5" cy="46.5" r="43.5" stroke="var(--blue)" stroke-width="6"/>
                         </svg>'
