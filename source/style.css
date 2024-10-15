@@ -371,20 +371,13 @@ div#side_2 {
                     #prec_info{
 
                         svg {
-                            width: 23rem;
-                            transform: translate(-2.6rem, 1rem);
+                            transform: translate(2rem, 1rem);
                             max-height: 8rem;
     
-                            #water path:nth-child(1) {
+                            #water path {
                                 animation-iteration-count: infinite;
                                 animation-timing-function: linear;
                                 animation-duration: 3s;
-                            }
-    
-                            #water path:nth-child(2) {
-                                animation-iteration-count: infinite;
-                                animation-timing-function: linear;
-                                animation-duration: 4s;
                             }
                         }
                     }
@@ -451,37 +444,37 @@ div#side_2 > div {
 
 @keyframes waveAction00 {
     0% {
-      transform: translate(0, 100px);
+      transform: translate(0, 60px);
     }
     100% {
-      transform: translate(0, 100px);
+      transform: translate(0, 60px);
     }
 }
 
 @keyframes waveAction01 {
     0% {
-      transform: translate(-10px, 20px);
+      transform: translate(0, 30px);
     }
     100% {
-      transform: translate(-83.5px, 20px);
+      transform: translate(-66px, 30px);
     }
 }
 
 @keyframes waveAction02 {
     0% {
-      transform: translate(-10px, 0);
+      transform: translate(0, 10px);
     }
     100% {
-      transform: translate(-83.5px, 0);
+      transform: translate(-66px, 10px);
     }
 }
 
 @keyframes waveAction03 {
     0% {
-      transform: translate(-10px, -20px);
+      transform: translate(0, -10px);
     }
     100% {
-      transform: translate(-83.5px, -20px);
+      transform: translate(-66px, -10px);
     }
 }
 
@@ -520,7 +513,7 @@ div#side_2 > div {
             div#buss-cont {
                 flex-direction: row !important;
                 gap: 2rem !important;
-                justify-content: center;
+                justify-content: space-evenly;
                 height: 100%;
 
                 #vento_info {
@@ -548,7 +541,6 @@ div#side_2 > div {
                 span{
                     flex: 1;
                     font-size: 1.2rem;
-                    position: absolute;
                 }
             }
 
@@ -568,6 +560,7 @@ div#side_2 > div {
         white-space: nowrap;
         -ms-overflow-style: none;
         scrollbar-width: none;
+        padding: 0.7rem 0.5rem !important;
     }
 
     #itens_sec_2::-webkit-scrollbar {
@@ -588,10 +581,17 @@ div#side_2 > div {
 
     div#sec_1{
         overflow-y: scroll;
+        white-space: nowrap;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
 
         div{
             min-width: 800px;
         }
+    }
+
+    div#sec_1::-webkit-scrollbar {
+        display: none;
     }
 
     div#side_1{
@@ -622,6 +622,13 @@ div#side_2 > div {
     div#side_2{
         overflow-y: initial;
         position: initial;
+    }
+
+    div#prec_cont {
+
+        #prec_info {
+            flex: 2 !important;
+        }
     }
 
 }
@@ -663,6 +670,74 @@ div#side_2 > div {
     #items_s_3{
         display: flex !important;
         flex-direction: column;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    h1, h2{
+        font-size: 2rem !important;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+        margin: 2rem 0 0;
+    }
+
+    div#side_1 {
+        padding: 2rem !important;
+        height: initial !important;
+        align-items: normal !important;
+        gap: 3rem !important;
+
+        #icon_side_1 {
+            flex: 1 !important;
+        }
+
+        #temp_side_1 {
+            flex: 2 !important;
+        }
+
+        #temp_s_m {
+            font-size: 3rem !important;
+        }
+
+        div#header_side_1 {
+            text-align: left !important;
+        }
+        
+        div#temp_prin {
+            flex-direction: row;
+        }
+
+        #icon_side_1 {
+            width: 7rem !important;
+        }
+    }
+
+    div#side_2 {
+        padding: 1.3rem 0;
+
+        > h1{
+            margin-left: 1rem;
+        }
+
+        #sec_1{
+            box-shadow: none;
+            border-radius: inherit;
+        }
+
+        div#sec_2, div#sec_3 {
+            padding: 0 1rem;
+        }
+
+        #prec_info {
+
+            svg{
+                transform: translate(-2rem, 1rem) !important;
+            }
+        }
     }
 
 }
