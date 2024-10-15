@@ -440,6 +440,27 @@ div#side_2 > div {
     margin-bottom: 3rem;
 }
 
+footer{
+
+    text-align: center; 
+    font-size: 0.7rem; 
+    margin: 5rem 1rem 0;
+
+    div{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+
+        a{
+            width: 2rem;
+        }
+    }
+}
+
+/*--------------------------------------------------------------*/
+/*--------------------------------------------------------------*/
 /*--------------------------------------------------------------*/
 
 @keyframes waveAction00 {
