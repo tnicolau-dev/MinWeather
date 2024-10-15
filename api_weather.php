@@ -1,37 +1,41 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+if(!isset($latitude)){
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+    require_once __DIR__ . '/vendor/autoload.php';
 
-//$ip = $_SERVER['REMOTE_ADDR']; // Obtém o IP do usuário
-$access_key = $_ENV['API_TOKEN'];
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
 
-try {
-    $ip = @file_get_contents('https://ifconfig.me');
+    //$ip = $_SERVER['REMOTE_ADDR']; // Obtém o IP do usuário
+    $access_key = $_ENV['API_TOKEN'];
 
-    if ($ip === false) {
-        throw new Exception('Erro ao tentar obter o IP.');
+    try {
+        $ip = @file_get_contents('https://ifconfig.me');
+
+        if ($ip === false) {
+            throw new Exception('Erro ao tentar obter o IP.');
+        }
+
+    } catch (Exception $e) {
+        $ip = '0.0.0.0';
     }
 
-} catch (Exception $e) {
-    $ip = '0.0.0.0';
+
+    //$ip = '100.43.72.0';
+    $url = "https://ipinfo.io/{$ip}?token={$access_key}";
+
+    $json = file_get_contents($url);
+    $details_loc = json_decode($json, true);
+
+    $loc = explode(',', $details_loc['loc']);
+    $latitude = $loc[0];
+    $longitude = $loc[1];
+
+
+    //date_default_timezone_set($details_loc['timezone']);
+
 }
-
-
-//$ip = '100.43.72.0';
-$url = "https://ipinfo.io/{$ip}?token={$access_key}";
-
-$json = file_get_contents($url);
-$details_loc = json_decode($json, true);
-
-$loc = explode(',', $details_loc['loc']);
-$latitude = $loc[0];
-$longitude = $loc[1];
-
-
-date_default_timezone_set($details_loc['timezone']);
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------

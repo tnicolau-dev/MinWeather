@@ -124,6 +124,7 @@ div#side_1 {
     div#temp_prin {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 3rem;
 
         #icon_side_1{

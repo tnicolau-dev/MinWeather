@@ -1,5 +1,25 @@
 <?php
 
+if (isset($_GET['latitude']) && isset($_GET['longitude'])) {
+    $latitude = $_GET['latitude'];
+    $longitude = $_GET['longitude'];
+    $details_loc["region"] = $_GET['region'];
+    $details_loc["country"] = strtoupper($_GET['country_code']);
+
+    if($_GET['city'] != ''){
+        $details_loc["city"] = $_GET['city'];
+
+    } else if($_GET['county'] != ''){
+        $details_loc["city"] = $_GET['county'];
+
+    } else if($_GET['region'] != ''){
+        $details_loc["city"] = $_GET['region'];
+
+    } else {
+        $details_loc["city"] = $_GET['country'];
+    }
+}
+
 include "./components/weather_codes.php";
 include "./components/cities_code.php";
 include "api_weather.php";
@@ -37,6 +57,8 @@ $precipitation_json = json_encode($precipitation);
 
     <link rel="icon" href="./image/icone.ico" type="image/x-icon">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -46,6 +68,9 @@ $precipitation_json = json_encode($precipitation);
 <body>
     <div id="main">
         <div id="side_1">
+
+            <input type="text" id="search" placeholder="Digite uma cidade...">
+            <div class="suggestions" id="suggestions" style="display: none;"></div>
 
             <div id="header_side_1">
                 <?php   
@@ -65,6 +90,7 @@ $precipitation_json = json_encode($precipitation);
                 } else {
                     $sigla = ' - ' . $details_loc["country"];
                 }
+                    
 
                 ?>
 
@@ -676,6 +702,66 @@ $precipitation_json = json_encode($precipitation);
             document.getElementById("light_i").style.display = 'initial';
         }
 
+    </script>
+
+    <script>
+
+        $(document).ready(function() {
+            $('#search').on('input', function() {
+                let query = $(this).val();
+                if (query.length < 2) {
+                    $('#suggestions').hide();
+                    return;
+                }
+
+                $.ajax({
+                    url: `https://nominatim.openstreetmap.org/search?format=json&q=${query}&addressdetails=1`,
+                    method: 'GET',
+                    success: function(data) {
+                        $('#suggestions').empty();
+                        if (data.length) {
+                            data.forEach(item => {
+                                let county = (item.address.county) ? item.address.county : '';
+                                let country = (item.address.country) ? item.address.country : '';
+                                let municipality = (item.address.municipality) ? item.address.municipality : '';
+                                let state = (item.address.state) ? item.address.state : '';
+                                let country_code = (item.address.country_code) ? item.address.country_code : '';
+
+                                $('#suggestions').append(`<div class="suggestion-item" data-lat="${item.lat}" data-lon="${item.lon}" data-state="${state}" data-county="${county}" data-municipality="${municipality}" data-country_code="${country_code}" data-country="${country}">${item.display_name}</div>`);
+                            });
+                            $('#suggestions').show();
+                        } else {
+                            $('#suggestions').hide();
+                        }
+                    }
+                });
+            });
+        
+            $(document).on('click', '.suggestion-item', function() {
+                let selectedCity = $(this).text();
+                let lat = $(this).data('lat');
+                let lon = $(this).data('lon');
+
+                let reg = $(this).data('state');
+                let coun = $(this).data('county');
+                let city = $(this).data('municipality');
+                let coun_c = $(this).data('country_code');
+                let count = $(this).data('country');
+
+                $('#search').val(selectedCity);
+                $('#suggestions').hide();
+
+                // Redirecionar para index.php com parâmetros de consulta
+                window.location.href = `index.php?latitude=${lat}&longitude=${lon}&region=${reg}&county=${coun}&city=${city}&country_code=${coun_c}&country=${count}`;
+
+            });
+        
+            $(document).click(function(e) {
+                if (!$(e.target).closest('#search').length) {
+                    $('#suggestions').hide();
+                }
+            });
+        });
     </script>
 </body>
 </html>
