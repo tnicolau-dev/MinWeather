@@ -35,7 +35,7 @@ $precipitation_json = json_encode($precipitation);
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="./source/style.css">
 
-    <link rel="icon" href="./image/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./image/icone.ico" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
