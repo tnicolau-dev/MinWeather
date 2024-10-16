@@ -32,9 +32,6 @@ if(!isset($latitude)){
     $latitude = $loc[0];
     $longitude = $loc[1];
 
-
-    //date_default_timezone_set($details_loc['timezone']);
-
 }
 
 //------------------------------------------------------------------
@@ -98,7 +95,12 @@ if ($response === false) {
 
             $dateTime_gr = new DateTime($data_current_hr['hourly']['time'][$i]);
 
-            $current_day_time = $data_current['current']['is_day'] == 1 ? 'day' : 'night';
+            $dateTime1 = new DateTime($data_current['daily']['sunrise'][0]);
+            $time1 = $dateTime1->format('H');
+            $dateTime2 = new DateTime($data_current['daily']['sunset'][0]);
+            $time2 = $dateTime2->format('H');
+
+            $current_day_time = (intval($dateTime_gr->format('H')) >= $time2 or intval($dateTime_gr->format('H')) <= $time1) ? 'night' : 'day';
 
             $data_current_hr_at_gr['time'][$i] = $dateTime_gr->format('H');
             $data_current_hr_at_gr['temperature_2m'][$i] = $data_current_hr['hourly']['temperature_2m'][$i];
