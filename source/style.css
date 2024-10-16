@@ -757,6 +757,10 @@ footer{
         white-space: nowrap;
         -ms-overflow-style: none;
         scrollbar-width: none;
+
+        div{
+            min-width: 800px;
+        }
     }
 
     div#sec_1::-webkit-scrollbar {
@@ -806,7 +810,7 @@ footer{
                 justify-content: center !important;
 
                 #icon_side_1 {
-                    max-width: 7rem !important;
+                    max-width: 7rem;
                 }
             }
 
@@ -824,6 +828,22 @@ footer{
 }
 
 @media (max-width: 500px) {
+
+    div#temp_prin{
+        justify-content: space-around !important;
+
+        #icon_side_1 {
+            max-width: 5rem !important;
+        }
+
+        #temp_s_m {
+            font-size: 3.5rem;
+        }
+
+        #temp_s_mi_ma{
+            gap: 1rem;
+        }
+    }
 
     div#side_2 {
         padding: 1.3rem 0;
