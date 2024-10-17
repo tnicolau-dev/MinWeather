@@ -65,6 +65,18 @@ body.dark {
     }
 }
 
+div#error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 10px;
+    text-align: center;
+    margin: 0;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
 
 /*-------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------*/

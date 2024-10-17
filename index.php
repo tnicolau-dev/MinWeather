@@ -34,21 +34,26 @@ include "api_weather.php";
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-//variáveis para o gráfico - canvas
-
-$times = array_values($data_current_hr_at_gr['time']);
-$temperatures = array_values($data_current_hr_at_gr['temperature_2m']);
-$images = array_values($data_current_hr_at_gr['image']);
-$precipitation = array_values($data_current_hr_at_gr['precipitation']);
-
-$times_json = json_encode($times);
-$temperatures_json = json_encode($temperatures);
-$images_json = json_encode($images);
-$precipitation_json = json_encode($precipitation);
-
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//------------------------------------------------------------------
+function diaDaSemanaEmPortugues($diaEmIngles) {
+    switch (strtolower($diaEmIngles)) {
+        case 'monday':
+            return 'Segunda';
+        case 'tuesday':
+            return 'Terça';
+        case 'wednesday':
+            return 'Quarta';
+        case 'thursday':
+            return 'Quinta';
+        case 'friday':
+            return 'Sexta';
+        case 'saturday':
+            return 'Sábado';
+        case 'sunday':
+            return 'Domingo';
+        default:
+            return 'Dia inválido';
+    }
+}
 
 ?>
 
@@ -72,7 +77,28 @@ $precipitation_json = json_encode($precipitation);
 </head>
 
 <body>
+    <?php if ($error_message == ''): ?>
     <div id="main">
+        <?php
+        
+            //------------------------------------------------------------------
+            //------------------------------------------------------------------
+            //------------------------------------------------------------------
+
+            //variáveis para o gráfico - canvas
+
+            $times = array_values($data_current_hr_at_gr['time']);
+            $temperatures = array_values($data_current_hr_at_gr['temperature_2m']);
+            $images = array_values($data_current_hr_at_gr['image']);
+            $precipitation = array_values($data_current_hr_at_gr['precipitation']);
+
+            $times_json = json_encode($times);
+            $temperatures_json = json_encode($temperatures);
+            $images_json = json_encode($images);
+            $precipitation_json = json_encode($precipitation);
+        
+        ?>
+
         <div id="side_1">
             <div id="search_b">
                 <div id="search_bar">
@@ -442,7 +468,12 @@ $precipitation_json = json_encode($precipitation);
             </footer>
         </div>
     </div>
-
+    <?php else: ?>
+        <div id="error">
+            <h1><?php echo $error_message ?></h1>
+        </div>
+    <?php endif; ?>
+    
     <script>
 
 
