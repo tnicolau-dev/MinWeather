@@ -5,27 +5,6 @@ date_default_timezone_set('America/sao_paulo');
 ini_set("display_errors", 1);
 error_reporting(E_ALL|E_STRICT);
 
-if (isset($_GET['latitude']) && isset($_GET['longitude'])) {
-
-    $latitude = $_GET['latitude'];
-    $longitude = $_GET['longitude'];
-    $details_loc["region"] = $_GET['region'];
-    $details_loc["country"] = $_GET['country_code'];
-
-    if($_GET['city'] != ''){
-        $details_loc["city"] = $_GET['city'];
-
-    } else if($_GET['county'] != ''){
-        $details_loc["city"] = $_GET['county'];
-
-    } else if($_GET['region'] != ''){
-        $details_loc["city"] = $_GET['region'];
-
-    } else {
-        $details_loc["city"] = $_GET['country'];
-    }
-}
-
 include "./components/weather_codes.php";
 include "./components/cities_code.php";
 include "api_weather.php";
@@ -64,7 +43,7 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clima Tempo</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="./source/style.css">
+    <link rel="stylesheet" href="./source/main.css">
 
     <link rel="icon" href="./image/icone.ico" type="image/x-icon">
 
@@ -79,31 +58,20 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
 <body>
     <?php if ($error_message == ''): ?>
     <div id="main">
-        <?php
-        
-            //------------------------------------------------------------------
-            //------------------------------------------------------------------
-            //------------------------------------------------------------------
-
-            //variáveis para o gráfico - canvas
-
-            $times = array_values($data_current_hr_at_gr['time']);
-            $temperatures = array_values($data_current_hr_at_gr['temperature_2m']);
-            $images = array_values($data_current_hr_at_gr['image']);
-            $precipitation = array_values($data_current_hr_at_gr['precipitation']);
-
-            $times_json = json_encode($times);
-            $temperatures_json = json_encode($temperatures);
-            $images_json = json_encode($images);
-            $precipitation_json = json_encode($precipitation);
-        
-        ?>
-
         <div id="side_1">
             <div id="search_b">
-                <div id="search_bar">
-                    <input type="text" id="search" placeholder="Digite uma cidade...">
-                    <div class="suggestions" id="suggestions" style="display: none;"></div>
+                <div id="btn_ref">
+                    <button id="refresh">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+	                        <path fill="none" stroke="var(--font)" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M256 96V56M256 456v-40"/>
+                            <path d="M256 112a144 144 0 10144 144 144 144 0 00-144-144z" fill="none" stroke="var(--font)" stroke-miterlimit="10" stroke-width="32"/>
+                            <path fill="none" stroke="var(--font)" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M416 256h40M56 256h40"/>
+                        </svg>
+                    </button>
+                    <div id="search_bar">
+                        <input type="text" id="search" placeholder="Digite uma cidade...">
+                        <div class="suggestions" id="suggestions" style="display: none;"></div>
+                    </div>
                 </div>
                 <div id="btn_l_n">
                     <button id="toggle-button">
@@ -470,18 +438,44 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
     </div>
     <?php else: ?>
         <div id="error">
-            <h1><?php echo $error_message ?></h1>
+            <div>
+                <svg width="161" height="136" viewBox="0 0 161 136" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="80.5" cy="100.5" r="32.5" stroke="#FC261F" stroke-width="6"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M60.1275 6.12441L60.128 6.12436L30.4458 45.7799V42.6493V39.3432C30.4458 33.6666 31.6901 28.4437 34.102 23.7371C39.2531 13.6941 49.0411 7.08776 60.1275 6.12441ZM30.4458 45.7803L60.128 6.12436C69.3949 5.31834 78.4211 8.45652 85.1444 14.7841L85.1514 14.7907L85.1584 14.7973C88.4246 17.8516 91.3455 22.0587 92.93 25.8678C93.2715 26.7223 93.692 27.6002 94.1886 28.3689C94.4236 28.7329 94.819 29.2982 95.3849 29.8422C95.6661 30.1125 96.1571 30.5413 96.8523 30.9116C97.514 31.264 98.8283 31.8095 100.531 31.5948C101.104 31.5225 102.538 31.2432 103.8 30.9422C104.555 30.7687 106.131 30.5929 106.995 30.5929C113.979 30.5929 120.339 35.1663 122.736 42.2485L122.736 42.2509L123.27 43.8342L124.518 47.539L128.412 47.8934L132.594 48.2741L132.599 48.2746C141.968 49.1428 148.824 53.8472 152.644 61.682L152.647 61.6882C153.722 63.8858 154.235 65.2481 154.534 66.5433C154.835 67.8511 154.984 69.3828 154.999 71.9929V71.9945C155.013 74.444 154.879 76.0096 154.595 77.3617C154.315 78.6966 153.836 80.0751 152.906 82.0943C149.7 88.9863 143.536 93.9243 135.973 95.5635C135.425 95.6811 134.653 95.8402 127.068 95.9169C124.26 95.9452 120.584 95.9641 115.715 95.9765C115.903 97.4578 116 98.9675 116 100.5C116 100.994 115.99 101.486 115.97 101.976C133.547 101.93 135.513 101.798 137.242 101.428C146.631 99.3933 154.351 93.2261 158.352 84.6112C160.432 80.0971 161.03 77.2997 160.999 71.9591C160.967 66.3641 160.369 63.821 158.037 59.0526C153.248 49.2297 144.489 43.3487 133.146 42.2996L128.956 41.9181L128.42 40.3287C125.238 30.919 116.668 24.5929 106.995 24.5929C105.703 24.5929 103.655 24.8155 102.427 25.1016C101.229 25.3877 100.032 25.6102 99.78 25.642C99.5279 25.6738 98.9923 24.879 98.4882 23.6075C96.5662 18.9662 93.1319 14.0389 89.2565 10.4149C81.2852 2.9126 70.5726 -0.806749 59.6081 0.146931C46.438 1.29135 34.8433 9.14332 28.7623 21.0007C25.8952 26.5957 24.4458 32.7628 24.4458 39.3432V42.6493L22.3348 43.1579C12.0634 45.7646 3.58795 54.2524 0.783792 64.8065C-0.255952 68.5894 -0.255952 75.5195 0.752284 79.2706C3.8085 90.6194 12.5045 98.9482 23.8157 101.428C25.5427 101.798 27.5064 101.93 45.0301 101.976C45.0101 101.486 45 100.994 45 100.5C45 98.9675 45.0971 97.4577 45.2855 95.9763C40.4449 95.9639 36.7868 95.9451 33.9902 95.9169C26.4234 95.8404 25.6371 95.6819 25.0887 95.5644C16.0002 93.5676 9.02661 86.9215 6.54602 77.7109L28.9893 47.7263L30.4458 47.3753V45.7803ZM28.9889 47.7264L30.4458 45.7799V45.7803L28.9893 47.7263L28.9889 47.7264ZM28.9889 47.7264L6.54588 77.7104C6.2341 76.5485 5.9965 74.4658 6.00004 72.0593C6.00359 69.6496 6.24805 67.5652 6.56924 66.3966L6.57603 66.3719L6.5826 66.3472C8.84251 57.8415 15.6965 51.0467 23.7776 48.982L25.8513 48.4824L28.9889 47.7264Z" fill="var(--gray)"/>
+                    <path d="M94 113L68 87M94 87L68 113" stroke="#FC261F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>Opss!</h1>
+            <h2><?php echo $error_message ?></h2>
         </div>
     <?php endif; ?>
-    
+
     <script>
 
+        <?php
+        
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
+
+        //variáveis para o gráfico - canvas
+
+        $times = array_values($data_current_hr_at_gr['time']);
+        $temperatures = array_values($data_current_hr_at_gr['temperature_2m']);
+        $images = array_values($data_current_hr_at_gr['image']);
+        $precipitation = array_values($data_current_hr_at_gr['precipitation']);
+
+        $times_json = json_encode($times);
+        $temperatures_json = json_encode($temperatures);
+        $images_json = json_encode($images);
+        $precipitation_json = json_encode($precipitation);
+    
+        ?>
 
         const times = <?php echo $times_json; ?>;
         const temperatures = <?php echo $temperatures_json; ?>;
         const images = <?php echo $images_json; ?>;
         const precipitation = <?php echo $precipitation_json; ?>;
-
         const max_temp = <?php echo round(max($temperatures)) ?>;
         const min_temp = <?php echo round(min($temperatures)) ?>;
 
@@ -499,9 +493,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
             var yellowColor = getComputedStyle(document.body).getPropertyValue('--yellow').trim();
             var lineColor = getComputedStyle(document.body).getPropertyValue('--line_g').trim();
 
-            // Se o gráfico já existe, destrua-o
             if (splineAreaChart) {
-                splineAreaChart.destroy(); // Destrói o gráfico existente
+                splineAreaChart.destroy();
             }
 
             //------------------------------------------------------------------------------------
@@ -516,10 +509,9 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                 return `rgba(${r}, ${g}, ${b}, ${alpha})`;
             }
 
-            // Criando o gradiente
-            var gradient = ctx.createLinearGradient(0, 0, 0, 250); // Direção do gradiente
-            gradient.addColorStop(0, hexToRgba(lightBlueColor, 1)); // lightBlueColor opaco
-            gradient.addColorStop(1, hexToRgba(whiteColor, 0)); // whiteColor transparente
+            var gradient = ctx.createLinearGradient(0, 0, 0, 250);
+            gradient.addColorStop(0, hexToRgba(lightBlueColor, 1));
+            gradient.addColorStop(1, hexToRgba(whiteColor, 0));
 
             //------------------------------------------------------------------------------------
 
@@ -530,7 +522,6 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                 
                     ctx.fillStyle = fontColor;
                 
-                    // Usar Promise para garantir que todas as imagens sejam carregadas antes de desenhar
                     const promises = chart.data.labels.map((label, index) => {
                         return new Promise((resolve) => {
                             var x = chart.scales.x.getPixelForValue(index);
@@ -551,7 +542,6 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
 
                             //------------------------------------------
 
-                            //var svg_w = "<svg width='42' height='40' viewBox='0 0 42 40' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M20.787 0C28.1057 0 32.2575 4.84436 32.8613 10.6948L33.046 10.6946C37.7559 10.6946 41.574 14.5029 41.574 19.2006C41.574 23.8983 37.7559 27.7066 33.046 27.7066L31.0562 27.7075L31.0524 27.7177H30.3755L28.0985 31.621C27.6968 32.3097 26.8128 32.5424 26.1242 32.1406C25.4354 31.739 25.2028 30.855 25.6046 30.1662L27.0397 27.7062L22.1214 27.7075L22.1171 27.7177H21.1362L18.8592 31.621C18.4576 32.3097 17.5736 32.5424 16.8849 32.1406C16.1961 31.739 15.9635 30.855 16.3653 30.1662L17.8003 27.7063L13.1866 27.7075L13.1827 27.7177H11.8972L9.62024 31.621C9.21856 32.3097 8.3346 32.5423 7.64593 32.1406C6.95714 31.7388 6.72455 30.8549 7.12634 30.1662L8.56107 27.7065L8.52804 27.7066C3.81811 27.7066 0 23.8983 0 19.2006C0 14.5029 3.81811 10.6946 8.52804 10.6946L8.71271 10.6948C9.32008 4.8059 13.4683 0 20.787 0ZM20.787 2.88169C15.8658 2.88169 11.5766 6.86371 11.5766 12.3642C11.5766 13.2357 10.8188 13.9195 9.95112 13.9195H8.31046C5.31464 13.9195 2.88594 16.3607 2.88594 19.3721C2.88594 22.3837 5.31464 24.8249 8.31046 24.8249H33.2634C36.2594 24.8249 38.688 22.3837 38.688 19.3721C38.688 16.3607 36.2594 13.9195 33.2635 13.9195H31.6229C30.7552 13.9195 29.9974 13.2357 29.9974 12.3642C29.9974 6.79315 25.7081 2.88169 20.787 2.88169Z' fill='var(--font)'/><path d='M13.4314 33.1115C14.1201 33.5132 14.3527 34.3971 13.9509 35.0858L11.9298 38.5505C11.5281 39.2393 10.6442 39.4719 9.95551 39.0701C9.26684 38.6684 9.03413 37.7845 9.43592 37.0958L11.457 33.6311C11.8587 32.9423 12.7426 32.7097 13.4314 33.1115Z' fill='var(--font)'/><path d='M23.1902 35.0858C23.592 34.3971 23.3594 33.5132 22.6707 33.1115C21.9819 32.7097 21.0979 32.9423 20.6963 33.6311L18.6752 37.0958C18.2734 37.7845 18.5061 38.6684 19.1948 39.0701C19.8834 39.4719 20.7674 39.2393 21.1691 38.5505L23.1902 35.0858Z' fill='var(--font)'/></svg>";
                             var svg_w = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--font)"><path d="M480-152q-111.39 0-189.69-76.71Q212-305.41 212-415.47 212-468 233.5-516t56.5-86l190-186 190 186q35 38 56.5 86.04Q748-467.92 748-415.28 748-305 669.69-228.5 591.39-152 480-152Zm0-28q100 0 170-68t70-167.23q0-47.11-18-89.71-18-42.6-52-74.67L480-748 310-579.61q-34 32.07-52 74.67t-18 89.71Q240-316 310-248q70 68 170 68Z"/></svg>';
                             svg_w = svg_w.replace(/var\(--font\)/g, fontColor);
 
@@ -584,7 +574,7 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                                 ctx.fillText(times[index] + 'h', x, y + 80);
                             
                                 URL.revokeObjectURL(url_t);
-                                resolve(); // Resolve a promise quando a imagem for carregada
+                                resolve();
                             };
                         });
                     });
@@ -623,9 +613,6 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                         tension: 0.4,
                         fill: true,
                         pointRadius: 0
-                        //pointRadius: 3,
-                        //pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-                        //pointBorderWidth: 1
                     }]
                 },
                 options: {
@@ -687,130 +674,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
         draw();
 
     </script>
-    <script>
-        function atualizarRelogio() {
-            const agora = new Date();
 
-            // Formatação da data
-            const dia = String(agora.getDate()).padStart(2, '0');
-            const mes = String(agora.getMonth() + 1).padStart(2, '0');
-            const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
+    <script src="./source/main.js" type="text/javascript"></script>
 
-            const formatoRelogio = `${dia}/${mes} ${horas}:${minutos}`;
-
-            document.getElementById('relogio').innerText = formatoRelogio;
-        }
-
-        setInterval(atualizarRelogio, 60000);
-
-        atualizarRelogio();
-
-    </script>
-
-    <script>
-        const button = document.getElementById('toggle-button');
-
-        button.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            document.body.classList.toggle('light');
-        
-            if (document.body.classList.contains('dark')) {
-                document.getElementById("light_i").style.display = 'none';
-                document.getElementById("night_i").style.display = 'initial';
-            } else {
-                document.getElementById("night_i").style.display = 'none';
-                document.getElementById("light_i").style.display = 'initial';
-            }
-
-            draw();
-
-        });
-
-        // Define o modo inicial
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-
-            document.body.classList.add('dark');
-
-            document.getElementById("light_i").style.display = 'none';
-            document.getElementById("night_i").style.display = 'initial';
-
-            draw();
-
-        } else {
-            document.body.classList.add('light');
-
-            document.getElementById("night_i").style.display = 'none';
-            document.getElementById("light_i").style.display = 'initial';
-        }
-
-    </script>
-
-    <script>
-
-        $(document).ready(function() {
-            $('#search').on('input', function() {
-                let query = $(this).val();
-                if (query.length < 4) {
-                    $('#suggestions').hide();
-                    return;
-
-                } else {
-
-                    $.ajax({
-                        url: `https://nominatim.openstreetmap.org/search?format=json&q=${query}&addressdetails=1`,
-                        method: 'GET',
-                        success: function(data) {
-                            $('#suggestions').empty();
-                            if (data.length) {
-
-                                const limitedData = data.slice(0, 5);
-
-                                limitedData.forEach(item => {
-                                    let county = (item.address.county) ? item.address.county : '';
-                                    let country = (item.address.country) ? item.address.country : '';
-                                    let municipality = (item.address.municipality) ? item.address.municipality : '';
-                                    let state = (item.address.state) ? item.address.state : '';
-                                    let country_code = (item.address.country_code) ? item.address.country_code.toUpperCase() : '';
-
-                                    let iso = (item.address['ISO3166-2-lvl4']) ? item.address['ISO3166-2-lvl4'] : country_code;
-
-                                    $('#suggestions').append(`<div class="suggestion-item" data-lat="${item.lat}" data-lon="${item.lon}" data-state="${state}" data-county="${county}" data-municipality="${municipality}" data-country_code="${country_code}" data-country="${country}">${item.name} - ${iso}</div><hr>`);
-                                });
-                                $('#suggestions').show();
-                                $('#suggestions hr:last').remove();
-                            } else {
-                                $('#suggestions').hide();
-                            }
-                        }
-                    });
-                }
-            });
-        
-            $(document).on('click', '.suggestion-item', function() {
-                let selectedCity = $(this).text();
-                let lat = $(this).data('lat');
-                let lon = $(this).data('lon');
-
-                let reg = $(this).data('state');
-                let coun = $(this).data('county');
-                let city = $(this).data('municipality');
-                let coun_c = $(this).data('country_code');
-                let count = $(this).data('country');
-
-                $('#search').val(selectedCity);
-                $('#suggestions').hide();
-
-                window.location.href = `index.php?latitude=${lat}&longitude=${lon}&region=${reg}&county=${coun}&city=${city}&country_code=${coun_c}&country=${count}`;
-
-            });
-        
-            $(document).click(function(e) {
-                if (!$(e.target).closest('#search').length) {
-                    $('#suggestions').hide();
-                }
-            });
-        });
-    </script>
 </body>
 </html>

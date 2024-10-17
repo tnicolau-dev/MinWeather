@@ -19,6 +19,29 @@ function fetchUrl($url) {
 //-------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------
 
+if (isset($_GET['latitude']) and isset($_GET['latitude'])) {
+
+    $latitude = $_GET['latitude'];
+    $longitude = $_GET['longitude'];
+    $details_loc["region"] = $_GET['region'];
+    $details_loc["country"] = $_GET['country_code'];
+    
+    if($_GET['city'] != ''){
+        $details_loc["city"] = $_GET['city'];
+    } else if($_GET['county'] != ''){
+        $details_loc["city"] = $_GET['county'];
+    } else if($_GET['region'] != ''){
+        $details_loc["city"] = $_GET['region'];
+    } else {
+        $details_loc["city"] = $_GET['country'];
+    }
+
+}
+
+//-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
+
 
 if (!isset($latitude)) {
 
@@ -66,6 +89,8 @@ if (!isset($latitude)) {
             //-------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------
+
+            valida:
 
             $url = "https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&current=temperature_2m,is_day,precipitation,weather_code,wind_speed_10m&hourly=temperature_2m,uv_index&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,snowfall_sum,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=America%2FSao_Paulo&forecast_days=1";
             $json = fetchUrl($url);
@@ -186,6 +211,10 @@ if (!isset($latitude)) {
             $error_message = $e->getMessage();
         }
     }
+
+} else {
+    
+    goto valida;
 }
 
 ?>
