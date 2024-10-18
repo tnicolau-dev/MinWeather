@@ -52,6 +52,7 @@ window.addEventListener("beforeunload", () => {
 function mostrarLoader() {
     document.getElementById("loading-screen").style.display = "flex";
     document.body.style.overflow = 'hidden';
+    window.scrollTo({top: 0});
 }
 
 // Função para ocultar a tela de carregamento

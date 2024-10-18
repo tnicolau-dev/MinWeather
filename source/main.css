@@ -232,7 +232,7 @@ div#side_1 {
                 border-radius: 0.7rem;
                 width: 100%;
                 height: 3rem;
-                border: 0.1rem solid var(--font);
+                border: 0.15rem solid var(--font);
                 padding: 0.3rem 0.6rem;
                 color: var(--font);
                 box-sizing: border-box;
@@ -902,6 +902,14 @@ footer{
                     width: 100%;
                 }
             }
+        }
+    }
+
+    div#side_2{
+        h1:nth_child(1), h1:nth-child(3){
+
+            margin-bottom: 1.7rem;
+
         }
     }
 
