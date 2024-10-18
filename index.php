@@ -451,8 +451,38 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
     <?php endif; ?>
 
     <div class="loader popup" id="loading-screen">
-        <div class="loader-content">
-        </div>
+        <svg width="123" height="112" viewBox="0 0 123 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g id="load">
+            <g id="sunny">
+              <circle id="sol" cx="62.75" cy="56" r="23" stroke="var(--yellow)" stroke-width="6"/>
+              <g id="raio_sol">
+                <path id="Vector 33" d="M62.75 3V17.5" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 34" d="M62.75 94V108.5" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 33_2" d="M10 55.75H24.5" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 34_2" d="M101 55.75H115.5" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 33_3" d="M100.05 18.4502L89.7969 28.7032" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 34_3" d="M35.7031 82.7969L25.4501 93.0499" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 33_4" d="M25.4502 18.4502L35.7032 28.7032" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 34_4" d="M89.7969 82.7969L100.05 93.0499" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
+              </g>
+            </g>
+            <g id="chuva">
+              <g id="agua">
+                <path id="Vector 28" d="M104.092 88L85 107.092" stroke="var(--blue)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 31" d="M81 91L67 105" stroke="var(--blue)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 32" d="M40 91L26 105" stroke="var(--blue)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 29" d="M22.0919 88L3 107.092" stroke="var(--blue)" stroke-width="6" stroke-linecap="round"/>
+                <path id="Vector 30" d="M63.0919 88L44 107.092" stroke="var(--blue)" stroke-width="6" stroke-linecap="round"/>
+              </g>
+              <g id="nuvem">
+                <mask id="path-15-inside-1_564_41" fill="white">
+                  <path d="M47.4284 4.10804C37.6122 4.94952 28.9701 10.723 24.4378 19.4417C22.3008 23.5556 21.2205 28.0903 21.2205 32.9288V35.3598L19.6471 35.7338C11.9914 37.6505 5.67425 43.8915 3.58419 51.6518C2.80923 54.4334 2.80923 59.529 3.56071 62.2872C5.83863 70.6319 12.3202 76.756 20.7508 78.5793C22.6295 78.9766 24.884 79 63.0216 79C101.159 79 103.414 78.9766 105.292 78.5793C112.291 77.0833 118.044 72.5486 121.027 66.2141C122.576 62.895 123.023 60.838 122.999 56.9111C122.976 52.7972 122.529 50.9272 120.792 47.421C117.222 40.1983 110.694 35.874 102.239 35.1027L99.1162 34.8222L98.7169 33.6534C96.3451 26.7346 89.9575 22.083 82.748 22.083C81.7851 22.083 80.2587 22.2467 79.3428 22.457C78.4504 22.6674 77.5581 22.831 77.3702 22.8544C77.1823 22.8778 76.7831 22.2934 76.4073 21.3584C74.9748 17.9458 72.4151 14.3227 69.5266 11.658C63.5852 6.14162 55.6007 3.4068 47.4284 4.10804Z"/>
+                </mask>
+                <path d="M47.4284 4.10804C37.6122 4.94952 28.9701 10.723 24.4378 19.4417C22.3008 23.5556 21.2205 28.0903 21.2205 32.9288V35.3598L19.6471 35.7338C11.9914 37.6505 5.67425 43.8915 3.58419 51.6518C2.80923 54.4334 2.80923 59.529 3.56071 62.2872C5.83863 70.6319 12.3202 76.756 20.7508 78.5793C22.6295 78.9766 24.884 79 63.0216 79C101.159 79 103.414 78.9766 105.292 78.5793C112.291 77.0833 118.044 72.5486 121.027 66.2141C122.576 62.895 123.023 60.838 122.999 56.9111C122.976 52.7972 122.529 50.9272 120.792 47.421C117.222 40.1983 110.694 35.874 102.239 35.1027L99.1162 34.8222L98.7169 33.6534C96.3451 26.7346 89.9575 22.083 82.748 22.083C81.7851 22.083 80.2587 22.2467 79.3428 22.457C78.4504 22.6674 77.5581 22.831 77.3702 22.8544C77.1823 22.8778 76.7831 22.2934 76.4073 21.3584C74.9748 17.9458 72.4151 14.3227 69.5266 11.658C63.5852 6.14162 55.6007 3.4068 47.4284 4.10804Z" stroke="white" stroke-width="12" mask="url(#path-15-inside-1_564_41)"/>
+              </g>
+            </g>
+          </g>
+        </svg>
     </div>
 
     <script>

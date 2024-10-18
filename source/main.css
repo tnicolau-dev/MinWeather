@@ -112,6 +112,7 @@ div#error {
     position: absolute;
     top: 50%;
     left: 50%;
+    -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     z-index: 9999;
     display: flex;
@@ -120,19 +121,166 @@ div#error {
 }
 
 
-.loader-content {
-    border: 1rem solid var(--white);
-    border-radius: 50%;
-    border-top: 1rem solid var(--blue);
-    width: 5rem;
-    height: 5rem;
-    animation: spin 2s linear infinite;
-}
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+#sol{
+    stroke-dasharray: 150;
+    stroke-dashoffset: 0;
+    animation: sun 5s infinite;
+  }
+
+  @keyframes sun {
+    0% {
+      stroke-dashoffset: -150;
+
+    }
+
+    20%{
+      stroke-dashoffset: -150;
+
+    }
+
+    40%{
+      stroke-dashoffset: -150;
+
+    }
+
+    70%{
+      stroke-dashoffset: 0;
+
+    }
+
+    80%{
+      stroke-dashoffset: 0;
+
+    }
+
+    100%{
+      stroke-dashoffset: -150;
+
+    }
+  }
+
+  /*----------*/
+
+  #raio_sol{
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    animation: sun_r 5s infinite;
+  }
+
+  @keyframes sun_r {
+    0% {
+      opacity: 0;
+
+    }
+
+    20%{
+      opacity: 0;
+
+    }
+
+    40%{
+      opacity: 0;
+
+    }
+
+    70%{
+      opacity: 1;
+
+    }
+
+    80%{
+      opacity: 1;
+
+    }
+
+    100%{
+      opacity: 0;
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  /*-----------------------------------------------------------------------*/
+  /*-----------------------------------------------------------------------*/
+  /*-----------------------------------------------------------------------*/
+  /*chuva*/
+  
+
+  #agua path {
+    stroke-dasharray: 10;
+    stroke-dashoffset: 5;
+    animation: dash 1s infinite;
+  }
+
+  @keyframes dash {
+    100% {
+      stroke-dashoffset: -15;
+    }
+  }
+
+  /*----------*/
+
+  #agua{
+      animation: dash_a 5s infinite;
+  }
+
+  @keyframes dash_a {
+    0% {
+      opacity: 0;
+    }
+
+    20%{
+      opacity: 1;
+    }
+
+    40% {
+      opacity: 1;
+    }
+
+    60% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /*----------*/
+
+  #nuvem path {
+    stroke-dasharray: 500;
+    stroke-dashoffset: 0;
+    animation: dash_i 5s infinite;
+  }
+
+  @keyframes dash_i {
+    0% {
+      stroke-dashoffset: -500;
+
+    }
+
+    20%{
+      stroke-dashoffset: 0;
+
+    }
+
+    40%{
+      stroke-dashoffset: 0;
+
+    }
+
+    60%{
+      stroke-dashoffset: -500;
+
+    }
+
+    100%{
+      stroke-dashoffset: -500;
+
+    }
+  }
 
 /*-------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------*/
@@ -253,6 +401,7 @@ div#side_1 {
             div#suggestions {
                 position: absolute;
                 left: 50%;
+                -webkit-transform: translateX(-50%);
                 transform: translateX(-50%);
                 width: 100%;
                 background: var(--bg-search);
@@ -413,6 +562,7 @@ div#side_1 {
         position: absolute;
         right: -0.6rem;
         content: '➜';
+        -webkit-transform: rotate(90deg);
         transform: rotate(90deg);
         font-weight: 900;
         color: var(--blue);
@@ -557,6 +707,7 @@ div#side_2 {
                     #prec_info{
 
                         svg {
+                            -webkit-transform: translate(2rem, 1rem);
                             transform: translate(2rem, 1rem);
                             max-height: 8rem;
     
@@ -651,37 +802,45 @@ footer{
 
 @keyframes waveAction00 {
     0% {
-      transform: translate(0, 60px);
+        -webkit-transform: translate(0, 60px);
+        transform: translate(0, 60px);
     }
     100% {
-      transform: translate(0, 60px);
+        -webkit-transform: translate(0, 60px);
+        transform: translate(0, 60px);
     }
 }
 
 @keyframes waveAction01 {
     0% {
-      transform: translate(0, 30px);
+        -webkit-transform: translate(0, 30px);
+        transform: translate(0, 30px);
     }
     100% {
-      transform: translate(-66px, 30px);
+        -webkit-transform: translate(-66px, 30px);
+        transform: translate(-66px, 30px);
     }
 }
 
 @keyframes waveAction02 {
     0% {
-      transform: translate(0, 10px);
+        -webkit-transform: translate(0, -10px);
+        transform: translate(0, 10px);
     }
     100% {
-      transform: translate(-66px, 10px);
+        -webkit-transform: translate(-66px, -10px);
+        transform: translate(-66px, 10px);
     }
 }
 
 @keyframes waveAction03 {
     0% {
-      transform: translate(0, -10px);
+        -webkit-transform: translate(0, -10px);
+        transform: translate(0, -10px);
     }
     100% {
-      transform: translate(-66px, -10px);
+        -webkit-transform: translate(-66px, -10px);
+        transform: translate(-66px, -10px);
     }
 }
 
@@ -957,6 +1116,7 @@ footer{
 
             svg{
                 transform: translate(-2rem, 1rem) !important;
+                -webkit-transform: translate(-2rem, 1rem) !important;
             }
         }
     }

@@ -1,43 +1,3 @@
-// atualiza relógio
-
-function atualizarRelogio() {
-
-    const agora = new Date();
-
-    const dia = String(agora.getDate()).padStart(2, '0');
-    const mes = String(agora.getMonth() + 1).padStart(2, '0');
-    const horas = String(agora.getHours()).padStart(2, '0');
-    const minutos = String(agora.getMinutes()).padStart(2, '0');
-
-    const formatoRelogio = `${dia}/${mes} ${horas}:${minutos}`;
-
-    document.getElementById('relogio').innerText = formatoRelogio;
-}
-
-setInterval(atualizarRelogio, 60000);
-
-atualizarRelogio();
-
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-
-const button_r = document.getElementById('refresh');
-button_r.addEventListener('click', () => {
-
-    mostrarLoader();
-    window.location.href = 'index.php';
-
-});
-
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-
 //loader
 
 
@@ -63,50 +23,99 @@ function ocultarLoader() {
 window.addEventListener("pageshow", () => {
     ocultarLoader();
 });
-        
-
 
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
+
+// atualiza relógio
+
+function atualizarRelogio() {
+
+    const agora = new Date();
+
+    const dia = String(agora.getDate()).padStart(2, '0');
+    const mes = String(agora.getMonth() + 1).padStart(2, '0');
+    const horas = String(agora.getHours()).padStart(2, '0');
+    const minutos = String(agora.getMinutes()).padStart(2, '0');
+
+    const formatoRelogio = `${dia}/${mes} ${horas}:${minutos}`;
+    const relogio = document.getElementById('relogio');
+
+    if (relogio) {
+        relogio.innerText = formatoRelogio;
+    }
+}
+
+setInterval(atualizarRelogio, 60000);
+
+atualizarRelogio();
+
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+
+const button_r = document.getElementById('refresh');
+if(button_r){
+    button_r.addEventListener('click', () => {
+
+        mostrarLoader();
+        function refresh_r(){
+            window.location.href = 'index.php';
+        }
+        setTimeout(refresh_r, 2000);
+    
+    });
+}
+
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------   
 
 //dark mode
 
 const button = document.getElementById('toggle-button');
 
-button.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    document.body.classList.toggle('light');
+if(button){
 
-    if (document.body.classList.contains('dark')) {
+    button.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        document.body.classList.toggle('light');
+    
+        if (document.body.classList.contains('dark')) {
+            document.getElementById("light_i").style.display = 'none';
+            document.getElementById("night_i").style.display = 'initial';
+        } else {
+            document.getElementById("night_i").style.display = 'none';
+            document.getElementById("light_i").style.display = 'initial';
+        }
+    
+        draw();
+    
+    });
+    
+    
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    
+        document.body.classList.add('dark');
+    
         document.getElementById("light_i").style.display = 'none';
         document.getElementById("night_i").style.display = 'initial';
+    
+        draw();
+    
     } else {
+        document.body.classList.add('light');
+    
         document.getElementById("night_i").style.display = 'none';
         document.getElementById("light_i").style.display = 'initial';
     }
-
-    draw();
-
-});
-
-
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-
-    document.body.classList.add('dark');
-
-    document.getElementById("light_i").style.display = 'none';
-    document.getElementById("night_i").style.display = 'initial';
-
-    draw();
-
-} else {
-    document.body.classList.add('light');
-
-    document.getElementById("night_i").style.display = 'none';
-    document.getElementById("light_i").style.display = 'initial';
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -172,7 +181,10 @@ $(document).ready(function() {
 
         mostrarLoader();
 
-        window.location.href = `./index.php?latitude=${lat}&longitude=${lon}&region=${reg}&county=${coun}&city=${city}&country_code=${coun_c}&country=${count}`;
+        function refresh_r(){
+            window.location.href = `./index.php?latitude=${lat}&longitude=${lon}&region=${reg}&county=${coun}&city=${city}&country_code=${coun_c}&country=${count}`;
+        }
+        setTimeout(refresh_r, 2000);
 
     });
 
