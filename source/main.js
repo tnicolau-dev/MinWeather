@@ -25,12 +25,45 @@ atualizarRelogio();
 //-----------------------------------------------------------------------------------------------
 
 const button_r = document.getElementById('refresh');
-
 button_r.addEventListener('click', () => {
 
+    mostrarLoader();
     window.location.href = 'index.php';
 
 });
+
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+
+//loader
+
+
+//onReload
+
+window.addEventListener("beforeunload", () => {
+    mostrarLoader();
+});
+
+
+// Função para mostrar a tela de carregamento
+function mostrarLoader() {
+    document.getElementById("loading-screen").style.display = "flex";
+    document.body.style.overflow = 'hidden';
+}
+
+// Função para ocultar a tela de carregamento
+function ocultarLoader() {
+    document.getElementById("loading-screen").style.display = "none";
+}
+
+window.addEventListener("pageshow", () => {
+    ocultarLoader();
+});
+        
+
 
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
@@ -135,6 +168,8 @@ $(document).ready(function() {
 
         $('#search').val(selectedCity);
         $('#suggestions').hide();
+
+        mostrarLoader();
 
         window.location.href = `./index.php?latitude=${lat}&longitude=${lon}&region=${reg}&county=${coun}&city=${city}&country_code=${coun_c}&country=${count}`;
 

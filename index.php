@@ -450,6 +450,11 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
         </div>
     <?php endif; ?>
 
+    <div class="loader popup" id="loading-screen">
+        <div class="loader-content">
+        </div>
+    </div>
+
     <script>
 
         <?php
