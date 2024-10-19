@@ -43,6 +43,12 @@ body.light {
     .shadow{
         box-shadow: 4px 5px 7px var(--shadow);
         border-radius: 0.5rem;
+        transition: 0.3s ease;
+    }
+
+    .shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 4px 7px 13px var(--shadow);
     }
 }
 
@@ -65,6 +71,11 @@ body.dark {
         box-shadow: none;
         background-color: var(--white2);
         border-radius: 0.5rem;
+        transition: 0.3s ease;
+    }
+
+    .shadow:hover {
+        transform: translateY(-5px);
     }
 }
 
@@ -122,7 +133,7 @@ div#error {
 
 
 
-#sol{
+#sol_s{
     stroke-dasharray: 150;
     stroke-dashoffset: 0;
     animation: sun 5s infinite;

@@ -454,7 +454,7 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
         <svg width="123" height="112" viewBox="0 0 123 112" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="load">
             <g id="sunny">
-              <circle id="sol" cx="62.75" cy="56" r="23" stroke="var(--yellow)" stroke-width="6"/>
+              <circle id="sol_s" cx="62.75" cy="56" r="23" stroke="var(--yellow)" stroke-width="6"/>
               <g id="raio_sol">
                 <path id="Vector 33" d="M62.75 3V17.5" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
                 <path id="Vector 34" d="M62.75 94V108.5" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/>
