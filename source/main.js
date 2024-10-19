@@ -64,10 +64,10 @@ if(button_r){
     button_r.addEventListener('click', () => {
 
         mostrarLoader();
-        function refresh_r(){
+        //function refresh_r(){
             window.location.href = 'index.php';
-        }
-        setTimeout(refresh_r, 2000);
+        //}
+        //setTimeout(refresh_r, 2000);
     
     });
 }
@@ -181,10 +181,10 @@ $(document).ready(function() {
 
         mostrarLoader();
 
-        function refresh_r(){
+        //function refresh_r(){
             window.location.href = `./index.php?latitude=${lat}&longitude=${lon}&region=${reg}&county=${coun}&city=${city}&country_code=${coun_c}&country=${count}`;
-        }
-        setTimeout(refresh_r, 2000);
+        //}
+        //setTimeout(refresh_r, 2000);
 
     });
 

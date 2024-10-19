@@ -79,6 +79,16 @@ body.dark {
     }
 }
 
+.shadow:hover{
+    > svg path{
+
+        stroke-dasharray: 500;
+        stroke-dashoffset: 0;
+        animation: icon_ani 0.5s ease;
+
+    }
+}
+
 div#error {
     display: flex;
     justify-content: center;
@@ -483,6 +493,16 @@ div#side_1 {
         }
     }
 
+    div#temp_prin:hover{
+        #icon_side_1{
+            svg > path{
+                    stroke-dasharray: 500;
+                    stroke-dashoffset: 0;
+                    animation: icon_ani 0.5s ease;
+            }
+        }
+    }
+
     #temp_s_m{
         font-size: 4rem;
     }
@@ -855,6 +875,13 @@ footer{
     }
 }
 
+
+@keyframes icon_ani {
+    0% {
+      stroke-dashoffset: -500;
+    
+    }
+}
 
 /*--------------------------------------------------------------*/
 /*--------------------------------------------------------------*/
