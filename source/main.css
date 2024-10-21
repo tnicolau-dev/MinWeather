@@ -79,15 +79,38 @@ body.dark {
     }
 }
 
-.shadow:hover{
-    > svg path{
+/*-----------------------------------------------------------*/
+/*-----------------------------------------------------------*/
+/*-----------------------------------------------------------*/
 
-        stroke-dasharray: 500;
-        stroke-dashoffset: 0;
-        animation: icon_ani 0.5s ease;
+.shadow:hover,
+div#temp_prin:hover #icon_side_1 {
+    > svg {
+        #nuvem path, #nevoa, #bola_r {
+            stroke-dasharray: 500;
+            stroke-dashoffset: 0;
+            animation: icon_ani_path 0.5s ease;
+        }
 
+        #bola {
+            animation: icon_ani_bola 0.5s ease;
+        }
+
+        #chuva, #raio {
+            animation: icon_ani_chuva 0.5s ease;
+        }
+
+        #neve {
+            transform-origin: 50% 50%;
+            animation: icon_ani_neve 0.5s ease;
+        }
     }
 }
+
+
+/*-----------------------------------------------------------*/
+/*-----------------------------------------------------------*/
+/*-----------------------------------------------------------*/
 
 div#error {
     display: flex;
@@ -270,7 +293,7 @@ div#error {
 
   /*----------*/
 
-  #nuvem path {
+  #nuvem_l path {
     stroke-dasharray: 500;
     stroke-dashoffset: 0;
     animation: dash_i 5s infinite;
@@ -490,16 +513,6 @@ div#side_1 {
         #temp_side_1 {
             display: flex;
             flex-direction: column;
-        }
-    }
-
-    div#temp_prin:hover{
-        #icon_side_1{
-            svg > path{
-                    stroke-dasharray: 500;
-                    stroke-dashoffset: 0;
-                    animation: icon_ani 0.5s ease;
-            }
         }
     }
 
@@ -875,11 +888,32 @@ footer{
     }
 }
 
+/*--------------------------------------------------------------*/
 
-@keyframes icon_ani {
+@keyframes icon_ani_path {
     0% {
       stroke-dashoffset: -500;
     
+    }
+}
+
+@keyframes icon_ani_neve {
+    50% {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes icon_ani_chuva {
+    0% {
+      transform: translateY(-25px);
+      opacity: 0;
+    }
+}
+
+@keyframes icon_ani_bola {
+    0% {
+      transform: translateX(-25px);
+      opacity: 0;
     }
 }
 
