@@ -19,6 +19,8 @@ body {
     transition: 0.3s ease;
     background-color: var(--white);
     animation: fadeIn 2s ease;
+
+    user-select: var(--blue);
 }
 
 @keyframes fadeIn {
@@ -131,6 +133,35 @@ div#error {
 
     h2{
         font-size: 1.5rem;
+    }
+
+    p{
+        margin: 2rem 0 1rem;
+        font-size: 1rem;
+    }
+
+    button{
+        background: var(--l_blue);
+        border: none;
+        padding: 0.5rem 1rem;
+        color: var(--white);
+        border-radius: 1rem;
+        cursor: pointer;
+        border: 1px solid var(--l_blue);
+        transition: 0.3s ease;
+    }
+
+    button:hover{
+        background-color: var(--white);
+        color: var(--l_blue);
+    }
+
+    svg{
+        path, circle{
+            stroke-dasharray: 500;
+            stroke-dashoffset: 0;
+            animation: icon_ani_path 1s ease;
+        }
     }
 
 }
