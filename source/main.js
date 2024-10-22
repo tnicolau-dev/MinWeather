@@ -5,12 +5,26 @@ function atualizarRelogio() {
 
     const agora = new Date();
 
-    const dia = String(agora.getDate()).padStart(2, '0');
-    const mes = String(agora.getMonth() + 1).padStart(2, '0');
-    const horas = String(agora.getHours()).padStart(2, '0');
-    const minutos = String(agora.getMinutes()).padStart(2, '0');
+    // Formatação manual para remover a vírgula
+    const opcoesData = {
+        timeZone: timezone_l,
+        day: '2-digit',
+        month: '2-digit'
+    };
 
-    const formatoRelogio = `${dia}/${mes} ${horas}:${minutos}`;
+    const opcoesHora = {
+        timeZone: timezone_l,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false // Para formato 24 horas
+    };
+
+    const dataFormatada = agora.toLocaleDateString('pt-BR', opcoesData);
+    const horaFormatada = agora.toLocaleTimeString('pt-BR', opcoesHora);
+
+    // Combine a data e a hora no formato desejado: dd/mm hh:ii
+    const formatoRelogio = `${dataFormatada} ${horaFormatada}`;
+
     const relogio = document.getElementById('relogio');
 
     if (relogio) {
@@ -21,6 +35,8 @@ function atualizarRelogio() {
 setInterval(atualizarRelogio, 60000);
 
 atualizarRelogio();
+
+
 
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
