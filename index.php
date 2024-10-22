@@ -4,14 +4,15 @@ header("Content-type: text/html; charset=utf-8");
 ini_set("display_errors", 1);
 error_reporting(E_ALL|E_STRICT);
 
-include "./components/weather_codes.php";
-include "./components/cities_code.php";
-include "api_weather.php";
+include "./components/weather_codes.php"; // arquivo com todos os códigos de clima, suas descrições e icones
+include "./components/cities_code.php"; // arquivo com de/para dos estados brasileiros e suas siglas
+include "api_weather.php"; // arquivo principal com as requisições na API de clima
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
+// função de/para dia da semana em inglês para português
 function diaDaSemanaEmPortugues($diaEmIngles) {
     switch (strtolower($diaEmIngles)) {
         case 'monday':
@@ -41,26 +42,29 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MinWeather</title>
-    <script src="./source/load.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="./source/main.css">
-
     <link rel="icon" href="./image/icone.ico" type="image/x-icon">
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0&icon_names=humidity_low" />
+
+    <link rel="stylesheet" href="./source/main.css">
+    <script src="./source/load.js" type="text/javascript"></script>
 </head>
 
 <body>
+    <!-- verifica se tem qualquer mensagem de erro antes de carregar o conteúdo -->
     <?php if ($error_message == ''): ?>
     <div id="main">
         <div id="side_1">
             <div id="search_b">
                 <div id="btn_ref">
+                    <!-- botão ao lado da barra de pesquisa para recarregar a página com a localização atual -->
                     <button id="refresh">
                         <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
 	                        <path fill="none" stroke="var(--font)" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M256 96V56M256 456v-40"/>
@@ -68,11 +72,15 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                             <path fill="none" stroke="var(--font)" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M416 256h40M56 256h40"/>
                         </svg>
                     </button>
+
+                    <!-- barra de pesquisa-->
                     <div id="search_bar">
                         <input type="text" id="search" placeholder="Digite uma cidade...">
                         <div class="suggestions" id="suggestions" style="display: none;"></div>
                     </div>
                 </div>
+
+                <!-- botão ativa e desativa modo escuro -->
                 <div id="btn_l_n">
                     <button id="toggle-button">
 
@@ -92,6 +100,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
             <div id="side_cont">
                 <div id="header_side_1">
                     <?php   
+
+                    //busca a sigla do estado se for brasileiro, caso contrático coloca a sigla do pais
 
                     if(isset($estados)){
                         foreach ($estados as $estado) {
@@ -116,7 +126,9 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                     <h2 id="relogio"></h2>
 
                     <?php
-                        $current_day_time = $data_current['current']['is_day'] == 1 ? 'day' : 'night';
+
+                        //busca a descrição do clima
+
                         $code_c = $data_current['current']['weather_code'];
 
                         if (isset($weather_codes_translated[$code_c][$current_day_time])) {
@@ -131,10 +143,12 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                 </div>
             
                 <div id="temp_prin">
+                    <!-- icone de clima principal -->
                     <div id="icon_side_1">
                         <?php echo $weather_codes_translated[$code_c][$current_day_time]["image"]; ?>
                     </div>
 
+                    <!-- temperatura mínima e máxima-->
                     <div id="temp_side_1">
                         <span id="temp_s_m"><?php echo round($data_current['current']['temperature_2m']) . ' ' . $data_current['current_units']['temperature_2m'];  ?></span>
                         <div id="temp_s_mi_ma" class="item_s_temp">
@@ -143,6 +157,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                         </div>
                     </div>
                 </div>
+
+                <!-- dados de chuva, vento e neve caso exista algo, se não mostra apenas chuva e vento-->
 
                 <div id="footer_side_1">
                     <div>
@@ -185,12 +201,16 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
         </div>
 
         <div id="side_2">
+            
+            <!-- gráfico -->
             <h1>Hoje</h1>
             <div id="sec_1" class="shadow">
                 <div style="height: 300px; width: 100%">
                     <canvas id="temperatureChart" style="height: 100%; width: 100%"></canvas>
                 </div>
             </div>
+
+            <!-- cards com os próximos 7 dias -->
             <div id="sec_2">
                 <h1>Esta semana</h1>
                 
@@ -240,6 +260,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
             <div id="sec_3">
                 <h1>Mais informações</h1>
                 <div id="items_s_3">
+
+                    <!-- nascer e por do sol, calculando o angulo de rotação para o desenho gráfico e mudando de cor caso seja dia ou noite -->
                     <div class="item_sec_3 shadow">
 
                         <?php
@@ -305,6 +327,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                         </div>
                     </div>
                     <div class="item_sec_3 shadow">
+
+                        <!-- direção e velocidade atual do vento -->
                         <h3>Vento</h3>
                         <div id="buss-cont">
                             <div id="bussola_v">
@@ -339,6 +363,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
 
                     <?php
                     
+                    //ajusta a animação do nível da água de acordo com a quantidade de precipitação 
+
                     $precip_num = $data_current_week['daily']['precipitation_sum'][0];
 
                     if($precip_num == 0){
@@ -354,6 +380,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                     ?>
 
                     <div class="item_sec_3 shadow">
+
+                        <!-- nível e quantidade de preciptação atual -->
                         <h3>Precipitação</h3>
                         <div id="prec_cont">
                             <div id="prec_info">
@@ -374,6 +402,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                         </div>
                     </div>
                     <div class="item_sec_3 shadow">
+
+                        <!-- nível e quantidade de UV atual -->
                         <h3>UV</h3>
                         <div id="uv_cont">
                             <div id="uv_info">
@@ -417,6 +447,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
                     </div>
                 </div>
             </div>
+
+            <!-- footer com dados de redes sociais e copyright -->
             <footer>
                 <hr>
                 <br>
@@ -436,6 +468,8 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
             </footer>
         </div>
     </div>
+
+    <!-- caso tenha uma mensagem de erro pega pelo try catch, ele mostra a tela de erro abaixo -->
     <?php else: ?>
         <div id="error">
             <div>
@@ -455,6 +489,14 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
             </div>
         </div>
     <?php endif; ?>
+
+
+    <!-- ------------------------------------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------------------------------------- -->
+     
+    <!-- tela de carregamento -->
+
 
     <div class="loader popup" id="loading-screen">
         <svg width="123" height="112" viewBox="0 0 123 112" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -10,11 +10,12 @@ function ocultarLoader() {
     document.getElementById("loading-screen").style.display = "none";
 }
 
-
+//se a tela carregou seu conteúdo, oculda a tela de carregamento
 window.addEventListener("load", () => {
     ocultarLoader();
 });
 
+//qualquer evendo que carregue ou recarregue a página ele vai mostrar a tela de carregamento
 window.addEventListener("beforeunload", () => {
     mostrarLoader();
 });

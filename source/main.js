@@ -1,11 +1,9 @@
-
-// atualiza relógio
+//-----------------------------------------------------------------------------------------------
+// função para atualizar o relógio de acordo com o time zone
 
 function atualizarRelogio() {
 
     const agora = new Date();
-
-    // Formatação manual para remover a vírgula
     const opcoesData = {
         timeZone: timezone_l,
         day: '2-digit',
@@ -16,13 +14,11 @@ function atualizarRelogio() {
         timeZone: timezone_l,
         hour: '2-digit',
         minute: '2-digit',
-        hour12: false // Para formato 24 horas
+        hour12: false
     };
 
     const dataFormatada = agora.toLocaleDateString('pt-BR', opcoesData);
     const horaFormatada = agora.toLocaleTimeString('pt-BR', opcoesHora);
-
-    // Combine a data e a hora no formato desejado: dd/mm hh:ii
     const formatoRelogio = `${dataFormatada} ${horaFormatada}`;
 
     const relogio = document.getElementById('relogio');
@@ -36,13 +32,13 @@ setInterval(atualizarRelogio, 60000);
 
 atualizarRelogio();
 
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 
-
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
+//função utilizada para dar um refresh na página redirecionando para o index, limpando assim os dados da URL
 
 const button_r = document.getElementById('refresh');
 if(button_r){
@@ -60,7 +56,7 @@ if(button_r){
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------   
 
-//dark mode
+//função para ativar/desativar o dark mode do site, além de identificr automaticamente se o dispositivo está no modo escuro ou não
 
 const button = document.getElementById('toggle-button');
 
@@ -106,9 +102,7 @@ if(button){
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 
-//desenho gráfico
-
-
+//função para desenhar o gráfico na tag canvas
 
 var splineAreaChart;
 
@@ -116,6 +110,8 @@ function draw(){
 
     const ctx = document.getElementById('temperatureChart').getContext('2d');
     
+    //pega as variáveis de cor do css do body
+
     var fontColor = getComputedStyle(document.body).getPropertyValue('--font').trim();
     var lightBlueColor = getComputedStyle(document.body).getPropertyValue('--light_blue').trim();
     var blueColor = getComputedStyle(document.body).getPropertyValue('--blue').trim();
@@ -124,11 +120,15 @@ function draw(){
     var yellowColor = getComputedStyle(document.body).getPropertyValue('--yellow').trim();
     var lineColor = getComputedStyle(document.body).getPropertyValue('--line_g').trim();
 
+    //caso o gráfico já exista, destroi ele para ser possível redesenhá-lo
+
     if (splineAreaChart) {
         splineAreaChart.destroy();
     }
 
     //------------------------------------------------------------------------------------
+
+    //converte o código HEX das variáveis de cor para RGB
 
     function hexToRgba(hex, alpha) {
         hex = hex.replace('#', '');
@@ -137,6 +137,8 @@ function draw(){
         var b = parseInt(hex.substring(4, 6), 16);
         return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
+
+    //gradiente do gráfico
 
     var gradient = ctx.createLinearGradient(0, 0, 0, 250);
     gradient.addColorStop(0, hexToRgba(lightBlueColor, 1));
@@ -153,6 +155,9 @@ function draw(){
         
             const promises = chart.data.labels.map((label, index) => {
                 return new Promise((resolve) => {
+
+                    //trecho para desenhar os icones do clima no gráfico com suas respectiveis cores
+
                     var x = chart.scales.x.getPixelForValue(index);
                     var y = chart.scales.y.bottom + 15;
                 
@@ -171,6 +176,8 @@ function draw(){
 
                     //------------------------------------------
 
+                    //trecho para desenhar os icones de chuva no gráfico
+
                     var svg_w = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--font)"><path d="M480-152q-111.39 0-189.69-76.71Q212-305.41 212-415.47 212-468 233.5-516t56.5-86l190-186 190 186q35 38 56.5 86.04Q748-467.92 748-415.28 748-305 669.69-228.5 591.39-152 480-152Zm0-28q100 0 170-68t70-167.23q0-47.11-18-89.71-18-42.6-52-74.67L480-748 310-579.61q-34 32.07-52 74.67t-18 89.71Q240-316 310-248q70 68 170 68Z"/></svg>';
                     svg_w = svg_w.replace(/var\(--font\)/g, fontColor);
                     
@@ -181,6 +188,8 @@ function draw(){
                     img_w.src = url_t_w;
 
                     //---------------------------------------------
+
+                    //trecho para colocar a porcentagem de chuva e a hora no gráfico
 
                     var img = new Image();
                     img.src = url_t;
@@ -206,6 +215,8 @@ function draw(){
             });
         }
     };
+
+    //trecho para colocar a temperatura no gráfico
 
     var topValuesPlugin = {
         id: 'topValuesPlugin',
@@ -288,11 +299,14 @@ function draw(){
                     grid: {
                         display: false
                     },
-                    min: min_temp - 1,
-                    max: max_temp + 1
+                    min: min_temp - 1, //margem de segurança para a linha do gráfico não saia para fora da área visivel
+                    max: max_temp + 1  //margem de segurança para a linha do gráfico não saia para fora da área visivel
                 }
             }
         },
+
+        //adiciona as customizações criadas anteriormente
+
         plugins: [topValuesPlugin, customLabelsPlugin]
     });
 }
@@ -305,7 +319,7 @@ draw();
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 
-//search bar
+//função dedicada a funcionalidade da barra de pesquisa
 
 $(document).ready(function() {
     $('#search').on('input', function() {
@@ -332,9 +346,21 @@ $(document).ready(function() {
                             let state = (item.address.state) ? item.address.state : '';
                             let country_code = (item.address.country_code) ? item.address.country_code.toUpperCase() : '';
 
+                            let c = '';
+
+                            if(state){
+                                c = '- ' + state;
+                            } else if(county){
+                                c = '- ' + county;
+                            }
+
+                            
+
                             let iso = (item.address['ISO3166-2-lvl4']) ? item.address['ISO3166-2-lvl4'] : country_code;
 
-                            $('#suggestions').append(`<div class="suggestion-item" data-lat="${item.lat}" data-lon="${item.lon}" data-state="${state}" data-county="${county}" data-municipality="${municipality}" data-country_code="${country_code}" data-country="${country}">${item.name} - ${iso}</div><hr>`);
+                            //cria os itens que aparecem abaixo da barra de pesquisa de acordo com o que o usuário for digitando
+
+                            $('#suggestions').append(`<div class="suggestion-item" data-lat="${item.lat}" data-lon="${item.lon}" data-state="${state}" data-county="${county}" data-municipality="${municipality}" data-country_code="${country_code}" data-country="${country}">${item.name} ${c} - ${iso}</div><hr>`);
                         });
                         $('#suggestions').show();
                         $('#suggestions hr:last').remove();
@@ -359,6 +385,8 @@ $(document).ready(function() {
 
         $('#search').val(selectedCity);
         $('#suggestions').hide();
+
+        //ao clicar em um dos itens de pesquisa, ele mostra a tela de carregamento e redireciona para o index porém passando parâmetros pela URL
 
         mostrarLoader();
 
