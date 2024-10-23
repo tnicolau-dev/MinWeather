@@ -31,13 +31,13 @@ Previsões climáticas e atualizações em tempo real.
 >## Features e Usabilidade
 >
 >>### 1. Previsão do tempo da localização atual
->>><p>O sistema identifica automaticamente sua localização com base no seu IP e busca as informações do clima correspondentes.</p>
+>><p>O sistema identifica automaticamente sua localização com base no seu IP e busca as informações do clima correspondentes.</p>
 >><br />
 ><p align="right">(<a href="#readme-top">back to top</a>)</p>
 ><br />
 >
 >>### 2. Modo claro/escuro
->>><p>Para alterar o modo de visualização do site para o modo claro/escuro basta clicar no icone de sol/lua ao lado da barra de >pesquisa.</p>
+>><p>Para alterar o modo de visualização do site para o modo claro/escuro basta clicar no icone de sol/lua ao lado da barra de >pesquisa.</p>
 >><br />
 >><div align="center">
 >><img src="./image/screenshots/gif/dark_light_mode.gif" alt="Modo claro e escuro" width="400">
@@ -47,7 +47,7 @@ Previsões climáticas e atualizações em tempo real.
 ><br />
 >
 >>### 3. Barra de pesquisa
->>><p>Ao digitar na barra de pesquisa, irá trazer localizações de todo o mundo que possuem nomes semelhantes. Basta clicar sobre >uma delas que o sistema fará a busca. </p>
+>><p>Ao digitar na barra de pesquisa, irá trazer localizações de todo o mundo que possuem nomes semelhantes. Basta clicar sobre uma delas que o sistema fará a busca. </p>
 >><br />
 >><div align="center">
 >><img src="./image/screenshots/gif/search_bar.gif" alt="Modo claro e escuro" width="250">
@@ -62,13 +62,13 @@ Previsões climáticas e atualizações em tempo real.
 ><br />
 >
 >>### 4. Voltar à localização atual
->>><p>Ao clicar no icone do lado esquerdo da barra de pesquisa (semelhando a uma mira) o sistema irá recarregar e buscar sua >localização atual. </p>
+>><p>Ao clicar no icone do lado esquerdo da barra de pesquisa (semelhando a uma mira) o sistema irá recarregar e buscar sua localização atual. </p>
 >><br />
 ><p align="right">(<a href="#readme-top">back to top</a>)</p>
 ><br />
 >
 >>### 5. Informações sobre neve
->>><p>Caso a localização em questão possua algum dado referente e neve, irá aparecer um terceiro item junto com as informações de >"<strong>chuva</strong>" e "<strong>vento</strong>".</p>
+>><p>Caso a localização em questão possua algum dado referente e neve, irá aparecer um terceiro item junto com as informações de "<strong>chuva</strong>" e "<strong>vento</strong>".</p>
 >><br />
 >><div align="center">
 >><img src="./image/screenshots/snow_info.png" alt="Modo claro e escuro" width="200">
@@ -78,7 +78,7 @@ Previsões climáticas e atualizações em tempo real.
 ><br />
 >
 >>### 6. Previsão do clima das próximas 12h
->>>- <p>O gráfico mostra a previsão do clima, temperatura e chance de chuva de cada hora para as próximas 12h.</p>
+>><p>O gráfico mostra a previsão do clima, temperatura e chance de chuva de cada hora para as próximas 12h.</p>
 >><br />
 >><div align="center">
 >><img src="./image/screenshots/graph_12h.png" alt="Modo claro e escuro" width="500">
@@ -88,7 +88,7 @@ Previsões climáticas e atualizações em tempo real.
 ><br />
 >
 >>### 7. Previsão do clima dos próximos 7 dias
->>><p>Logo abaixo temos a previsão do clima, temperatura e chance de chuva de cada dia da semana dos próximos 7 dias.</p>
+>><p>Logo abaixo temos a previsão do clima, temperatura e chance de chuva de cada dia da semana dos próximos 7 dias.</p>
 >><br />
 >><div align="center">
 >><img src="./image/screenshots/gif/week_temp.gif" alt="Modo claro e escuro" width="500">
@@ -98,7 +98,7 @@ Previsões climáticas e atualizações em tempo real.
 ><br />
 >
 >>### 8. Módulos 
->>><p>Ao final da página tem 4 módulos, onde cada um apresenta uma informação diferente:</p>
+>><p>Ao final da página tem 4 módulos, onde cada um apresenta uma informação diferente:</p>
 >><br />
 >>
 >>>### Nascer e Pôr do Sol
@@ -111,11 +111,13 @@ Previsões climáticas e atualizações em tempo real.
 >>>      <img src="./image/screenshots/sun_s_s_1.png" alt="Modo claro e escuro" width="200">
 >>>   </p>
 >>   <br />
->
-><br />
->
->>### Vento
 >>
+>><br />
+>><p align="right">(<a href="#readme-top">back to top</a>)</p>
+>><br />
+>>
+>>>### Vento
+>>>
 >>>Mostra a direção e velocidade atual do vento.
 >>>   
 >>>   <p align="center">
@@ -123,11 +125,13 @@ Previsões climáticas e atualizações em tempo real.
 >>>      <img src="./image/screenshots/wind.png" alt="Modo claro e escuro" width="200">
 >>>   </p>
 >>   <br />
->
-><br />
->
->>### Precipitação
 >>
+>><br />
+>><p align="right">(<a href="#readme-top">back to top</a>)</p>
+>><br />
+>>
+>>>### Precipitação
+>>>
 >>>Mostra o nível de precipitação em milímetros (mm) e visualmente indica se a quantidade é baixa, média, alta ou nenhuma.
 >>>   
 >>><br />
@@ -145,34 +149,36 @@ Previsões climáticas e atualizações em tempo real.
 >>>      <img src="./image/screenshots/gif/wave3.gif" alt="Modo claro e escuro" width="200">
 >>>   </p>
 >>   <br />
-><br />
->
->>### UV
->>
->>Mostra o nível de raios UV atual, podendo ser fraco, médio, alto, muito alto e extremo.
->>  
+>><br />
+>><p align="right">(<a href="#readme-top">back to top</a>)</p>
 >><br />
 >>
->>><p>Menor que 3 - Baixo</p>
->>> <p>Entre 3 e 6 - Médio</p>
->>><p>Entre 6 e 8 - Alto</p>
->>><p>Entre 8 e 10 - Muito Alto</p>
->>><p>EMaior que 10 - Extremo</p>
+>>>### UV
+>>>
+>>>Mostra o nível de raios UV atual, podendo ser fraco, médio, alto, muito alto e extremo.
+>>>  
+>>><br />
+>>>
+>>>><p>Menor que 3 - Baixo</p>
+>>>><p>Entre 3 e 6 - Médio</p>
+>>>><p>Entre 6 e 8 - Alto</p>
+>>>><p>Entre 8 e 10 - Muito Alto</p>
+>>>><p>EMaior que 10 - Extremo</p>
+>>>
+>>><br />
+>>>
+>>>   <p align="center">
+>>>      <img src="./image/screenshots/uv0.png" alt="Modo claro e escuro" width="200">
+>>>      <img src="./image/screenshots/uv1.png" alt="Modo claro e escuro" width="200">
+>>>      <img src="./image/screenshots/uv2.png" alt="Modo claro e escuro" width="200">
+>>>      <img src="./image/screenshots/uv3.png" alt="Modo claro e escuro" width="200">
+>>>      <img src="./image/screenshots/uv4.png" alt="Modo claro e escuro" width="200">
+>>>      <img src="./image/screenshots/uv5.png" alt="Modo claro e escuro" width="200">
+>>>   </p>
+>>>   <br />
 >>
 >><br />
 >>
->>   <p align="center">
->>      <img src="./image/screenshots/uv0.png" alt="Modo claro e escuro" width="200">
->>      <img src="./image/screenshots/uv1.png" alt="Modo claro e escuro" width="200">
->>      <img src="./image/screenshots/uv2.png" alt="Modo claro e escuro" width="200">
->>      <img src="./image/screenshots/uv3.png" alt="Modo claro e escuro" width="200">
->>      <img src="./image/screenshots/uv4.png" alt="Modo claro e escuro" width="200">
->>      <img src="./image/screenshots/uv5.png" alt="Modo claro e escuro" width="200">
->>   </p>
->>   <br />
->
-><br />
->
 ><p align="right">(<a href="#readme-top">back to top</a>)</p>
 ><br />
 >
