@@ -168,8 +168,21 @@ if (!isset($latitude)) {
                 $data_current_hr_at = [];
                 $data_current_hr_at_gr = [];
 
+                //-------------------------------------------------------------------------------------
+
+                //busca os dados de nascer e pôr do sol
+                $dateTime1 = new DateTime($data_current['daily']['sunrise'][0]);
+                $time1 = $dateTime1->format('H');
+                $dateTime2 = new DateTime($data_current['daily']['sunset'][0]);
+                $time2 = $dateTime2->format('H');
+
+                //verifica se está de dia ou de noite bara buscar os icones de acordo
+                $hour_now = new DateTime($data_current_hr['hourly']['time'][$index_s]);
+                $current_day_time = (intval($hour_now->format('H')) >= $time2 or intval($hour_now->format('H')) <= $time1) ? 'night' : 'day';
+
+                //-------------------------------------------------------------------------------------
+
                 //a partir da hora atual ele pega os dados das 13 horas sequintes, incluindo a hora atual, tendo assim um rage de 12h para o gráfico
-        
                 for ($i = $index_s; $i < $index_s + 13 && $i < count($data_current_hr['hourly']['time']); $i++) {
 
                     if (!isset($data_current_hr['hourly']['weather_code'][$i])) {
@@ -207,16 +220,6 @@ if (!isset($latitude)) {
                     if (!isset($data_current['daily']['sunset'][0])) {
                         throw new Exception('Dados inválidos - #008.');
                     }
-        
-                    $dateTime1 = new DateTime($data_current['daily']['sunrise'][0]);
-                    $time1 = $dateTime1->format('H');
-                    $dateTime2 = new DateTime($data_current['daily']['sunset'][0]);
-                    $time2 = $dateTime2->format('H');
-        
-                    //verifica se está de dia ou de noite bara buscar os icones de acordo
-
-                    $current_day_time = (intval($dateTime_gr->format('H')) >= $time2 or intval($dateTime_gr->format('H')) <= $time1) ? 'night' : 'day';
-        
 
                     if (!isset($data_current_hr['hourly']['temperature_2m'][$i])) {
                         throw new Exception('Dados inválidos - #009.');
