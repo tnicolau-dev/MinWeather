@@ -110,9 +110,8 @@ Previsões climáticas e atualizações em tempo real.
 >>>      <img src="./image/screenshots/sun_s_s.png" alt="Modo claro e escuro" width="200">
 >>>      <img src="./image/screenshots/sun_s_s_1.png" alt="Modo claro e escuro" width="200">
 >>>   </p>
->>   <br />
+>>>   <br />
 >>
->><br />
 >><p align="right">(<a href="#readme-top">back to top</a>)</p>
 >><br />
 >>
@@ -126,7 +125,6 @@ Previsões climáticas e atualizações em tempo real.
 >>>   </p>
 >>>   <br />
 >>
->><br />
 >><p align="right">(<a href="#readme-top">back to top</a>)</p>
 >><br />
 >>
@@ -149,7 +147,6 @@ Previsões climáticas e atualizações em tempo real.
 >>>      <img src="./image/screenshots/gif/wave3.gif" alt="Modo claro e escuro" width="200">
 >>>   </p>
 >>>   <br />
->><br />
 >><p align="right">(<a href="#readme-top">back to top</a>)</p>
 >><br />
 >>
@@ -177,8 +174,6 @@ Previsões climáticas e atualizações em tempo real.
 >>>   </p>
 >>>   <br />
 >>>
->><br />
->>
 >><p align="right">(<a href="#readme-top">back to top</a>)</p>
 ><br />
 >
