@@ -213,6 +213,7 @@ if (!isset($latitude)) {
                     ];
         
                     $dateTime_gr = new DateTime($data_current_hr['hourly']['time'][$i]);
+                    $current_day_time_1 = (intval($dateTime_gr->format('H')) >= $time2 or intval($dateTime_gr->format('H')) <= $time1) ? 'night' : 'day';
 
                     if (!isset($data_current['daily']['sunrise'][0])) {
                         throw new Exception('Dados inválidos - #007.');
@@ -224,7 +225,7 @@ if (!isset($latitude)) {
                     if (!isset($data_current_hr['hourly']['temperature_2m'][$i])) {
                         throw new Exception('Dados inválidos - #009.');
                     }
-                    if (!isset($weather_codes_translated[$weather_c][$current_day_time]["image"])) {
+                    if (!isset($weather_codes_translated[$weather_c][$current_day_time_1]["image"])) {
                         throw new Exception('Dados inválidos - #010.');
                     }
                     if (!isset($data_current_hr['hourly']['precipitation_probability'][$i])) {
@@ -233,7 +234,7 @@ if (!isset($latitude)) {
 
                     $data_current_hr_at_gr['time'][$i] = $dateTime_gr->format('H');
                     $data_current_hr_at_gr['temperature_2m'][$i] = $data_current_hr['hourly']['temperature_2m'][$i];
-                    $data_current_hr_at_gr['image'][$i] = $weather_codes_translated[$weather_c][$current_day_time]["image"];
+                    $data_current_hr_at_gr['image'][$i] = $weather_codes_translated[$weather_c][$current_day_time_1]["image"];
                     $data_current_hr_at_gr['precipitation'][$i] = $data_current_hr['hourly']['precipitation_probability'][$i];
                 }
 
