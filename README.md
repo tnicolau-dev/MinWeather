@@ -124,7 +124,7 @@ Previsões climáticas e atualizações em tempo real.
 >>>   <br />
 >>>      <img src="./image/screenshots/wind.png" alt="Modo claro e escuro" width="200">
 >>>   </p>
->>   <br />
+>>>   <br />
 >>
 >><br />
 >><p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -148,7 +148,7 @@ Previsões climáticas e atualizações em tempo real.
 >>>      <img src="./image/screenshots/gif/wave2.gif" alt="Modo claro e escuro" width="200">
 >>>      <img src="./image/screenshots/gif/wave3.gif" alt="Modo claro e escuro" width="200">
 >>>   </p>
->>   <br />
+>>>   <br />
 >><br />
 >><p align="right">(<a href="#readme-top">back to top</a>)</p>
 >><br />
@@ -176,10 +176,10 @@ Previsões climáticas e atualizações em tempo real.
 >>>      <img src="./image/screenshots/uv5.png" alt="Modo claro e escuro" width="200">
 >>>   </p>
 >>>   <br />
->>
+>>>
 >><br />
 >>
-><p align="right">(<a href="#readme-top">back to top</a>)</p>
+>><p align="right">(<a href="#readme-top">back to top</a>)</p>
 ><br />
 >
 >## Funcionalidades
