@@ -37,7 +37,7 @@ Previsões climáticas e atualizações em tempo real.
 ><br />
 >
 >>### 2. Modo claro/escuro
->><p>Para alterar o modo de visualização do site para o modo claro/escuro basta clicar no icone de sol/lua ao lado da barra de >pesquisa.</p>
+>><p>Para alterar o modo de visualização do site para o modo claro/escuro basta clicar no icone de sol/lua ao lado da barra de pesquisa.</p>
 >><br />
 >><div align="center">
 >><img src="./image/screenshots/gif/dark_light_mode.gif" alt="Modo claro e escuro" width="400">
@@ -103,7 +103,7 @@ Previsões climáticas e atualizações em tempo real.
 >>
 >>>### Nascer e Pôr do Sol
 >>>
->>>   Mostra a hora do nascer e pôr do sol de acordo com o <strong>timezone do país</strong>, além de mostrar a posição aproximada >do sol em relação a hora atual. Caso esteja de noite ele muda sua cor para azul.
+>>>   Mostra a hora do nascer e pôr do sol de acordo com o <strong>timezone do país</strong>, além de mostrar a posição aproximada do sol em relação a hora atual. Caso esteja de noite ele muda sua cor para azul.
 >>>   
 >>>   <p align="center">
 >>>   <br />
