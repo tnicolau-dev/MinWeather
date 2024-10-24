@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <div align="center">
-<img src="./image/icone_512.png" alt="Logo" width="120">
+<img src="./image/icon-512x512.png" alt="Logo" width="120">
 
 <h3 align="center"><strong>MinWeather</strong></h3>
 
