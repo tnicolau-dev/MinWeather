@@ -39,6 +39,17 @@ function diaDaSemanaEmPortugues($diaEmIngles) {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.webmanifest">
+
+    <meta content='yes' name='apple-mobile-web-app-capable' />
+    <meta content='yes' name='mobile-web-app-capable' />
+    <meta name="apple-mobile-web-app-status-bar" content="#08BBCF">
+    <meta name="theme-color" content="black">
+    <link rel="apple-touch-icon" href="image/icon-192x192.png">
+    <!-- PWA -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MinWeather</title>
