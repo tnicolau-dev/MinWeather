@@ -9,7 +9,7 @@
 Previsões climáticas e atualizações em tempo real.
 </p>
 <br />
-<p> - <a href="#" target="_blank"><strong>View website</strong> | (em breve)</a> - </p>
+<p> - <a href="https://minweather.tnicolau-dev.com/" target="_blank"><strong>View website</strong></a> - </p>
 <br />
 </div>
 
@@ -199,10 +199,10 @@ Previsões climáticas e atualizações em tempo real.
 >
 >### APIs
 >
->>-   <p><a href="https://ifconfig.me/" target="_blank">ifconfig.me</a> - Busca o IP atual da sessão -<img src="https://img.shields.io/badge/No-gray?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
->>- <p><a href="https://ipinfo.io/" target="_blank">ipinfo.io</a> - Busca os dados detalhados do IP fornecido -<img src="https://img.shields.io/badge/apiKey-1E97E2?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
->>- <p><a href="https://open-meteo.com/" target="_blank">open-meteo.com</a> - Busca os dados do clima -<img src="https://img.shields.io/badge/No-gray?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
->>- <p><a href="https://nominatim.openstreetmap.org/ui/search.html" target="_blank">nominatim.openstreetmap.org</a> - Busca qualquer localização e seus dados geográficos -<img src="https://img.shields.io/badge/No-gray?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
+>>-   <p><a href="https://ifconfig.me/" target="_blank">ifconfig.me</a> - Busca o IP atual da sessão - <img src="https://img.shields.io/badge/No-gray?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
+>>- <p><a href="https://ipinfo.io/" target="_blank">ipinfo.io</a> - Busca os dados detalhados do IP fornecido - <img src="https://img.shields.io/badge/apiKey-1E97E2?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
+>>- <p><a href="https://open-meteo.com/" target="_blank">open-meteo.com</a> - Busca os dados do clima - <img src="https://img.shields.io/badge/No-gray?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
+>>- <p><a href="https://nominatim.openstreetmap.org/ui/search.html" target="_blank">nominatim.openstreetmap.org</a> - Busca qualquer localização e seus dados geográficos - <img src="https://img.shields.io/badge/No-gray?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
 >
 ><p align="right">(<a href="#readme-top">back to top</a>)</p>
 >
