@@ -199,7 +199,6 @@ Previsões climáticas e atualizações em tempo real.
 >
 >### APIs
 >
->>-   <p><a href="https://ifconfig.me/" target="_blank">ifconfig.me</a> - Busca o IP atual da sessão - <img src="https://img.shields.io/badge/No-gray?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
 >>- <p><a href="https://ipinfo.io/" target="_blank">ipinfo.io</a> - Busca os dados detalhados do IP fornecido - <img src="https://img.shields.io/badge/apiKey-1E97E2?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
 >>- <p><a href="https://open-meteo.com/" target="_blank">open-meteo.com</a> - Busca os dados do clima - <img src="https://img.shields.io/badge/No-gray?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
 >>- <p><a href="https://nominatim.openstreetmap.org/ui/search.html" target="_blank">nominatim.openstreetmap.org</a> - Busca qualquer localização e seus dados geográficos - <img src="https://img.shields.io/badge/No-gray?style=flat&label=Auth&labelColor=D9D9D9" alt="Auth" style="vertical-align: middle; margin-left: 10px;"></p>
@@ -222,16 +221,28 @@ Previsões climáticas e atualizações em tempo real.
 
 ### Passos para instalação:
 1. Clone o repositório:
+   
    ```bash
    git clone https://github.com/tnicolau-dev/MinWeather.git
    cd MinWeather
-2. Instale as dependências do projeto com o Composer:
+3. Instale as dependências do projeto com o Composer:
+   
    ```bash
    composer install
-3. Crie um arquivo .env na raiz do projeto e adicione sua chave da API **[ipinfo](https://ipinfo.io/)**:
+4. Crie um arquivo .env na raiz do projeto e adicione sua chave da API **[ipinfo](https://ipinfo.io/)**:
+   
    ```bash
    API_TOKEN=suachaveaqui
-4. Inicie seu servidor PHP e acesse via localhost.
+5. Para usar local, descomente o trecho de código que utiliza a API <a href="https://ifconfig.me/" target="_blank">ifconfig.me</a> e comente o trecho atual para busca do IP.
+   
+   ```bash
+   $ip = @file_get_contents('https://ifconfig.me');
+
+   if ($ip === false) {
+      throw new Exception('Erro ao tentar obter dados da localização.');
+   }
+
+6. Inicie seu servidor PHP e acesse via localhost.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br />
