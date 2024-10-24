@@ -80,11 +80,41 @@ if (!isset($latitude)) {
 
             //trecho de código para pegar o ip atual da sessão e buscar suas informações de latitude e longitude
 
+
+            //-------------------------------------------------------------------------------------
+
+            //SE FOR TESTAR LOCAL, DESCOMENTE ESSE TRECHO E COMENTE O TRECHO ABAIXO
+
+            /*
             $ip = @file_get_contents('https://ifconfig.me');
 
             if ($ip === false) {
                 throw new Exception('Erro ao tentar obter dados da localização.');
             }
+            */
+        
+            //-------------------------------------------------------------------------------------
+            
+            //SE FOR TESTAR LOCAL, COMENTE ESSE TRECHO E DESCOMENTE O DE CIMA
+
+            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                // IP vindo de um proxy compartilhado
+                $ip = $_SERVER['HTTP_CLIENT_IP'];
+            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                // IP passado de um proxy
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else {
+                // IP real do usuário
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }
+
+            // Verifica se o IP está vazio ou inválido
+            if (empty($ip) || !filter_var($ip, FILTER_VALIDATE_IP)) {
+                throw new Exception('Erro ao tentar obter dados da localização.');
+            }
+    
+            //-------------------------------------------------------------------------------------
+
 
             $url = "https://ipinfo.io/{$ip}?token={$access_key}";
 
