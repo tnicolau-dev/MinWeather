@@ -235,7 +235,7 @@ Previsões climáticas e atualizações em tempo real.
    API_TOKEN=suachaveaqui
 5. Para usar local, descomente o trecho de código que utiliza a API <a href="https://ifconfig.me/" target="_blank">ifconfig.me</a> e comente o trecho atual para busca do IP.
    
-   ```bash
+   ```php
    $ip = @file_get_contents('https://ifconfig.me');
 
    if ($ip === false) {
